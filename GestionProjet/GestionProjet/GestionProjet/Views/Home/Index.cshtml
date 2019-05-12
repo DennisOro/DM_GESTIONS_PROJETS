@@ -1,22 +1,46 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+@model IEnumerable <GestionProjet.Models.Project>
 
-<div class="jumbotron">
-    <h1>Gestion de Projets</h1>
-   
-</div>
+    <div class="jumbotron">
+        <h1>Gestion de Projets</h1>
 
-<div>
-    <h2>Login</h2>
-</div>
+    </div>
 
-<div class="form-group centerlook">
-    <label>User Name: </label>
-    
-</div>
-<div class="form-group centerlook">
-    <label>Password:</label>
+    <div>
 
-</div>
+        <input type="button" name="loginButton" class="button1" value="Login" onclick="@("window.location.href='" + @Url.Action("Login", "Home") + "'");" />
+    </div>
 
+    <div>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProjectId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProjectName)
+                </th>
+                <th></th>
+            </tr>
+
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjectId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjectName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ProjectId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ProjectName }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ProjectName })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
