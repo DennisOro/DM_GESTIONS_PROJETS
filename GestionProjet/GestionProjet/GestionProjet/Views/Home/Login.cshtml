@@ -1,4 +1,5 @@
-﻿
+﻿@model GestionProjet.Models.Login
+
 @{
     ViewBag.Title = "Login";
 }
@@ -6,17 +7,23 @@
 <h2>Login page</h2>
 
 
-<div class="form-group centerlook">
-    <label>Nom d'utilisateur: </label>
-    <input type="text" id="userName" placeholder="Your user name goes here" />
-    <input type="submit" />
-   
+@using (Html.BeginForm("Login", "Home", FormMethod.Post))
+{
+    <div class="form-group centerlook">
+        Nom d'utilisateur: @Html.EditorFor(model => model.UserID)
+    </div>
 
-</div>
-<div class="form-group centerlook">
-    <label>Mot de passe:</label>
-    <input type="text" id="password" placeholder="Your password goes here" />
+    <div class="form-group centerlook">
+        Mot de passe: @Html.EditorFor(model => model.Password)
+    </div>
 
-</div>
+    <input type="submit" value="Valider" />
+
+    <div>
+        @Html.DisplayFor(model => model.Message)
+    </div>
+
+}
+
 
 

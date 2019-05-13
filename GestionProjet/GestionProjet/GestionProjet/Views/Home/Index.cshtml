@@ -1,46 +1,67 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-@model IEnumerable <GestionProjet.Models.Project>
+@model dynamic
 
-    <div class="jumbotron">
-        <h1>Gestion de Projets</h1>
+
+<div class="jumbotron">
+    <h1>Gestion de Projets</h1>
+
+</div>
+
+
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    <div class="form-group centerlook">
+        <p>
+            <label for="userIDText">Nom d'utilisateur:</label><br>
+            <input type="text" name="userIDText" />
+        </p>
 
     </div>
 
-    <div>
-
-        <input type="button" name="loginButton" class="button1" value="Login" onclick="@("window.location.href='" + @Url.Action("Login", "Home") + "'");" />
+    <div class="form-group centerlook">
+        <p>
+            <label for="password">Mot de passe: </label><br>
+            <input type="text" name="password" />
+        </p>
     </div>
 
+    <input type="submit" value="Valider" />
+
+
+
     <div>
-        <table class="table">
+        <p></p>
+    </div>
+
+}
+
+
+<div>
+    <table class="table">
+        <tr>
+            <th>
+                Project Id
+            </th>
+            <th>
+                Project Name
+            </th>
+            <th></th>
+        </tr>
+
+
+        @foreach (var item in Model.projectsList)
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProjectId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProjectName)
-                </th>
-                <th></th>
+                <td>
+                    @item.ProjectId
+                </td>
+                <td>
+                    @item.ProjectName
+                </td>
             </tr>
-
-
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProjectId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProjectName)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ProjectId }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ProjectName }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ProjectName })
-                    </td>
-                </tr>
-            }
-        </table>
-    </div>
+        }
+    </table>
+</div>
