@@ -12,45 +12,36 @@ namespace GestionProjet.Controllers
 {
     public class HomeController : Controller
     {
+
         public ActionResult Index()
         {
-            dynamic dynamicModel = new ExpandoObject();
+            LoginProjectComb loginProjectComb = new LoginProjectComb();
 
-            List<Project> projectsList = getProjectsFromDatabase();
+            loginProjectComb.projectsList = getProjectsFromDatabase();
 
-            dynamicModel.Login = new Login();
+            loginProjectComb.Login = new Login();
 
-            dynamicModel.projectsList = getProjectsFromDatabase();
-
-            dynamicModel.Login.Message = "ssssss";
-
-            return View(dynamicModel);
+            return View(loginProjectComb);
         }
 
         [HttpPost]
-        public ActionResult Index(dynamic dynamicModel)
+        public ActionResult Index(LoginProjectComb loginProjectComb)
         {
-            string userID = Request["userIDText"];
-            string password = Request["password"];
-
-            string message = "";
+            string userID = loginProjectComb.Login.UserID;
+            string password = loginProjectComb.Login.Password;
 
             if (testLogin(userID, password))
             {
-                //dynamicModel.Login.Message = "Authentification valide";
-                message = "Authentification valide";
+                loginProjectComb.Login.Message = "Authentification valide";
             }
             else
             {
-                message = "Authentification invalide";
+                loginProjectComb.Login.Message = "Authentification invalide";
             }
 
-            Login login = new Login();
-            login.Message = message;
+            loginProjectComb.projectsList = getProjectsFromDatabase();
 
-            ViewData["MyLogin"] = login;
-
-            return View(dynamicModel);
+            return View(loginProjectComb);
         }
 
         public ActionResult About()
@@ -91,7 +82,7 @@ namespace GestionProjet.Controllers
 
         private List<Project> getProjectsFromDatabase()
         {
-            List<Project> projectsList = new List<Project>();
+            List<Project> ProjectsList = new List<Project>();
             try
             {
                 using (SqlConnection conn = new SqlConnection())
@@ -109,7 +100,7 @@ namespace GestionProjet.Controllers
                     {
                         while (reader.Read())
                         {
-                            projectsList.Add(new Project() { ProjectId = Convert.ToInt32(reader[0]), ProjectName = reader[1].ToString() });
+                            ProjectsList.Add(new Project() { ProjectId = Convert.ToInt32(reader[0]), ProjectName = reader[1].ToString() });
                         }
                     }
                     finally
@@ -126,7 +117,7 @@ namespace GestionProjet.Controllers
                 Console.WriteLine(ex.ToString());
             }
 
-            return projectsList;
+            return ProjectsList;
 
         }
 
