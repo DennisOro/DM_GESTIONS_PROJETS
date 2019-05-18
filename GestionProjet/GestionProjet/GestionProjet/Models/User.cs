@@ -9,7 +9,8 @@ namespace GestionProjet.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string idUser { get; set; }
-        public int hourlyRate { get; set; }
+        public string IDUser { get; set; }
+        public int HourlyRate { get; set; }
+        public string Role { get; set; }
     }
 }
