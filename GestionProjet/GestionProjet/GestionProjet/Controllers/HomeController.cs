@@ -15,9 +15,9 @@ namespace GestionProjet.Controllers
 
         public ActionResult Index()
         {
-            LoginProjectComb loginProjectComb = new LoginProjectComb();
+            LogPrUsTskComb loginProjectComb = new LogPrUsTskComb();
 
-            loginProjectComb.projectsList = getProjectsFromDatabase();
+            loginProjectComb.ProjectsList = getProjectsFromDatabase();
 
             loginProjectComb.Login = new Login();
 
@@ -25,7 +25,7 @@ namespace GestionProjet.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(LoginProjectComb loginProjectComb)
+        public ActionResult Index(LogPrUsTskComb loginProjectComb)
         {
             string userID = loginProjectComb.Login.UserID;
             string password = loginProjectComb.Login.Password;
@@ -39,46 +39,12 @@ namespace GestionProjet.Controllers
                 loginProjectComb.Login.Message = "Authentification invalide";
             }
 
-            loginProjectComb.projectsList = getProjectsFromDatabase();
+            loginProjectComb.ProjectsList = getProjectsFromDatabase();
 
             return View(loginProjectComb);
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        public ActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Login(Login loginModel)
-        {
-            
-            if (testLogin(loginModel.UserID, loginModel.Password))
-            {
-                loginModel.Message = "Authentification valide";
-            }
-            else
-            {
-                loginModel.Message = "Authentification invalide";
-            }
-            
-
-            return View(loginModel);
-        }
+       
 
         private List<Project> getProjectsFromDatabase()
         {
