@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="GestionProjet.GestProjWebService" CodeBehind="GestProjWebService.svc.cs" %>
