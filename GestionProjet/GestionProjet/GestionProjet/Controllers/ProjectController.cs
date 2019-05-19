@@ -9,7 +9,7 @@ namespace GestionProjet.Controllers
     public class ProjectController : Controller
     {
         // GET: Project
-        public ActionResult Index()
+        public ActionResult Project()
         {
             return View();
         }
