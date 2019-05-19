@@ -29,6 +29,7 @@ namespace GestionProjet.Controllers
             employe.login = formCollection["Login"];
             employe.motDePasse  = formCollection["MotDePasse"];
             employe.role = formCollection["Role"];
+            employe.tauxHoraire = Convert.ToInt32(formCollection["Taux"]);
             AjouterEmploye(employe);
             return View();
         }
@@ -61,7 +62,7 @@ namespace GestionProjet.Controllers
                 cmd.Parameters.Add(paramLogin);
 
                 SqlParameter parammotDePasse = new SqlParameter();
-                parammotDePasse.ParameterName = "@motDePasse";
+                parammotDePasse.ParameterName = "@password";
                 parammotDePasse.Value = employe.motDePasse;
                 cmd.Parameters.Add(parammotDePasse);
 
@@ -73,11 +74,11 @@ namespace GestionProjet.Controllers
                 SqlParameter paramRole = new SqlParameter();
                 paramRole.ParameterName = "@role";
                 paramRole.Value = employe.role;
-                cmd.Parameters.Add(paramIdUser);
+                cmd.Parameters.Add(paramRole);
 
                 SqlParameter paramTaux = new SqlParameter();
                 paramTaux.ParameterName = "@tauxHoraire";
-                paramTaux.Value = employe.role;
+                paramTaux.Value = employe.tauxHoraire;
                 cmd.Parameters.Add(paramTaux);
 
 
