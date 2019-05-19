@@ -28,6 +28,7 @@ namespace GestionProjet.Controllers
             employe.prenom = formCollection["Prenom"];
             employe.login = formCollection["Login"];
             employe.motDePasse  = formCollection["MotDePasse"];
+            employe.role = formCollection["Role"];
             AjouterEmploye(employe);
             return View();
         }
@@ -64,7 +65,22 @@ namespace GestionProjet.Controllers
                 parammotDePasse.Value = employe.motDePasse;
                 cmd.Parameters.Add(parammotDePasse);
 
-        
+                SqlParameter paramIdUser = new SqlParameter();
+                paramIdUser.ParameterName = "@idUser";
+                paramIdUser.Value = employe.matricule;
+                cmd.Parameters.Add(paramIdUser);
+
+                SqlParameter paramRole = new SqlParameter();
+                paramRole.ParameterName = "@role";
+                paramRole.Value = employe.role;
+                cmd.Parameters.Add(paramIdUser);
+
+                SqlParameter paramTaux = new SqlParameter();
+                paramTaux.ParameterName = "@tauxHoraire";
+                paramTaux.Value = employe.role;
+                cmd.Parameters.Add(paramTaux);
+
+
                 conn.Open();
                 cmd.ExecuteNonQuery();
 

@@ -12,7 +12,8 @@ namespace GestionProjet.Models
         public String prenom { get; set; }
         public String login { get; set; }
         public String motDePasse { get; set; }
-
+        public String role { get; set; }
+        public int tauxHoraire { get; set; }
 
     }
 }
