@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GestionProjet.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -6,6 +7,7 @@ using System.ServiceModel;
 using System.ServiceModel.Activation;
 using System.ServiceModel.Web;
 using System.Text;
+using System.Web.Script.Serialization;
 
 namespace GestionProjet
 {
@@ -30,11 +32,13 @@ namespace GestionProjet
         [WebGet(UriTemplate = "/User")]
         public String GetAllUsers()
         {
+            User user = new User();
 
-            List<string> usersList = new List<string>() { "Andy", "Dennis", "Filip", "Lado" };
+            List<User> usersList = user.getUsersFromDatabase();
 
+            string output = new JavaScriptSerializer().Serialize(usersList);
 
-            return String.Join(", ", usersList.ToArray());
+            return output;
         }
     }
 }
