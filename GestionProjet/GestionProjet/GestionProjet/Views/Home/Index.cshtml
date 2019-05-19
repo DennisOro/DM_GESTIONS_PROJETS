@@ -35,8 +35,10 @@
 
 }
 
+     <p> </p>
 
 <div>
+    <p>Projets</p>
     <table class="table">
         <tr>
             <th>
@@ -47,9 +49,6 @@
             </th>
             <th></th>
         </tr>
-@{ 
-    
-}
 
         @foreach (var item in Model.ProjectsList)
         {
@@ -59,6 +58,60 @@
                 </td>
                 <td>
                     @item.ProjectName
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div>
+    <p>Employés</p>
+    <table class="table">
+        <tr>
+            <th>
+                Prenom Employé
+            </th>
+            <th>
+                Nom Employé
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.UsersList)
+        {
+            <tr>
+                <td>
+                    @item.FirstName
+                </td>
+                <td>
+                    @item.LastName
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div>
+    <p>Tâches</p>
+    <table class="table">
+        <tr>
+            <th>
+                Tâche
+            </th>
+            <th>
+                Statut
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.TasksList)
+        {
+            <tr>
+                <td>
+                    @item.Description
+                </td>
+                <td>
+                    @item.Status
                 </td>
             </tr>
         }

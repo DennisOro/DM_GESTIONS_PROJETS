@@ -15,76 +15,52 @@ namespace GestionProjet.Controllers
 
         public ActionResult Index()
         {
-            LogPrUsTskComb loginProjectComb = new LogPrUsTskComb();
+            LogPrUsTskComb combinedModel = new LogPrUsTskComb();
 
-            loginProjectComb.ProjectsList = getProjectsFromDatabase();
+            Project project = new Project();
 
-            loginProjectComb.Login = new Login();
+            combinedModel.ProjectsList = project.getProjectsFromDatabase();
 
-            return View(loginProjectComb);
+            User user = new User();
+
+            combinedModel.UsersList = user.getUsersFromDatabase();
+
+            Task task = new Task();
+
+            combinedModel.TasksList = task.getTasksFromDatabase();
+
+            combinedModel.Login = new Login();
+
+            return View(combinedModel);
         }
 
         [HttpPost]
-        public ActionResult Index(LogPrUsTskComb loginProjectComb)
+        public ActionResult Index(LogPrUsTskComb combinedModel)
         {
-            string userID = loginProjectComb.Login.UserID;
-            string password = loginProjectComb.Login.Password;
+            string userID = combinedModel.Login.UserID;
+            string password = combinedModel.Login.Password;
 
             if (testLogin(userID, password))
             {
-                loginProjectComb.Login.Message = "Authentification valide";
+                combinedModel.Login.Message = "Authentification valide";
             }
             else
             {
-                loginProjectComb.Login.Message = "Authentification invalide";
+                combinedModel.Login.Message = "Authentification invalide";
             }
+            Project project = new Project();
 
-            loginProjectComb.ProjectsList = getProjectsFromDatabase();
+            combinedModel.ProjectsList = project.getProjectsFromDatabase();
 
-            return View(loginProjectComb);
-        }
+            User user = new User();
 
-       
+            combinedModel.UsersList = user.getUsersFromDatabase();
 
-        private List<Project> getProjectsFromDatabase()
-        {
-            List<Project> ProjectsList = new List<Project>();
-            try
-            {
-                using (SqlConnection conn = new SqlConnection())
-                {
-                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+            Task task = new Task();
 
-                    conn.Open();
+            combinedModel.TasksList = task.getTasksFromDatabase();
 
-                    string query = @"select * from Project";
-
-                    SqlCommand command = new SqlCommand(query, conn);
-
-                    SqlDataReader reader = command.ExecuteReader();
-                    try
-                    {
-                        while (reader.Read())
-                        {
-                            ProjectsList.Add(new Project() { ProjectId = Convert.ToInt32(reader[0]), ProjectName = reader[1].ToString() });
-                        }
-                    }
-                    finally
-                    {
-                          reader.Close();
-                    }
-
-                    conn.Close();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
-            return ProjectsList;
-
+            return View(combinedModel);
         }
 
         private bool testLogin(string userID, string password)

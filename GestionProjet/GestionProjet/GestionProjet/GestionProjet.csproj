@@ -152,7 +152,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\SqlDatabaseConnection.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="GestProjWebService.svc.cs">
       <DependentUpon>GestProjWebService.svc</DependentUpon>
     </Compile>
@@ -162,6 +162,7 @@
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\LogPrUsTskComb.cs" />
     <Compile Include="Models\Project.cs" />
+    <Compile Include="Models\SqlDatabaseConnection.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -210,6 +211,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Login\" />
+    <Folder Include="Views\Project\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

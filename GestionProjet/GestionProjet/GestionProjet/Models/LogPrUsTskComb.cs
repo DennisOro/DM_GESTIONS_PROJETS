@@ -9,8 +9,8 @@ namespace GestionProjet.Models
     {
         public Login Login { get; set; }
         public List<Project> ProjectsList { get; set; }
-        public List<Project> UsersList { get; set; }
-        public List<Project> TasksList { get; set; }
+        public List<User> UsersList { get; set; }
+        public List<Task> TasksList { get; set; }
 
 
     }
