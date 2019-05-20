@@ -63,7 +63,8 @@ public class LoginActivity extends AppCompatActivity{
                     //if (response.body().getConnexion().equals("1")){
                     if (response.isSuccessful()) {
                         if (response.body().getConnexion() == 1) {
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, TaskListActivity.class);
                             startActivity(intent);
                         } else {
                             edUsername.setText("");
