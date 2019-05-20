@@ -52,7 +52,7 @@
 
         @foreach (var item in Model.ProjectsList)
         {
-            <tr onclick="@("window.location.href='" + @Url.Action("Project", "Project") + "'");">
+            <tr onclick="@("window.location.href='" + @Url.Action("Project", "Project", new {projectId=@item.ProjectId}) + "'");">
                 <td>
                     @item.ProjectId
                 </td>

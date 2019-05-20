@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GestionProjet.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,18 @@ namespace GestionProjet.Controllers
     public class ProjectController : Controller
     {
         // GET: Project
-        public ActionResult Project()
+        //public ActionResult Project()
+        //{
+        //    return View();
+        //}
+
+        public ActionResult Project(int projectId )
         {
-            return View();
+
+            Project thisProject = new Project();
+            thisProject = thisProject.getProjectInfo(projectId);
+
+            return View(thisProject);
         }
     }
 }
