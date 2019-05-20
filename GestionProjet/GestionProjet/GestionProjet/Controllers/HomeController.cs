@@ -40,7 +40,9 @@ namespace GestionProjet.Controllers
             string userID = combinedModel.Login.UserID;
             string password = combinedModel.Login.Password;
 
-            if (testLogin(userID, password))
+            Login login = new Login();
+
+            if (login.testLogin(userID, password))
             {
                 combinedModel.Login.Message = "Authentification valide";
             }
@@ -63,51 +65,6 @@ namespace GestionProjet.Controllers
             return View(combinedModel);
         }
 
-        private bool testLogin(string userID, string password)
-        {
-            userID = userID == null ? "" : userID.Trim();
-            password = password == null ? "" : password.Trim();
-
-            try
-            {
-                using (SqlConnection conn = new SqlConnection())
-                {
-                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
-
-                    conn.Open();
-
-                    string query = @"select * from Login";
-
-                    SqlCommand command = new SqlCommand(query, conn);
-
-                    SqlDataReader reader = command.ExecuteReader();
-                    try
-                    {
-                        while (reader.Read())
-                        {
-                            string storedUserID = reader[0] == null ? "" : reader[0].ToString().Trim();
-                            string storedPassw = reader[1] == null ? "" : reader[1].ToString().Trim();
-
-                            if (storedUserID == userID && storedPassw == password)
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                    finally
-                    {
-                        reader.Close();
-                    }
-
-                    conn.Close();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-            return false;
-        }
+        
     }
 }

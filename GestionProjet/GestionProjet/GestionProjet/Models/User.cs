@@ -63,5 +63,49 @@ namespace GestionProjet.Models
             return UsersList;
 
         }
+
+        public User getUserInfo(string userID)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    string query = @"select * from [User] where idUser = '" + userID + "'";
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    try
+                    {
+                        if (reader.Read())
+                        {
+                            IDUser = reader[0] == null ? "" : reader[0].ToString();
+                            FirstName = reader[1] == null ? "" : reader[1].ToString();
+                            LastName = reader[2] == null ? "" : reader[2].ToString();
+                            HourlyRate = reader[3] == null ? 0 : Convert.ToInt32(reader[3]);
+                            nbrUsers = reader[4] == null ? 0 : Convert.ToInt32(reader[4]);
+                            Role = reader[5] == null ? "" : reader[5].ToString();
+                        }
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return this;
+        }
     }
 }

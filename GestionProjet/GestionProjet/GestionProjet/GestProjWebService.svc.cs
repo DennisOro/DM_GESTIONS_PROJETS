@@ -40,5 +40,34 @@ namespace GestionProjet
 
             return output;
         }
+
+        [WebGet(UriTemplate = "/Login/{UserID}/{Password}")]
+        public String testLogin(string userID, string password)
+        {
+            Login login = new Login();
+
+            string matricule = login.getUserMatricule(userID, password);
+
+            User user = new User();
+
+            user = user.getUserInfo(matricule);
+
+            List<string> output = new List<string>();
+
+            if (login.testLogin(userID, password))
+            {
+                output.Add("1");
+                output.Add(user.FirstName);
+            }
+            else
+            {
+                output.Add("0");
+                output.Add("Fail");
+            }
+
+            return new JavaScriptSerializer().Serialize(output);
+        }
+
+
     }
 }
