@@ -29,10 +29,34 @@ namespace GestionProjet.Controllers
 
             combinedModel.TasksList = task.getTasksFromDatabase();
 
+            /*
+             * <<<<<<< Updated upstream
+             */
             combinedModel.Login = new Login();
+        /*}
+
+        public ActionResult About()
+        {
+            ViewBag.Message = "Application pour la gestion de projets";
+/*>>>>>>> Stashed changes
+
+    */
 
             return View(combinedModel);
         }
+
+        public ActionResult About()
+        {
+            ViewBag.Message = "Application pour la gestion de projets";
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Application pour la gestion de projets";
+            return View();
+        }
+
 
         [HttpPost]
         public ActionResult Index(LogPrUsTskComb combinedModel)

@@ -1,17 +1,34 @@
 ﻿@{
     ViewBag.Title = "Contact";
+    string member1 = "Dennis Orozco Martinez";
+    string member2 = "Andy Del Risco Manzanares";
+    string member3 = "Filip Kulach";
+    string member4 = "Vladimir Kvaratshelya";
+
 }
-<h2>@ViewBag.Title.</h2>
+
+<div class="jumbotron">
+    <h1>@ViewBag.Title.</h1>
+</div>
+
 <h3>@ViewBag.Message</h3>
 
+<p>Pour de plus amples renseignements, communiquez avec nous, il nous <br>fera plaisir de vous assister et mettre en place vos idées</br></p>
+<p>Le projet a été devéloppé par les étudiants : </p>
+<h5>@member1</h5>
 <address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
+    <strong>Développeur:</strong>   <a href="mailto:dennisoro@hotmail.com">dennisoro@hotmail.com</a><br />
+</address>
+<h5>@member2</h5>
+<address>
+    <strong>Développeur:</strong>   <a href="mailto:del_risco_manzanares.andy@courrier.uqam.ca">del_risco_manzanares.andy@courrier.uqam.ca</a><br />
+</address>
+<h5>@member3</h5>
+<address>
+    <strong>Développeur:</strong>   <a href="mailto:kulach10@hotmail.com">kulach10@hotmail.com</a><br />
+</address>
+<h5>@member4</h5>
+<address>
+    <strong>Développeur:</strong>   <a href="mailto:lado.k252@gmail.com">lado.k252@gmail.com</a><br />
 </address>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
