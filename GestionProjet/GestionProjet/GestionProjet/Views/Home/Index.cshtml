@@ -49,14 +49,17 @@
 
         @foreach (var item in Model.ProjectsList)
         {
-            <tr onclick="@("window.location.href='" + @Url.Action("Project", "Project", new {projectId=@item.ProjectId}) + "'");">
-                <td>
-                    @item.ProjectId
-                </td>
-                <td>
-                    @item.ProjectName
-                </td>
-            </tr>
+        <tr >
+            <td>
+                @item.ProjectId
+            </td>
+            <td>
+                @item.ProjectName
+            </td>
+            <td>
+                <input type="submit" value="Afficher" onclick="@("window.location.href='" + @Url.Action("Project", "Project", new {projectId=@item.ProjectId}) + "'");" />
+            </td>
+        </tr>
         }
     </table>
 </div>
