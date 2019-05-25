@@ -79,14 +79,17 @@
 
         @foreach (var item in Model.UsersList)
         {
-            <tr>
-                <td>
-                    @item.FirstName
-                </td>
-                <td>
-                    @item.LastName
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @item.FirstName
+            </td>
+            <td>
+                @item.LastName
+            </td>
+            <td>
+                <input type="submit" value="Afficher" onclick="@("window.location.href='" + @Url.Action("User", "User", new {firstName=@item.FirstName, lastName = @item.LastName}) + "'");" />
+            </td>
+        </tr>
         }
     </table>
 </div>

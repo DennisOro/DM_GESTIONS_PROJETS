@@ -64,7 +64,20 @@ namespace GestionProjet.Models
 
         }
 
-        public User getUserInfo(string userID)
+        public User getUserInfoByID(string userID)
+        {
+            string query = @"select * from [User] where idUser = '" + userID + "'";
+            return getUserInfo(query);
+        }
+
+        public User getUserInfoByName(string firstName, string lastName)
+        {
+            firstName = firstName == null ? "" : firstName.Trim();
+            string query = @"select * from [User] where prenom = '" + firstName + "' and 'nom = " + lastName + "'";
+            return getUserInfo(query);
+        }
+
+        public User getUserInfo(string query)
         {
             try
             {
@@ -73,8 +86,6 @@ namespace GestionProjet.Models
                     conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
 
                     conn.Open();
-
-                    string query = @"select * from [User] where idUser = '" + userID + "'";
 
                     SqlCommand command = new SqlCommand(query, conn);
 
@@ -107,5 +118,7 @@ namespace GestionProjet.Models
 
             return this;
         }
+
+        
     }
 }
