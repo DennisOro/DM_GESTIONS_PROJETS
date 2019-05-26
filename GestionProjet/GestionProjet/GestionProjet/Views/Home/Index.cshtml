@@ -64,7 +64,7 @@
                         }
                         else
                         {
-                            <input type="submit" value="Modifier" onclick="@("window.location.href='" + @Url.Action("Project", "Project", new {projectId=@item.ProjectId}) + "'");" />
+                            <input type="submit" value="Modifier" onclick="window.opren('@Url.Action("Project", "Project", new {projectId=@item.ProjectId, target = "_blank"})')" />
                         }
                     </td>
 
@@ -76,7 +76,7 @@
     if (Model.Login.Role != "Utilisateur")
     {
         <div>
-            <input type="submit" value="Créer un Projet" onclick="@("window.location.href='" + @Url.Action("Project", "Project", new {projectId=0}) + "'");" />
+            <input type="submit" value="Créer un Projet" onclick="window.open('@Url.Action("Project", "Project", new { target="_blank", projectId=0 })')" />
         </div>
     }
 
@@ -109,7 +109,7 @@
                         }
                         else
                         {
-                            <input type="submit" value="Modifier" onclick="@("window.location.href='" + @Url.Action("User", "User", new { firstName = @item.FirstName, lastName = @item.LastName }) + "'");" />
+                            <input type="submit" value="Modifier" onclick="window.open('@Url.Action("User", "User", new { target="_blank", firstName = @item.FirstName, lastName = @item.LastName })')" />
                         }
                     </td>
                 </tr>
