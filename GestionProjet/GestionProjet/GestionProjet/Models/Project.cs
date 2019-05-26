@@ -10,6 +10,8 @@ namespace GestionProjet.Models
     {
         public int ProjectId { get; set; }
         public string ProjectName { get; set; }
+        public string ClientName { get; set; }
+        public string StateDescription { get; set; }
         public int IdClient { get; set; }
         public int IdEtat { get; set; }
         public string StartDate { get; set; }
@@ -132,6 +134,162 @@ namespace GestionProjet.Models
             return project;
         }
 
+        public Project createProject(Project project)
+        {
+            int projectId = getNextProjectId();
+
+            int clientId = project.ClientName == null ? 0 : getClientId(project.ClientName.Trim());
+
+            int stateId = project.StateDescription == null ? 0 : getStateId(project.StateDescription.Trim());
+
+            if (projectId > 0)
+            {
+                string createQuery = @"INSERT INTO [INF6150].[dbo].[Project] values (" + projectId + ",'" + project.ProjectName + "'," + clientId + ", " + stateId + ", '" + project.StartDate + "', '" + project.EndDate + "')";
+
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection())
+                    {
+                        conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                        conn.Open();
+
+                        SqlCommand command = new SqlCommand(createQuery, conn);
+
+                        command.ExecuteNonQuery();
+
+                        conn.Close();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
+            return project;
+        }
+
+        public int getNextProjectId()
+        {
+            int projectId = 0;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    string query = @"select top 1 idProjet from [INF6150].[dbo].[Project] order by idProjet desc";
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    try
+                    {
+                        if (reader.Read())
+                        {
+                            projectId = reader[0] == null ? 0 : Convert.ToInt32(reader[0]);
+                        }
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return 0;
+            }
+            return projectId + 1;
+        }
+
+        public int getClientId(string clientName)
+        {
+            int clientId = 0;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    string query = @"select idClient from [INF6150].[dbo].[Client] where nomClient = '" + clientName + "'";
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    try
+                    {
+                        if (reader.Read())
+                        {
+                            clientId = reader[0] == null ? 0 : Convert.ToInt32(reader[0]);
+                        }
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return 0;
+            }
+            return clientId;
+        }
+
+
+        public int getStateId(string stateDesc)
+        {
+            int stateId = 0;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    string query = @"select idEtat from [INF6150].[dbo].[Etat] where descEtat = '" + stateDesc + "'";
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    try
+                    {
+                        if (reader.Read())
+                        {
+                            stateId = reader[0] == null ? 0 : Convert.ToInt32(reader[0]);
+                        }
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return 0;
+            }
+            return stateId;
+        }
     }
 
 

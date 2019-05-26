@@ -67,10 +67,18 @@
                             <input type="submit" value="Modifier" onclick="@("window.location.href='" + @Url.Action("Project", "Project", new {projectId=@item.ProjectId}) + "'");" />
                         }
                     </td>
+
                 </tr>
             }
         </table>
     </div>
+
+    if (Model.Login.Role != "Utilisateur")
+    {
+        <div>
+            <input type="submit" value="Créer un Projet" onclick="@("window.location.href='" + @Url.Action("Project", "Project", new {projectId=0}) + "'");" />
+        </div>
+    }
 
     <div>
         <p>Employés</p>

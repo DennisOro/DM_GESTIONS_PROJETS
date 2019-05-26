@@ -9,7 +9,7 @@ namespace GestionProjet.Controllers
 {
     public class ProjectController : Controller
     {
-        // GET: Project
+        //[Http]
         //public ActionResult Project()
         //{
         //    return View();
@@ -27,9 +27,16 @@ namespace GestionProjet.Controllers
         [HttpPost]
         public ActionResult Project(Project project)
         {
-
             Project thisProject = new Project();
-            thisProject = thisProject.updateProject(project);
+
+            if (project.ProjectId == 0)
+            {
+                thisProject = thisProject.createProject(project);
+            }
+            else
+            {
+                thisProject = thisProject.updateProject(project);
+            }
 
             return View(thisProject);
         }
