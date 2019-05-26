@@ -35,7 +35,7 @@
 
 @if (Model.Login.AuthentificationValide == true)
 {
-    <div>
+    <div class=jumbotron>
         <p>Projets</p>
         <table class="table">
             <tr>
@@ -71,53 +71,62 @@
                 </tr>
             }
         </table>
+        @if (Model.Login.Role != "Utilisateur")
+        {
+            <div class=row>
+                <input type="submit" value="Créer un Projet" onclick="window.open('@Url.Action("Project", "Project", new { target="_blank", projectId=0 })')" />
+            </div>
+        }
     </div>
 
-    if (Model.Login.Role != "Utilisateur")
-    {
-        <div>
-            <input type="submit" value="Créer un Projet" onclick="window.open('@Url.Action("Project", "Project", new { target="_blank", projectId=0 })')" />
-        </div>
-    }
+    
 
-    <div>
-        <p>Employés</p>
-        <table class="table">
-            <tr>
-                <th>
-                    Prenom Employé
-                </th>
-                <th>
-                    Nom Employé
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model.UsersList)
-            {
+        <div class=jumbotron>
+            <p>Employés</p>
+            <table class="table">
                 <tr>
-                    <td>
-                        @item.FirstName
-                    </td>
-                    <td>
-                        @item.LastName
-                    </td>
-                    <td>
-                        @if (Model.Login.Role != "Admin")
-                        {
-                            <input type="submit" value="Modifier" disabled />
-                        }
-                        else
-                        {
-                            <input type="submit" value="Modifier" onclick="window.open('@Url.Action("User", "User", new { target="_blank", firstName = @item.FirstName, lastName = @item.LastName })')" />
-                        }
-                    </td>
+                    <th>
+                        Prenom Employé
+                    </th>
+                    <th>
+                        Nom Employé
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </table>
-    </div>
 
-    <div>
+                @foreach (var item in Model.UsersList)
+                {
+                    <tr>
+                        <td>
+                            @item.FirstName
+                        </td>
+                        <td>
+                            @item.LastName
+                        </td>
+                        <td>
+                            @if (Model.Login.Role != "Admin")
+                            {
+                                <input type="submit" value="Modifier" disabled />
+                            }
+                            else
+                            {
+                                <input type="submit" value="Modifier" onclick="window.open('@Url.Action("User", "User", new { target="_blank", firstName = @item.FirstName, lastName = @item.LastName })')" />
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+            @if (Model.Login.Role == "Admin")
+            {
+            <div class=row>
+                <input type="submit" value="Créer un Employé" onclick="window.open('@Url.Action("User", "User", new { target="_blank", firstName = "", lastName ="" })')" />
+            </div>
+            }
+        </div>
+
+    
+
+    <div class=jumbotron>
         <p>Tâches</p>
         <table class="table">
             <tr>
