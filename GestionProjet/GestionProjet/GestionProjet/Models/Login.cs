@@ -17,6 +17,16 @@ namespace GestionProjet.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
+        public bool AuthentificationValide { get; set; }
+
+        //public Login()
+        //{
+        //    AuthentificationValide = false;
+        //}
+
+
+        public string Role { get; set; }
+
         public string Message { get; set; }
 
         public bool testLogin(string userID, string password)
@@ -104,6 +114,12 @@ namespace GestionProjet.Models
             }
 
             return matricule;
+        }
+
+        public string testUserRole()
+        {
+
+            return "";
         }
     }
 

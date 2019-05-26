@@ -29,9 +29,6 @@ namespace GestionProjet.Controllers
 
             combinedModel.TasksList = task.getTasksFromDatabase();
 
-            /*
-             * <<<<<<< Updated upstream
-             */
             combinedModel.Login = new Login();
         /*}
 
@@ -44,7 +41,7 @@ namespace GestionProjet.Controllers
 
             return View(combinedModel);
         }
-
+/*
         public ActionResult About()
         {
             ViewBag.Message = "Application pour la gestion de projets";
@@ -56,7 +53,7 @@ namespace GestionProjet.Controllers
             ViewBag.Message = "Application pour la gestion de projets";
             return View();
         }
-
+*/
 
         [HttpPost]
         public ActionResult Index(LogPrUsTskComb combinedModel)
@@ -69,10 +66,12 @@ namespace GestionProjet.Controllers
             if (login.testLogin(userID, password))
             {
                 combinedModel.Login.Message = "Authentification valide";
+                combinedModel.Login.AuthentificationValide = true;
             }
             else
             {
                 combinedModel.Login.Message = "Authentification invalide";
+                return View(combinedModel);
             }
             Project project = new Project();
 

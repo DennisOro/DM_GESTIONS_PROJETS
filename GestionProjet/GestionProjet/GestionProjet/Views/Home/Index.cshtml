@@ -28,95 +28,97 @@
 
         <input type="submit" value="Valider" />
         <div>
-        @Html.DisplayFor(model => model.Login.Message)
+            @Html.DisplayFor(model => model.Login.Message)
         </div>
     </div>
 }
 
-
-<div>
-    <p>Projets</p>
-    <table class="table">
-        <tr>
-            <th>
-                Project Id
-            </th>
-            <th>
-                Project Name
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model.ProjectsList)
-        {
-        <tr >
-            <td>
-                @item.ProjectId
-            </td>
-            <td>
-                @item.ProjectName
-            </td>
-            <td>
-                <input type="submit" value="Modifier" onclick="@("window.location.href='" + @Url.Action("Project", "Project", new {projectId=@item.ProjectId}) + "'");" />
-            </td>
-        </tr>
-        }
-    </table>
-</div>
-
-<div>
-    <p>Employés</p>
-    <table class="table">
-        <tr>
-            <th>
-                Prenom Employé
-            </th>
-            <th>
-                Nom Employé
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model.UsersList)
-        {
-        <tr>
-            <td>
-                @item.FirstName
-            </td>
-            <td>
-                @item.LastName
-            </td>
-            <td>
-                <input type="submit" value="Modifier" onclick="@("window.location.href='" + @Url.Action("User", "User", new {firstName=@item.FirstName, lastName = @item.LastName}) + "'");" />
-            </td>
-        </tr>
-        }
-    </table>
-</div>
-
-<div>
-    <p>Tâches</p>
-    <table class="table">
-        <tr>
-            <th>
-                Tâche
-            </th>
-            <th>
-                Statut
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model.TasksList)
-        {
+@if (Model.Login.AuthentificationValide == true)
+{
+    <div>
+        <p>Projets</p>
+        <table class="table">
             <tr>
-                <td>
-                    @item.Description
-                </td>
-                <td>
-                    @item.nbHeures
-                </td>
+                <th>
+                    Project Id
+                </th>
+                <th>
+                    Project Name
+                </th>
+                <th></th>
             </tr>
-        }
-    </table>
-</div>
+
+            @foreach (var item in Model.ProjectsList)
+            {
+                <tr>
+                    <td>
+                        @item.ProjectId
+                    </td>
+                    <td>
+                        @item.ProjectName
+                    </td>
+                    <td>
+                        <input type="submit" value="Modifier" onclick="@("window.location.href='" + @Url.Action("Project", "Project", new {projectId=@item.ProjectId}) + "'");" />
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div>
+        <p>Employés</p>
+        <table class="table">
+            <tr>
+                <th>
+                    Prenom Employé
+                </th>
+                <th>
+                    Nom Employé
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.UsersList)
+            {
+                <tr>
+                    <td>
+                        @item.FirstName
+                    </td>
+                    <td>
+                        @item.LastName
+                    </td>
+                    <td>
+                        <input type="submit" value="Modifier" onclick="@("window.location.href='" + @Url.Action("User", "User", new {firstName=@item.FirstName, lastName = @item.LastName}) + "'");" />
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div>
+        <p>Tâches</p>
+        <table class="table">
+            <tr>
+                <th>
+                    Tâche
+                </th>
+                <th>
+                    Statut
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.TasksList)
+            {
+                <tr>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.nbHeures
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}
