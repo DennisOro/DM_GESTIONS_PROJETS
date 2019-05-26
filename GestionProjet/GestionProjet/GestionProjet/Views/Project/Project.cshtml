@@ -6,7 +6,7 @@
 
 <h2>Project</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Project", "Project", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     

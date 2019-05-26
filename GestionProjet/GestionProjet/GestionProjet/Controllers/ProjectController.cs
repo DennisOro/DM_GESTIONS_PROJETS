@@ -15,7 +15,7 @@ namespace GestionProjet.Controllers
         //    return View();
         //}
 
-        public ActionResult Project(int projectId )
+        public ActionResult Project(int projectId)
         {
 
             Project thisProject = new Project();
@@ -23,5 +23,18 @@ namespace GestionProjet.Controllers
 
             return View(thisProject);
         }
+
+        [HttpPost]
+        public ActionResult Project(Project project)
+        {
+
+            Project thisProject = new Project();
+            thisProject = thisProject.updateProject(project);
+
+            return View(thisProject);
+        }
+
+
+
     }
 }

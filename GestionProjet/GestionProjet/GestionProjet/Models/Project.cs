@@ -10,6 +10,8 @@ namespace GestionProjet.Models
     {
         public int ProjectId { get; set; }
         public string ProjectName { get; set; }
+        public int IdClient { get; set; }
+        public int IdEtat { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
 
@@ -96,6 +98,38 @@ namespace GestionProjet.Models
             }
 
             return this;
+        }
+
+        public Project updateProject(Project project)
+        {
+            try
+            {
+                string projectName = project.ProjectName == null ? "" : project.ProjectName.Trim();
+                string updateQuery = @"UPDATE [INF6150].[dbo].[Project]  SET nomProjet = '" + projectName + "', "
+                                                                        + "dateDebut =  '" + project.StartDate + "', "
+                                                                        + "dateFin =  '" + project.EndDate + "' "
+                                                                        + "WHERE idProjet = " + project.ProjectId;
+
+            
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    SqlCommand command = new SqlCommand(updateQuery, conn);
+
+                    command.ExecuteNonQuery();
+
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return project;
         }
 
     }
