@@ -10,7 +10,7 @@ namespace GestionProjet.Controllers
     public class UserController : Controller
     {
         // GET: User
-        //public ActionResult Index()
+        //public ActionResult User()
         //{
         //    return View();
         //}

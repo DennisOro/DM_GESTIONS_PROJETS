@@ -11,7 +11,7 @@ namespace GestionProjet.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string IDUser { get; set; }
+        public string matricule { get; set; }
         public int HourlyRate { get; set; }
         public int nbrUsers { get; set; }
         public string Role { get; set; }
@@ -37,12 +37,11 @@ namespace GestionProjet.Models
                         while (reader.Read())
                         {
                             UsersList.Add(new User() {
-                                IDUser = reader[0] == null ? "" : reader[0].ToString(),
+                                matricule = reader[0] == null ? "" : reader[0].ToString(),
                                 FirstName = reader[1] == null ? "" : reader[1].ToString(),
                                 LastName = reader[2] == null ? "" : reader[2].ToString(),
                                 HourlyRate = reader[3] == null ? 0 : Convert.ToInt32(reader[3]),
-                                nbrUsers = reader[4] == null ? 0 : Convert.ToInt32(reader[4]),
-                                Role = reader[5] == null ? "" : reader[5].ToString()
+                                Role = reader[4] == null ? "" : reader[4].ToString()
                             });
                         }
                     }
@@ -66,7 +65,7 @@ namespace GestionProjet.Models
 
         public User getUserInfoByID(string userID)
         {
-            string query = @"select * from [User] where idUser = '" + userID + "'";
+            string query = @"select * from [User] where matricule = '" + userID + "'";
             return getUserInfo(query);
         }
 
@@ -94,12 +93,11 @@ namespace GestionProjet.Models
                     {
                         if (reader.Read())
                         {
-                            IDUser = reader[0] == null ? "" : reader[0].ToString();
+                            matricule = reader[0] == null ? "" : reader[0].ToString();
                             FirstName = reader[1] == null ? "" : reader[1].ToString();
                             LastName = reader[2] == null ? "" : reader[2].ToString();
                             HourlyRate = reader[3] == null ? 0 : Convert.ToInt32(reader[3]);
-                            nbrUsers = reader[4] == null ? 0 : Convert.ToInt32(reader[4]);
-                            Role = reader[5] == null ? "" : reader[5].ToString();
+                            Role = reader[4] == null ? "" : reader[4].ToString();
                         }
                     }
                     finally

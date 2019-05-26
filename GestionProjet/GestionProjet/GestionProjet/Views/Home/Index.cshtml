@@ -57,7 +57,7 @@
                 @item.ProjectName
             </td>
             <td>
-                <input type="submit" value="Afficher" onclick="@("window.location.href='" + @Url.Action("Project", "Project", new {projectId=@item.ProjectId}) + "'");" />
+                <input type="submit" value="Modifier" onclick="@("window.location.href='" + @Url.Action("Project", "Project", new {projectId=@item.ProjectId}) + "'");" />
             </td>
         </tr>
         }
@@ -87,7 +87,7 @@
                 @item.LastName
             </td>
             <td>
-                <input type="submit" value="Afficher" onclick="@("window.location.href='" + @Url.Action("User", "User", new {firstName=@item.FirstName, lastName = @item.LastName}) + "'");" />
+                <input type="submit" value="Modifier" onclick="@("window.location.href='" + @Url.Action("User", "User", new {firstName=@item.FirstName, lastName = @item.LastName}) + "'");" />
             </td>
         </tr>
         }
@@ -114,7 +114,7 @@
                     @item.Description
                 </td>
                 <td>
-                    @item.Status
+                    @item.nbHeures
                 </td>
             </tr>
         }

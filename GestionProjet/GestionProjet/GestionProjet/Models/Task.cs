@@ -11,7 +11,7 @@ namespace GestionProjet.Models
     {
         public int IdTask { get; set; }
         public string Description { get; set; }
-        public int NBAssignedUsers { get; set; }
+        public int nbHeures { get; set; }
         public string Status { get; set; }
 
         public List<Task> getTasksFromDatabase()
@@ -36,8 +36,8 @@ namespace GestionProjet.Models
                         {
                             TasksList.Add(new Task()
                             {
-                                Description = reader[5] == null ? "" : reader[5].ToString(),
-                                Status = reader[6] == null ? "" : reader[6].ToString()
+                                Description = reader[1] == null ? "" : reader[1].ToString(),
+                                nbHeures = reader[3] == null ? 0 : Convert.ToInt32(reader[3])
                             });
                         }
                     }
