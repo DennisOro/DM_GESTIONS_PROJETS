@@ -67,6 +67,8 @@ namespace GestionProjet.Controllers
             {
                 combinedModel.Login.Message = "Authentification valide";
                 combinedModel.Login.AuthentificationValide = true;
+                string matricule = login.getUserMatricule(userID, password);
+                combinedModel.Login.Role = login.testUserRole(matricule);
             }
             else
             {

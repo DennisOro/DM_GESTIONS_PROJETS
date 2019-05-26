@@ -19,12 +19,6 @@ namespace GestionProjet.Models
 
         public bool AuthentificationValide { get; set; }
 
-        //public Login()
-        //{
-        //    AuthentificationValide = false;
-        //}
-
-
         public string Role { get; set; }
 
         public string Message { get; set; }
@@ -116,10 +110,45 @@ namespace GestionProjet.Models
             return matricule;
         }
 
-        public string testUserRole()
+        public string testUserRole(string matricule)
         {
+            string query = @"select role from [User] where matricule = '" + matricule + "'";
 
-            return "";
+            string role = "";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    try
+                    {
+                        if (reader.Read())
+                        {
+                            role = reader[0] == null ? "" : reader[0].ToString().Trim();
+                        }
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return role;
         }
     }
 

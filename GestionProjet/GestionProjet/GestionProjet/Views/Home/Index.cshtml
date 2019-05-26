@@ -58,7 +58,14 @@
                         @item.ProjectName
                     </td>
                     <td>
-                        <input type="submit" value="Modifier" onclick="@("window.location.href='" + @Url.Action("Project", "Project", new {projectId=@item.ProjectId}) + "'");" />
+                        @if (Model.Login.Role == "Utilisateur")
+                        {
+                            <input type="submit" value="Modifier" disabled />
+                        }
+                        else
+                        {
+                            <input type="submit" value="Modifier" onclick="@("window.location.href='" + @Url.Action("Project", "Project", new {projectId=@item.ProjectId}) + "'");" />
+                        }
                     </td>
                 </tr>
             }
@@ -88,7 +95,14 @@
                         @item.LastName
                     </td>
                     <td>
-                        <input type="submit" value="Modifier" onclick="@("window.location.href='" + @Url.Action("User", "User", new {firstName=@item.FirstName, lastName = @item.LastName}) + "'");" />
+                        @if (Model.Login.Role != "Admin")
+                        {
+                            <input type="submit" value="Modifier" disabled />
+                        }
+                        else
+                        {
+                            <input type="submit" value="Modifier" onclick="@("window.location.href='" + @Url.Action("User", "User", new { firstName = @item.FirstName, lastName = @item.LastName }) + "'");" />
+                        }
                     </td>
                 </tr>
             }
