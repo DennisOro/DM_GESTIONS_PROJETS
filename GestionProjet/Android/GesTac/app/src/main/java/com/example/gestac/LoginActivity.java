@@ -63,12 +63,15 @@ public class LoginActivity extends AppCompatActivity{
                     //if (response.body().getConnexion().equals("1")){
                     if (response.isSuccessful()) {
                         if (response.body().getConnexion() == 1) {
+                            Toast.makeText(LoginActivity.this, "Bienvenue",Toast.LENGTH_LONG).show();
                             //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             Intent intent = new Intent(LoginActivity.this, TaskListActivity.class);
+                            intent.putExtra("user", edUsername.getText().toString());
                             startActivity(intent);
                         } else {
                             edUsername.setText("");
                             edPassword.setText("");
+                            Toast.makeText(LoginActivity.this, "Utilisateur ou mot de passe invalide",Toast.LENGTH_LONG).show();
                         }
                     }
                 }

@@ -3,27 +3,27 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ResLogin {
-    @SerializedName("connexion")
+    @SerializedName("Connexion")
     @Expose
-    private int connexion;
+    private int Connexion;
 
-    @SerializedName("message")
+    @SerializedName("Message")
     @Expose
-    private String message;
+    private String Message;
 
     public int getConnexion() {
-        return connexion;
+        return Connexion;
     }
 
     public void setConnexion(int connexion) {
-        this.connexion = connexion;
+        this.Connexion = connexion;
     }
 
     public String getMessage() {
-        return message;
+        return Message;
     }
 
     public void setMessage(String message) {
-        this.message = message;
+        this.Message = message;
     }
 }
