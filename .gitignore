@@ -354,3 +354,7 @@ healthchecksdb
 
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
+GestionProjet/GestionProjet/GestionProjet/obj/Debug/GestionProjet.pdb
+GestionProjet/GestionProjet/GestionProjet/bin/GestionProjet.dll
+GestionProjet/GestionProjet/GestionProjet/bin/GestionProjet.pdb
+GestionProjet/GestionProjet/GestionProjet/obj/Debug/GestionProjet.dll

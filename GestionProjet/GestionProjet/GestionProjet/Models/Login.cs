@@ -73,6 +73,7 @@ namespace GestionProjet.Models
         public string getUserMatricule(string login, string passw)
         {
             string matricule = "";
+            UserID = login; Password = passw;
             try
             {
                 using (SqlConnection conn = new SqlConnection())
@@ -91,6 +92,13 @@ namespace GestionProjet.Models
                         if (reader.Read())
                         {
                             matricule = reader[0] == null ? "" : reader[0].ToString().Trim();
+                            AuthentificationValide = true;
+                            Message = "Connexion réussi";
+                        }
+                        else
+                        {
+                            AuthentificationValide = false;
+                            Message = "Utilisateur ou mot de passe invalide";
                         }
                     }
                     finally

@@ -50,11 +50,12 @@ namespace GestionProjet
 
             User user = new User();
 
-            user = user.getUserInfo(matricule);
+            user = user.getUserInfoByID(matricule);
 
             List<string> output = new List<string>();
 
-            if (login.testLogin(userID, password))
+            //if (login.testLogin(userID, password))
+            if (matricule!="")
             {
                 output.Add("1");
                 output.Add(user.FirstName);
@@ -68,6 +69,20 @@ namespace GestionProjet
             return new JavaScriptSerializer().Serialize(output);
         }
 
+        [WebGet(UriTemplate = "/Login2/{UserID}/{Password}")]
+        public Login testLogin2(string userID, string password)
+        {
+            Login login = new Login();
+
+            string matricule = login.getUserMatricule(userID, password);
+
+            //User user = new User();
+
+            //user = user.getUserInfoByID(matricule);
+            //return user;
+            return login;
+        }
+
 
     }
-}
+    }

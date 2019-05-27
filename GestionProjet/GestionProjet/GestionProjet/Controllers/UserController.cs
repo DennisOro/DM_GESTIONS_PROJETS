@@ -15,7 +15,7 @@ namespace GestionProjet.Controllers
         //    return View();
         //}
 
-        public ActionResult User(string firstName, string lastName)
+        public new ActionResult User(string firstName, string lastName)
         {
 
             User thisUser = new User();

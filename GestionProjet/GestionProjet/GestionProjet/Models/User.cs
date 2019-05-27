@@ -93,11 +93,18 @@ namespace GestionProjet.Models
                     {
                         if (reader.Read())
                         {
-                            matricule = reader[0] == null ? "" : reader[0].ToString();
-                            FirstName = reader[1] == null ? "" : reader[1].ToString();
-                            LastName = reader[2] == null ? "" : reader[2].ToString();
+                            matricule = reader[0] == null ? "" : reader[0].ToString().Trim();
+                            FirstName = reader[1] == null ? "" : reader[1].ToString().Trim();
+                            LastName = reader[2] == null ? "" : reader[2].ToString().Trim();
                             HourlyRate = reader[3] == null ? 0 : Convert.ToInt32(reader[3]);
-                            Role = reader[4] == null ? "" : reader[4].ToString();
+                            Role = reader[4] == null ? "" : reader[4].ToString().Trim();
+                        }else
+                        {
+                            matricule = "" ;
+                            FirstName = "" ;
+                            LastName = "" ;
+                            HourlyRate = 0;
+                            Role = "" ;
                         }
                     }
                     finally
