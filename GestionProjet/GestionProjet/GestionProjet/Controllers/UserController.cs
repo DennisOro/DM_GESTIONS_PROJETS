@@ -25,7 +25,7 @@ namespace GestionProjet.Controllers
         }
 
         [HttpPost]
-        public ActionResult User(User user)
+        public new ActionResult User(User user)
         {
             User thisUser = new User();
             /*

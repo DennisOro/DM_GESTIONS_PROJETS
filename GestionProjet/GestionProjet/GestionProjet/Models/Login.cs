@@ -65,7 +65,7 @@ namespace GestionProjet.Models
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine("BD: "+ex.ToString()+" "+ex.Message);
             }
             return false;
         }
@@ -101,6 +101,10 @@ namespace GestionProjet.Models
                             Message = "Utilisateur ou mot de passe invalide";
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("BD: " + ex.ToString() + " " + ex.Message);
+                    }
                     finally
                     {
                         reader.Close();
@@ -112,7 +116,7 @@ namespace GestionProjet.Models
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine("BD: " + ex.ToString() + " " + ex.Message);
             }
 
             return matricule;
