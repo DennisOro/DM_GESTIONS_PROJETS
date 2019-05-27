@@ -23,5 +23,22 @@ namespace GestionProjet.Controllers
 
             return View(thisUser);
         }
+
+        [HttpPost]
+        public ActionResult User(User user)
+        {
+            User thisUser = new User();
+            /*
+            if (project.ProjectId == 0)
+            {
+                thisProject = thisProject.createProject(project);
+            }
+            else
+            {
+                thisProject = thisProject.updateProject(project);
+            }
+            */
+            return View(thisUser);
+        }
     }
 }

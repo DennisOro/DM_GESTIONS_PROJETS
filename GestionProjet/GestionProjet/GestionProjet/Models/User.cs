@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
-
+using System.Web.Mvc;
 
 namespace GestionProjet.Models
 {
@@ -15,6 +15,12 @@ namespace GestionProjet.Models
         public int HourlyRate { get; set; }
         public int nbrUsers { get; set; }
         public string Role { get; set; }
+        public IEnumerable<SelectListItem> RolesList { get; set; }
+
+        public User()
+        {
+            RolesList = fillOutRolesList();
+        }
 
         public List<User> getUsersFromDatabase()
         {
@@ -124,6 +130,82 @@ namespace GestionProjet.Models
             return this;
         }
 
-        
+        public IEnumerable<SelectListItem> fillOutRolesList()
+        {
+            var rolesList = new List<SelectListItem>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    string query = @"select role from [User]";
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    try
+                    {
+                        while (reader.Read())
+                        {
+                            string value = reader[0] == null ? "" : reader[0].ToString();
+                            rolesList.Add(new SelectListItem
+                            {
+                                Value = value,
+                                Text = value
+                            });
+                        }
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex) //(IEnumerable<T>)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return rolesList;
+        }
+/*
+        public User updateUser()
+        {
+            try
+            {
+                //string projectName = project.ProjectName == null ? "" : project.ProjectName.Trim();
+                //string updateQuery = @"UPDATE [INF6150].[dbo].[Project]  SET nomProjet = '" + projectName + "', "
+                //                                                        + "dateDebut =  '" + project.StartDate + "', "
+                //                                                        + "dateFin =  '" + project.EndDate + "' "
+                //                                                        + "WHERE idProjet = " + project.ProjectId;
+
+
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    //SqlCommand command = new SqlCommand(updateQuery, conn);
+
+                    command.ExecuteNonQuery();
+
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return project;
+        }
+*/
     }
 }
