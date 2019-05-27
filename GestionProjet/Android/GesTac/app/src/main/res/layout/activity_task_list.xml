@@ -22,15 +22,21 @@
 
 
     </android.support.design.widget.AppBarLayout>
+    <!--
+       <FrameLayout
+               android:id="@+id/frameLayout"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <FrameLayout
-            android:id="@+id/frameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+           <include layout="@layout/task_list"/>
+       </FrameLayout>
+    -->
+    <ListView
+        android:id="@+id/mListView"
+        android:layout_weight="0.5"
+        android:numColumns="auto_fit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-        <include layout="@layout/task_list"/>
-    </FrameLayout>
-
-
-</android.support.design.widget.CoordinatorLayout>
+   </android.support.design.widget.CoordinatorLayout>

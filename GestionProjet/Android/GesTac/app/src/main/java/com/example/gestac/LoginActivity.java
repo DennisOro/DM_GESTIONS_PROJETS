@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity{
                     //Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                     //if (response.body().getConnexion().equals("1")){
                     if (response.isSuccessful()) {
-                        if (response.body().getConnexion() == 1) {
+                        if (response.body().isAuthentificationValide()) {
                             Toast.makeText(LoginActivity.this, "Bienvenue",Toast.LENGTH_LONG).show();
                             //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             Intent intent = new Intent(LoginActivity.this, TaskListActivity.class);
