@@ -357,4 +357,6 @@ MigrationBackup/
 GestionProjet/GestionProjet/GestionProjet/obj/Debug/GestionProjet.pdb
 GestionProjet/GestionProjet/GestionProjet/bin/GestionProjet.dll
 GestionProjet/GestionProjet/GestionProjet/bin/GestionProjet.pdb
-GestionProjet/GestionProjet/GestionProjet/obj/Debug/GestionProjet.dll
+GestionProjet/GestionProjet/GestionProjet/obj/.
+
+GestionProjet/GestionProjet/GestionProjet/bin/.
