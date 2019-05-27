@@ -64,7 +64,8 @@
                         }
                         else
                         {
-                            <input type="submit" value="Modifier" onclick="window.opren('@Url.Action("Project", "Project", new {projectId=@item.ProjectId, target = "_blank"})')" />
+                            <input type="submit" value="Modifier" onclick="window.open('@Url.Action("Project", "Project", new {projectId=@item.ProjectId, target = "_blank"})')" />
+
                         }
                     </td>
 
