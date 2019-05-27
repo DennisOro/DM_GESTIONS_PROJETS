@@ -110,7 +110,7 @@
                             }
                             else
                             {
-                                <input type="submit" value="Modifier" onclick="window.open('@Url.Action("User", "User", new { target="_blank", firstName = @item.FirstName, lastName = @item.LastName })')" />
+                                <input type="submit" value="Modifier" onclick="window.open('@Url.Action("User", "User", new {firstName = @item.FirstName, lastName = @item.LastName })')" />
                             }
                         </td>
                     </tr>

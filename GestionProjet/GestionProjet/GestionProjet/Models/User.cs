@@ -144,7 +144,7 @@ namespace GestionProjet.Models
                     {
                         while (reader.Read())
                         {
-                            string value = reader[0] == null ? "" : reader[0].ToString().Trim();
+                            string value = reader[0] == null ? "" : reader[0].ToString();
                             rolesList.Add(new SelectListItem
                             {
                                 Value = value,
@@ -167,6 +167,38 @@ namespace GestionProjet.Models
             }
             return rolesList;
         }
+/*
+        public User updateUser()
+        {
+            try
+            {
+                //string projectName = project.ProjectName == null ? "" : project.ProjectName.Trim();
+                //string updateQuery = @"UPDATE [INF6150].[dbo].[Project]  SET nomProjet = '" + projectName + "', "
+                //                                                        + "dateDebut =  '" + project.StartDate + "', "
+                //                                                        + "dateFin =  '" + project.EndDate + "' "
+                //                                                        + "WHERE idProjet = " + project.ProjectId;
 
+
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    //SqlCommand command = new SqlCommand(updateQuery, conn);
+
+                    command.ExecuteNonQuery();
+
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return project;
+        }
+*/
     }
 }
