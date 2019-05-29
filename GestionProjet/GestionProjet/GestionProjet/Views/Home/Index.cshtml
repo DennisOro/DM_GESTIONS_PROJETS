@@ -111,7 +111,7 @@
                             }
                             else
                             {
-                                <input type="submit" value="Modifier" onclick="window.open('@Url.Action("User", "User", new {firstName = @item.FirstName, lastName = @item.LastName })')" />
+                                <input type="submit" value="Modifier" onclick="window.open('@Url.Action("User", "User", new {firstName = @item.FirstName, lastName = @item.LastName, newUser = false })')" />
                             }
                         </td>
                     </tr>
@@ -120,7 +120,7 @@
             @if (Model.Login.Role == "Admin")
             {
             <div class=row>
-                <input type="submit" value="Créer un Employé" onclick="window.open('@Url.Action("User", "User", new { target="_blank", firstName = "", lastName ="" })')" />
+                <input type="submit" value="Créer un Employé" onclick="window.open('@Url.Action("User", "User", new { target="_blank", firstName = "", lastName ="", newUser = true })')" />
             </div>
             }
         </div>

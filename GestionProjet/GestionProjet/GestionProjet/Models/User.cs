@@ -15,6 +15,7 @@ namespace GestionProjet.Models
         public int HourlyRate { get; set; }
         public int nbrUsers { get; set; }
         public string Role { get; set; }
+        public bool NewUser { get; set; }
         public IEnumerable<SelectListItem> RolesList { get; set; }
 
         public User()
@@ -168,22 +169,23 @@ namespace GestionProjet.Models
                 }
 
             }
-            catch (Exception ex) //(IEnumerable<T>)
+            catch (Exception ex) 
             {
                 Console.WriteLine(ex.ToString());
             }
             return rolesList;
         }
-/*
-        public User updateUser()
+
+        public User updateUser(User user)
         {
             try
             {
-                //string projectName = project.ProjectName == null ? "" : project.ProjectName.Trim();
-                //string updateQuery = @"UPDATE [INF6150].[dbo].[Project]  SET nomProjet = '" + projectName + "', "
-                //                                                        + "dateDebut =  '" + project.StartDate + "', "
-                //                                                        + "dateFin =  '" + project.EndDate + "' "
-                //                                                        + "WHERE idProjet = " + project.ProjectId;
+                string matricule = user.matricule == null ? "" : user.matricule.Trim();
+                string updateQuery = @"UPDATE [INF6150].[dbo].[User]  SET pernom = '" + user.FirstName + "', "
+                                                                        + "nom =  '" + user.LastName + "', "
+                                                                        + "tauxHoraire =  '" + user.HourlyRate + "' "
+                                                                        + "role =  '" + user.Role + "' "
+                                                                        + "WHERE matricule = " + matricule;
 
 
                 using (SqlConnection conn = new SqlConnection())
@@ -192,7 +194,7 @@ namespace GestionProjet.Models
 
                     conn.Open();
 
-                    //SqlCommand command = new SqlCommand(updateQuery, conn);
+                    SqlCommand command = new SqlCommand(updateQuery, conn);
 
                     command.ExecuteNonQuery();
 
@@ -204,8 +206,83 @@ namespace GestionProjet.Models
             {
                 Console.WriteLine(ex.ToString());
             }
-            return project;
+            return user;
         }
-*/
+
+        public User createUser(User user)
+        {
+            // test if matricule does not exist
+
+            if (user != null && !matriculeExists(user.matricule))
+            {
+                string createQuery = @"INSERT INTO [INF6150].[dbo].[User] values (" + user.matricule + ",'" + user.FirstName + "'," + user.LastName + ", " + user.HourlyRate + ", '" + user.Role + "')";
+
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection())
+                    {
+                        conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                        conn.Open();
+
+                        SqlCommand command = new SqlCommand(createQuery, conn);
+
+                        command.ExecuteNonQuery();
+
+                        conn.Close();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
+            return user;
+        }
+
+        public bool matriculeExists(string matricule)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    string query = @"select matricule from [User] where matricule = '" + matricule + "'";
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    try
+                    {
+                        while (reader.Read())
+                        {
+                            string existingMatricule = reader[0] == null ? "" : reader[0].ToString();
+                            if (matricule == existingMatricule)
+                                return true;
+                        }
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return false;
+        }
+
+
+
+
     }
 }
