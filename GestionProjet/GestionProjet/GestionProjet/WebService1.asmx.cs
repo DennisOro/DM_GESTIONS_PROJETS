@@ -80,5 +80,17 @@ namespace GestionProjet
             Context.Response.Write(result);
 
         }
+
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public void UpdateTaskHrs(string userID, int idTask, int heures, int status)
+        {
+            TaskUserPrj taskUserPrj = new TaskUserPrj();
+            taskUserPrj.UpdateHrsTask(userID, idTask, heures, status);
+            //Context.Response.Write("{status:"+r+"}");
+
+        }
+
+
     }
 }
