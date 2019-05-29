@@ -30,18 +30,11 @@ namespace GestionProjet.Controllers
             combinedModel.TasksList = task.getTasksFromDatabase();
 
             combinedModel.Login = new Login();
-        /*}
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Application pour la gestion de projets";
-/*>>>>>>> Stashed changes
-
-    */
 
             return View(combinedModel);
         }
-/*
+
+        /*navigation de l'application, pages a propos et contact*/
         public ActionResult About()
         {
             ViewBag.Message = "Application pour la gestion de projets";
@@ -53,7 +46,7 @@ namespace GestionProjet.Controllers
             ViewBag.Message = "Application pour la gestion de projets";
             return View();
         }
-*/
+
 
         [HttpPost]
         public ActionResult Index(LogPrUsTskComb combinedModel)
