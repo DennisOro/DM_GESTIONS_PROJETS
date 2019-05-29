@@ -32,6 +32,7 @@ public class TaskListActivity extends AppCompatActivity {
     private ListViewAdapter adapter;
     private List<ListeTask> ListeTasks;
     private String TitleUser;
+    private String User;
     //ProgressBar myProgressBar;
 
     //private RetroAdapter retroAdapter;
@@ -44,24 +45,29 @@ public class TaskListActivity extends AppCompatActivity {
 
 
         //Toast.makeText(TaskListActivity.this, "Liste de tâches",Toast.LENGTH_LONG).show();
-        String usr= getIntent().getStringExtra("user");
+        User= getIntent().getStringExtra("user");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_list);
-        TitleUser = "(Utilisateur:"+usr+")";
-        toolbar.setTitle("Liste de tâches "+TitleUser);
+        TitleUser = "Utilisateur: "+User;
+        toolbar.setTitle("Liste de tâches");
+        toolbar.setSubtitle(TitleUser);
 
         serviceApi = RetrofitClient.getApi(Constant.mainUrl.MAIN_URL).create(ListeTaskService.class);
-        getListeTask(usr);
+        getListeTask();
 
     }
 
-    private void getListeTask(String usr){
-        Call<List<ListeTask>> listTaskCall = serviceApi.ListeTask(usr);
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        getListeTask();
+    }
+
+    private void getListeTask(){
+        Call<List<ListeTask>> listTaskCall = serviceApi.ListeTask(User);
         listTaskCall.enqueue(new Callback<List<ListeTask>>() {
             @Override
             public void onResponse(Call<List<ListeTask>> call, Response<List<ListeTask>> response) {
-                //Log.e("onResponse", response.body().getMessage());
-                //Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
-                //if (response.body().getConnexion().equals("1")){
+
                 if (response.isSuccessful()) {
                     System.out.println(response.body());
                     Log.e("Body",response.body().toString());
@@ -95,7 +101,8 @@ public class TaskListActivity extends AppCompatActivity {
                 Intent intent = new Intent(TaskListActivity.this, TaskDetailActivity.class);
 
                 // Sending value to another activity using intent.
-                intent.putExtra("user", TitleUser);
+                intent.putExtra("user", User);
+                intent.putExtra("titleUser", TitleUser);
                 intent.putExtra("task", task);
 
                 startActivity(intent);

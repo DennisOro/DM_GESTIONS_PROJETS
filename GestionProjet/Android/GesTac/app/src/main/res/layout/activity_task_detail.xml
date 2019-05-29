@@ -7,47 +7,51 @@
                                                  android:fitsSystemWindows="true"
                                                  tools:context=".TaskDetailActivity"
                                                  tools:ignore="MergeRootFrame">
-
-    <android.support.design.widget.AppBarLayout
-            android:id="@+id/app_bar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/app_bar_height"
-            android:fitsSystemWindows="true"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/toolbar_layout"
+        <android.support.design.widget.AppBarLayout
+                android:id="@+id/app_bar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/app_bar_height"
                 android:fitsSystemWindows="true"
-                app:contentScrim="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
-                <!--app:toolbarId="@+id/toolbar"-->
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    <!--
+            <android.support.design.widget.CollapsingToolbarLayout
+                    android:id="@+id/toolbar_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    app:contentScrim="?attr/colorPrimary"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+     -->
+                    <!--app:toolbarId="@+id/toolbar"-->
 
 
             <android.support.v7.widget.Toolbar
-                    android:id="@+id/detail_toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:layout_collapseMode="pin"
-                    app:popupTheme="@style/AppTheme.PopupOverlay"/>
-            <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
+                android:id="@+id/detail_toolbar"
+                android:layout_width="match_parent"
 
-        </android.support.design.widget.CollapsingToolbarLayout>
+                android:layout_height="match_parent"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:titleTextAppearance="@style/TextAppearance.AppCompat.Large" />
+            <!--
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                -->
+    <!--
+            </android.support.design.widget.CollapsingToolbarLayout>
+     -->
 
-    </android.support.design.widget.AppBarLayout>
-
-
-
-
-
+        </android.support.design.widget.AppBarLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|start"
         android:layout_margin="@dimen/fab_margin"
+        android:clickable="true"
+        android:onClick="saveTask"
         app:layout_anchor="@+id/item_detail_container"
         app:layout_anchorGravity="top|end"
         app:srcCompat="@android:drawable/ic_menu_save" />
@@ -64,6 +68,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -141,6 +151,33 @@
 
 
                 <TextView
+                    android:id="@+id/txtHrsEstime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:inputType="text"
+                    android:text="Heures Estimées:" />
+                <EditText
+                    android:id="@+id/edHrsEstime"
+                    android:inputType="none"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:importantForAutofill="auto"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+
+                <TextView
                     android:id="@+id/txtHrsCount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -164,8 +201,16 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="67dp"
-                android:orientation="vertical"/>
+                android:layout_height="90dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -197,21 +242,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/txtStatus"
+                <Switch
+                    android:id="@+id/ckStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:text="Complétée (saisie)" />
 
-
-                <CheckedTextView
-                    android:id="@+id/ckStatus"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                        android:checkMark="@android:drawable/checkbox_off_background"
-                        android:checked="false"
-                        android:visibility="visible" />
                 </LinearLayout>
 
             </LinearLayout>

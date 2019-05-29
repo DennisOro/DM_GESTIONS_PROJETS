@@ -18,9 +18,13 @@ public class ListeTask implements Serializable {
     @Expose
     private String NomProjet;
 
-    @SerializedName("nbHeures")
+    @SerializedName("nbHeuresEstime")
     @Expose
-    private int nbHeures;
+    private int nbHeuresEstime;
+
+    @SerializedName("nbHeuresTravaillee")
+    @Expose
+    private int nbHeuresTravaillee;
 
     @SerializedName("Status")
     @Expose
@@ -58,12 +62,20 @@ public class ListeTask implements Serializable {
         NomProjet = nomProjet;
     }
 
-    public int getNbHeures() {
-        return nbHeures;
+    public int getNbHeuresEstime() {
+        return nbHeuresEstime;
     }
 
-    public void setNbHeures(int nbHeures) {
-        this.nbHeures = nbHeures;
+    public void setNbHeuresEstime(int nbHeuresEstime) {
+        this.nbHeuresEstime = nbHeuresEstime;
+    }
+
+    public int getNbHeuresTravaillee() {
+        return nbHeuresTravaillee;
+    }
+
+    public void setNbHeuresTravaillee(int nbHeuresTravaillee) {
+        this.nbHeuresTravaillee = nbHeuresTravaillee;
     }
 
     public String getStatus() {
