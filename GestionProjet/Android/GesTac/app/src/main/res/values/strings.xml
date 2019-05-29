@@ -10,5 +10,6 @@
     <string name="invalid_password">Mot de passe doit avoir >5 caractères</string>
     <string name="login_failed">"Erreur de connexion"</string>
     <string name="title_item_detail">Détail de tâche</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 </resources>
 
