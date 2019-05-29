@@ -15,11 +15,12 @@ namespace GestionProjet.Controllers
         //    return View();
         //}
 
-        public new ActionResult User(string firstName, string lastName)
+        public new ActionResult User(string firstName, string lastName, bool newUser)
         {
 
             User thisUser = new User();
             thisUser = thisUser.getUserInfoByName(firstName, lastName);
+            thisUser.NewUser = newUser;
 
             return View(thisUser);
         }
@@ -28,16 +29,16 @@ namespace GestionProjet.Controllers
         public new ActionResult User(User user)
         {
             User thisUser = new User();
-            /*
-            if (project.ProjectId == 0)
+            
+            if (thisUser.NewUser)
             {
-                thisProject = thisProject.createProject(project);
+                thisUser = thisUser.createUser(user);
             }
             else
             {
-                thisProject = thisProject.updateProject(project);
+                thisUser = thisUser.updateUser(user);
             }
-            */
+            
             return View(thisUser);
         }
     }
