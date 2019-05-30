@@ -60,9 +60,11 @@ public class TaskDetailActivity extends AppCompatActivity {
     }
 
 
-    public void saveTask(View v){
+    public void BtnSaveTask(View v){
+        if(!validForm())
+            return;
         save();
-        Toast.makeText(TaskDetailActivity.this, "Enregistré ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(TaskDetailActivity.this, "Les données ont été enregistrées", Toast.LENGTH_SHORT).show();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -71,6 +73,15 @@ public class TaskDetailActivity extends AppCompatActivity {
             }
         }, 3000);
         finish();
+    }
+
+    private boolean validForm(){
+        boolean result=true;
+        if (EdHrs.getText().toString().equals("") || Integer.parseInt(EdHrs.getText().toString())==0){
+            Toast.makeText(TaskDetailActivity.this, "Le nombre de heures est un champ obligatoire", Toast.LENGTH_SHORT).show();
+            result = false;
+        }
+        return result;
     }
 
     private void save(){

@@ -51,7 +51,7 @@
         android:layout_gravity="center_vertical|start"
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
-        android:onClick="saveTask"
+        android:onClick="BtnSaveTask"
         app:layout_anchor="@+id/item_detail_container"
         app:layout_anchorGravity="top|end"
         app:srcCompat="@android:drawable/ic_menu_save" />
@@ -230,6 +230,7 @@
                     android:id="@+id/edHrs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#B9F6CA"
                     android:ems="10"
                     android:importantForAutofill="auto"
                     android:inputType="number" />

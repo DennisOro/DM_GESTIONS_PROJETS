@@ -111,6 +111,9 @@ public class TaskListActivity extends AppCompatActivity {
         });
     }
 
+    public void BtnRefreshList(View v){
+        getListeTask();
+    }
 
 
     class ListViewAdapter extends BaseAdapter {

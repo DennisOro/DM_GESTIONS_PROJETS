@@ -22,17 +22,18 @@
 
 
     </android.support.design.widget.AppBarLayout>
-    <!--
-       <FrameLayout
-               android:id="@+id/frameLayout"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-           <include layout="@layout/task_list"/>
-       </FrameLayout>
-    -->
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnRefresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|start"
+        android:layout_margin="@dimen/fab_margin"
+        android:clickable="true"
+        android:onClick="BtnRefreshList"
+        app:layout_anchor="@+id/toolbar_list"
+        app:layout_anchorGravity="center_vertical|end"
+        app:srcCompat="@android:drawable/ic_popup_sync" />
 
         <ListView
             android:id="@+id/mListView"
