@@ -21,6 +21,8 @@ namespace GestionProjet.Controllers
             User thisUser = new User();
             thisUser = thisUser.getUserInfoByName(firstName, lastName);
             thisUser.NewUser = newUser;
+            thisUser.setSelectedRole(ref thisUser);
+
 
             return View(thisUser);
         }
@@ -28,18 +30,22 @@ namespace GestionProjet.Controllers
         [HttpPost]
         public new ActionResult User(User user)
         {
-            User thisUser = new User();
-            
-            if (thisUser.NewUser)
+            //User thisUser = new User();
+
+            string selectedRole = user.Role.ToString();
+
+            if (user.NewUser)
             {
-                thisUser = thisUser.createUser(user);
+                user = user.createUser(user);
             }
             else
             {
-                thisUser = thisUser.updateUser(user);
+                user = user.updateUser(user);
             }
-            
-            return View(thisUser);
+            //user.setSelectedRole(ref user);
+            //user.Role = 
+
+            return View(user);
         }
     }
 }
