@@ -12,7 +12,7 @@ namespace GestionProjet.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string matricule { get; set; }
-        public int HourlyRate { get; set; }
+        public double HourlyRate { get; set; }
         public int nbrUsers { get; set; }
         public string Role { get; set; }
         public bool NewUser { get; set; }
@@ -79,7 +79,8 @@ namespace GestionProjet.Models
         public User getUserInfoByName(string firstName, string lastName)
         {
             firstName = firstName == null ? "" : firstName.Trim();
-            string query = @"select * from [User] where prenom = '" + firstName + "' and 'nom = " + lastName + "'";
+            lastName = lastName == null ? "" : lastName.Trim();
+            string query = @"select * from [User] where prenom = '" + firstName + "' and nom = '" + lastName + "'";
             return getUserInfo(query);
         }
 
@@ -152,11 +153,12 @@ namespace GestionProjet.Models
                     {
                         while (reader.Read())
                         {
-                            string value = reader[0] == null ? "" : reader[0].ToString();
+                            string value = reader[0] == null ? "" : reader[0].ToString().Trim();
                             rolesList.Add(new SelectListItem
                             {
                                 Value = value,
-                                Text = value
+                                Text = value//,
+                                //Selected = value == "Gestionnaire" ? true : false
                             });
                         }
                     }
@@ -181,11 +183,14 @@ namespace GestionProjet.Models
             try
             {
                 string matricule = user.matricule == null ? "" : user.matricule.Trim();
-                string updateQuery = @"UPDATE [INF6150].[dbo].[User]  SET pernom = '" + user.FirstName + "', "
-                                                                        + "nom =  '" + user.LastName + "', "
-                                                                        + "tauxHoraire =  '" + user.HourlyRate + "' "
-                                                                        + "role =  '" + user.Role + "' "
-                                                                        + "WHERE matricule = " + matricule;
+                string firstName = user.FirstName == null ? "" : user.FirstName.Trim();
+                string lastName = user.LastName == null ? "" : user.LastName.Trim();
+                string role = user.Role == null ? "" : user.Role.Trim();
+                string updateQuery = @"UPDATE [INF6150].[dbo].[User]  SET prenom = '" + firstName + "', "
+                                                                        + "nom =  '" + lastName + "', "
+                                                                        + "tauxHoraire =  " + user.HourlyRate + ", "
+                                                                        + "role =  '" + role + "' "
+                                                                        + "WHERE matricule = '" + matricule + "'";
 
 
                 using (SqlConnection conn = new SqlConnection())
@@ -215,7 +220,8 @@ namespace GestionProjet.Models
 
             if (user != null && !matriculeExists(user.matricule))
             {
-                string createQuery = @"INSERT INTO [INF6150].[dbo].[User] values (" + user.matricule + ",'" + user.FirstName + "'," + user.LastName + ", " + user.HourlyRate + ", '" + user.Role + "')";
+                string createQuery = @"INSERT INTO [INF6150].[dbo].[User] (matricule, prenom, nom, tauxHoraire, role)"
+                                     + "VALUES ('" + user.matricule + "','" + user.FirstName + "','" + user.LastName + "', " + user.HourlyRate + ", '" + user.Role + "')";
 
                 try
                 {
@@ -281,7 +287,19 @@ namespace GestionProjet.Models
             return false;
         }
 
+        public void setSelectedRole(ref User user)
+        {
+            string role = user == null || user.Role == null ? "" : user.Role.Trim();
 
+            if(role != "")
+            foreach(var elem in user.RolesList)
+            {
+                if(elem.Value == role)
+                {
+                    elem.Selected = true;
+                }
+            }
+        }
 
 
     }
