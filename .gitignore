@@ -12,6 +12,10 @@ Thumbs.db
 *.userosscache
 *.sln.docstates
 
+*.pdb
+*.dll
+*.xml
+
 SqlDatabaseConnection.cs
 
 # User-specific files (MonoDevelop/Xamarin Studio)
