@@ -4,12 +4,17 @@
     ViewBag.Title = "Project";
 }
 
+@{ 
+
+    var delete = true;
+}
+
 <h2>Project</h2>
 
 @using (Html.BeginForm("Project", "Project", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
+
 <div class="form-horizontal">
     <h4>Project</h4>
     <hr />
@@ -43,7 +48,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.StartDate, new { @type = "date", @class = "form-control datepicker", @Value = Model.StartDate.ToString() })
+            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -51,7 +56,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.EndDate, new { @type = "date", @class = "form-control datepicker", @Value = Model.EndDate.ToString() })
+            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -61,9 +66,13 @@
             <input type="submit" value="Save" class="btn btn-default" />
         </div>
     </div>
+    <div>
+        <p>
+        @ViewBag.Message
+
+        </p>
+
+    </div>
 </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

@@ -50,32 +50,41 @@
 
             @foreach (var item in Model.ProjectsList)
             {
-                <tr>
-                    <td>
-                        @item.ProjectId
-                    </td>
-                    <td>
-                        @item.ProjectName
-                    </td>
-                    <td>
-                        @if (Model.Login.Role == "Utilisateur")
-                        {
-                            <input type="submit" value="Modifier" disabled />
-                        }
-                        else
-                        {
-                            <input type="submit" value="Modifier" onclick="window.open('@Url.Action("Project", "Project", new {projectId=@item.ProjectId, target = "_blank"})')" />
+            <tr>
+                <td>
+                    @item.ProjectId
+                </td>
+                <td>
+                    @item.ProjectName
+                </td>
+                <td>
+                    @if (Model.Login.Role == "Utilisateur")
+                    {
+                        <input type="submit" value="Modifier" disabled />
+                    }
+                    else
+                    {
+                        <input type="submit" value="Modifier" onclick="window.open('@Url.Action("Project", "Project", new {projectId=@item.ProjectId, deleteProject = false, target = "_blank"})')" />
+                    }
+                </td>
+                <td>
+                    @if (Model.Login.Role == "Utilisateur")
+                    {
+                        <input type="submit" value="Supprimer" disabled />
+                    }
+                    else
+                    {
+                        <input type="submit" value="Supprimer" onclick="window.open('@Url.Action("Project", "Project", new {projectId=@item.ProjectId, deleteProject = true, target = "_blank"})')" />
+                    }
+                </td>
 
-                        }
-                    </td>
-
-                </tr>
+            </tr>
             }
         </table>
         @if (Model.Login.Role != "Utilisateur")
         {
             <div class=row>
-                <input type="submit" value="Créer un Projet" onclick="window.open('@Url.Action("Project", "Project", new { target="_blank", projectId=0 })')" />
+                <input type="submit" value="Créer un Projet" onclick="window.open('@Url.Action("Project", "Project", new { target="_blank", projectId=0, deleteProject = false, })')" />
             </div>
         }
     </div>

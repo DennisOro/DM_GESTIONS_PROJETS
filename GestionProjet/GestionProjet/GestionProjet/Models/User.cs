@@ -16,6 +16,7 @@ namespace GestionProjet.Models
         public int nbrUsers { get; set; }
         public string Role { get; set; }
         public bool NewUser { get; set; }
+
         public IEnumerable<SelectListItem> RolesList { get; set; }
 
         public User()

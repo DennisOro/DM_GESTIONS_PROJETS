@@ -16,8 +16,9 @@ namespace GestionProjet.Models
         public int IdEtat { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
+        public bool delete { get; set; }
 
-        
+
 
         public List<Project> getProjectsFromDatabase()
         {
@@ -290,7 +291,132 @@ namespace GestionProjet.Models
             }
             return stateId;
         }
+
+        public void deleteProject(int projectId)
+        {
+            List<int> tasksList = getIDTasksForProject(projectId);
+
+            deleteTasksFromTaskUser(tasksList);
+
+            deleteTasksRelatedToProject(projectId);
+
+            string deleteQuery = @"delete from Project where idProjet = " + projectId;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    SqlCommand command = new SqlCommand(deleteQuery, conn);
+
+                    command.ExecuteNonQuery();
+
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
+
+        public List<int> getIDTasksForProject(int projectId)
+        {
+            List<int> idTasks = new List<int>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    string query = @"select * from [INF6150].[dbo].[Task] where idProjet =" + projectId;
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    try
+                    {
+                        while (reader.Read())
+                        {
+                            idTasks.Add(reader[0] == null ? 0 : Convert.ToInt32(reader[0]));
+                        }
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return idTasks;
+        }
+
+        public void deleteTasksFromTaskUser(List<int> idTasks)
+        {
+            foreach(int idTask in idTasks)
+            {
+                string deleteQuery = @"delete from [INF6150].[dbo].[TaskUser] where idTache = " + idTask;
+
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection())
+                    {
+                        conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                        conn.Open();
+
+                        SqlCommand command = new SqlCommand(deleteQuery, conn);
+
+                        command.ExecuteNonQuery();
+
+                        conn.Close();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
+        }
+
+        public void deleteTasksRelatedToProject(int projectId)
+        {
+            string deleteQuery = @"delete  from [INF6150].[dbo].[Task] where idProjet = " + projectId;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    SqlCommand command = new SqlCommand(deleteQuery, conn);
+
+                    command.ExecuteNonQuery();
+
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
+
     }
-
-
 }
