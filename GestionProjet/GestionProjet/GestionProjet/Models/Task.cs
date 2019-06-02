@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
+using System.Web.Mvc;
 
 
 namespace GestionProjet.Models
@@ -17,6 +18,15 @@ namespace GestionProjet.Models
         public string Status { get; set; }
         public int idProjet { get; set; }
         public bool NewTask { get; set; }
+
+        public IEnumerable<SelectListItem> StatusList { get; set; }
+        public IEnumerable<SelectListItem> ProjectsList { get; set; }
+
+        public Task()
+        {
+            StatusList = fillOutStatusesList();
+            ProjectsList = fillOutProjectsList();
+        }
 
         public List<Task> getTasksFromDatabase()
         {
@@ -189,6 +199,93 @@ namespace GestionProjet.Models
             }
             return false;
         }
+
+        public IEnumerable<SelectListItem> fillOutStatusesList()
+        {
+            var statusList = new List<SelectListItem>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    string query = @"select descEtat from [INF6150].[dbo].[Etat]";
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    try
+                    {
+                        while (reader.Read())
+                        {
+                            string value = reader[0] == null ? "" : reader[0].ToString().Trim();
+                            statusList.Add(new SelectListItem
+                            {
+                                Value = value,
+                                Text = value
+                            });
+                        }
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return statusList;
+        }
+
+        public IEnumerable<SelectListItem> fillOutProjectsList()
+        {
+            var projectsList = new List<SelectListItem>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    string query = @"select idProjet from [INF6150].[dbo].[Project]";
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    try
+                    {
+                        while (reader.Read())
+                        {
+                            int value = reader[0] == null ? 0 : Convert.ToInt32(reader[0]);
+                            projectsList.Add(new SelectListItem
+                            {
+                                Value = value.ToString(),
+                                Text = value.ToString()
+                            });
+                        }
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return projectsList;
+        }
+
 
 
 
