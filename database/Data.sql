@@ -35,14 +35,16 @@ insert into [INF6150].[dbo].[User]
 select *  from (
 select 'AAA101' as mat, 'John' as pre, 'Dugat' as nom, 12.5 as taux, 'Utilisateur' as rol union all
 select 'AAA102' , 'Marc' as pre, 'St-Pierre' as nom, 25 as taux, 'Gestionnaire' union all
-select 'AAA103' , 'Andrew' , 'Li' , 12.5 , 'Utilisateur'
+select 'AAA103' , 'Andrew' , 'Li' , 12.5 , 'Utilisateur' union all
+select 'AAA104' , 'Mad' , 'Max' , 95 , 'Admin'
 ) as tmp
 
 insert into [INF6150].[dbo].[Login]
 select *  from (
 select 'uqam' as login, '123' as pass, 'AAA101' as nmat union all
 select 'marc' as login, '111' as pass, 'AAA102' as nmat union all
-select 'ali' as login, '222' as pass, 'AAA103' as nmat
+select 'ali' as login, '222' as pass, 'AAA103' as nmat union all
+select 'mm' as login, '777' as pass, 'AAA104' as nmat
 
 ) as tmp
 

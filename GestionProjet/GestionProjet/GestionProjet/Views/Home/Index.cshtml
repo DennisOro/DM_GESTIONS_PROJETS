@@ -156,21 +156,49 @@
                     Tâche
                 </th>
                 <th>
+                    ID Projet
+                </th>
+                <th>
                     Statut
+                </th>
+                <th>
+                    Nombre d'heures travaillées
+                </th>
+                <th>
+                    Nombre d'heures estimées
                 </th>
                 <th></th>
             </tr>
 
             @foreach (var item in Model.TasksList)
             {
-                <tr>
-                    <td>
-                        @item.Description
-                    </td>
-                    <td>
-                        @item.nbHeures
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @item.Description
+                </td>
+                <td>
+                    @item.idProjet
+                </td>
+                <td>
+                    @item.Status
+                </td>
+                <td>
+                    @item.nbHeuresTravaille
+                </td>
+                <td>
+                    @item.nbHeuresEstime
+                </td>
+                <td>
+                    @if (Model.Login.Role != "Gestionnaire")
+                    {
+                        <input type="submit" value="Modifier" disabled />
+                    }
+                    else
+                    {
+                        <input type="submit" value="Modifier" onclick="window.open('@Url.Action("Task", "Task", new {description = @item.Description, idProjet = @item.idProjet})')" />
+                    }
+                </td>
+            </tr>
             }
         </table>
     </div>

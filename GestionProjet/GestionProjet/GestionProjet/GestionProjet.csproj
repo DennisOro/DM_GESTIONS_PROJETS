@@ -160,6 +160,7 @@
     <Compile Include="Controllers\DeleteProjectTest.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="GestProjWebService.svc.cs">
       <DependentUpon>GestProjWebService.svc</DependentUpon>
@@ -240,6 +241,7 @@
     <Content Include="Views\Project\Project.cshtml" />
     <Content Include="Views\Admin\Admin.cshtml" />
     <Content Include="Views\User\User.cshtml" />
+    <Content Include="Views\Task\Task.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
