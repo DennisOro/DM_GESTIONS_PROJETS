@@ -87,22 +87,20 @@ namespace GestionProjet.Controllers
         {
             Project project = new Project();
 
-           // int projId = Convert.ToInt32(projectId);
-
-            project.deleteProject(projectId);
-
-            return "Projet est supprimé";
+            if(project.deleteProject(projectId))
+                return "Le projet est supprimé.";
+            else
+                return "Le projet ne peut pas être supprimé.";
         }
 
         public string deleteUser(string firstName, string lastName)
         {
             User user = new User();
 
-            // int projId = Convert.ToInt32(projectId);
-
-            //project.deleteProject(projectId);
-
-            return "Employé est supprimé";
+            if (user.deleteUser(firstName, lastName))
+                return "L'employé est supprimé.";
+            else
+                return "L'employé ne peut pas être supprimé.";
         }
     }
 }

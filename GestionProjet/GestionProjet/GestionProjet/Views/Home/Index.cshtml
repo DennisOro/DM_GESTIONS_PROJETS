@@ -193,11 +193,10 @@
     }
 
     function deleteUser(firstName, lastName) {
-        alert("I'm in");
         $.ajax({
             url: "/Home/deleteUser",
             type: 'POST',
-            data: { firstName: firstName},
+            data: { firstName: firstName, lastName: lastName},
             success: function (result) {
                 alert(result);
                 location.reload();

@@ -302,6 +302,35 @@ namespace GestionProjet.Models
             }
         }
 
+        public bool deleteUser(string firstName, string lastName)
+        {
+            User newUser = getUserInfoByName(firstName, lastName);
 
+            string deleteQuery = @"delete from [INF6150].[dbo].[User] where matricule = '" + newUser.matricule + "'";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    SqlCommand command = new SqlCommand(deleteQuery, conn);
+
+                    command.ExecuteNonQuery();
+
+                    conn.Close();
+
+                    return true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return false;
+        }
     }
 }

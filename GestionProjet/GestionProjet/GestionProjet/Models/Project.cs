@@ -292,7 +292,7 @@ namespace GestionProjet.Models
             return stateId;
         }
 
-        public void deleteProject(int projectId)
+        public bool deleteProject(int projectId)
         {
             List<int> tasksList = getIDTasksForProject(projectId);
 
@@ -315,6 +315,8 @@ namespace GestionProjet.Models
                     command.ExecuteNonQuery();
 
                     conn.Close();
+
+                    return true;
                 }
 
             }
@@ -322,6 +324,7 @@ namespace GestionProjet.Models
             {
                 Console.WriteLine(ex.ToString());
             }
+            return false;
         }
 
         public List<int> getIDTasksForProject(int projectId)
