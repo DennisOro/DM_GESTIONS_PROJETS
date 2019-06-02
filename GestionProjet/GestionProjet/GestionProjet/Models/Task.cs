@@ -161,7 +161,34 @@ namespace GestionProjet.Models
             return task;
         }
 
+        public bool deleteTask(int idTask)
+        {
+            string deleteQuery = @"delete from [INF6150].[dbo].[TaskUser] where idTache = " + idTask + "; delete from [INF6150].[dbo].[Task] where idTache = " + idTask; 
 
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    SqlCommand command = new SqlCommand(deleteQuery, conn);
+
+                    command.ExecuteNonQuery();
+
+                    conn.Close();
+
+                    return true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return false;
+        }
 
 
 

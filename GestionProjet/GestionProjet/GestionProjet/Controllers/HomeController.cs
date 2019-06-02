@@ -102,5 +102,15 @@ namespace GestionProjet.Controllers
             else
                 return "L'employé ne peut pas être supprimé.";
         }
+
+        public string deleteTask(int idTask)
+        {
+            Task task = new Task();
+
+            if (task.deleteTask(idTask))
+                return "La tache est supprimée.";
+            else
+                return "La tache ne peut pas être supprimée.";
+        }
     }
 }

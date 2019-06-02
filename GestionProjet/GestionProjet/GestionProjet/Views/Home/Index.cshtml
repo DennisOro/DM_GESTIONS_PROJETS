@@ -198,9 +198,25 @@
                         <input type="submit" value="Modifier" onclick="window.open('@Url.Action("Task", "Task", new {description = @item.Description, idProjet = @item.idProjet, newTask = false})')" />
                     }
                 </td>
+                <td>
+                    @if (Model.Login.Role != "Gestionnaire")
+                    {
+                        <input type="submit" value="Supprimer" disabled />
+                    }
+                    else
+                    {
+                        <input type="submit" value="Supprimer" onclick="deleteTask(@item.IdTask)" />
+                    }
+                </td>
             </tr>
             }
         </table>
+        @if (Model.Login.Role == "Gestionnaire")
+        {
+            <div class=row>
+                <input type="submit" value="Créer une Tache" onclick="window.open('@Url.Action("Task", "Task", new {description = "", idProjet = 0, newTask = true})')" />
+            </div>
+        }
     </div>
 }
 
@@ -225,6 +241,21 @@
             url: "/Home/deleteUser",
             type: 'POST',
             data: { firstName: firstName, lastName: lastName},
+            success: function (result) {
+                alert(result);
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                alert("Erreur");
+            }
+        });
+    }
+
+    function deleteTask(idTask) {
+        $.ajax({
+            url: "/Home/deleteTask",
+            type: 'POST',
+            data: { idTask: idTask},
             success: function (result) {
                 alert(result);
                 location.reload();
