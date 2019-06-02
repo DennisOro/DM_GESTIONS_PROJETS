@@ -286,6 +286,120 @@ namespace GestionProjet.Models
             return projectsList;
         }
 
+        public Task createTask(Task task)
+        {
+            // test if task does not exist
+
+            task.idStatus = getStatusID(task.Status);
+
+                string createQuery = @"INSERT INTO [INF6150].[dbo].[Task] (idTache, description, idProjet, nbrHeuresEstime, idEtat) "
+                                     + "VALUES (" + getNextTaskID() + ",'" + task.Description + "', " + task.idProjet + ", " + task.nbHeuresEstime + ", " + task.idStatus + ")";
+
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection())
+                    {
+                        conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                        conn.Open();
+
+                        SqlCommand command = new SqlCommand(createQuery, conn);
+
+                        command.ExecuteNonQuery();
+
+                        conn.Close();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            return task;
+        }
+
+        public int getNextTaskID()
+        {
+            string query = @"select top 1 idTache from [INF6150].[dbo].[Task] order by idTache desc";
+
+            int nextIdTask = 0;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    try
+                    {
+                        if (reader.Read())
+                        {
+                            nextIdTask = reader[0] == null ? 0 : Convert.ToInt32(reader[0]);
+                        }
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return nextIdTask + 1;
+        }
+
+        public int getStatusID(string statusDescr)
+        {
+            string query = @"select idEtat from [INF6150].[dbo].[Etat] where descEtat like '" + statusDescr + "%'";
+
+            int idEtat = 0;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    try
+                    {
+                        if (reader.Read())
+                        {
+                            idEtat = reader[0] == null ? 0 : Convert.ToInt32(reader[0]);
+                        }
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return idEtat;
+        }
+
+
+
+
 
 
 
