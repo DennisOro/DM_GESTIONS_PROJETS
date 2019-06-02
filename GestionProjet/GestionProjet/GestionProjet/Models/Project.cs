@@ -16,7 +16,6 @@ namespace GestionProjet.Models
         public int IdEtat { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
-        public bool delete { get; set; }
 
 
 
