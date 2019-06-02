@@ -195,7 +195,7 @@
                     }
                     else
                     {
-                        <input type="submit" value="Modifier" onclick="window.open('@Url.Action("Task", "Task", new {description = @item.Description, idProjet = @item.idProjet})')" />
+                        <input type="submit" value="Modifier" onclick="window.open('@Url.Action("Task", "Task", new {description = @item.Description, idProjet = @item.idProjet, newTask = false})')" />
                     }
                 </td>
             </tr>

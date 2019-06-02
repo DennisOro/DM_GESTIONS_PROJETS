@@ -13,9 +13,10 @@ namespace GestionProjet.Models
         public string Description { get; set; }
         public int nbHeuresTravaille { get; set; }
         public int nbHeuresEstime { get; set; }
+        public int idStatus { get; set; }
         public string Status { get; set; }
         public int idProjet { get; set; }
-        //public Project Project { get; set; }
+        public bool NewTask { get; set; }
 
         public List<Task> getTasksFromDatabase()
         {
@@ -28,7 +29,7 @@ namespace GestionProjet.Models
 
                     conn.Open();
 
-                    string query = @"select distinct t.idTache, t.description, tp.totHeuresTravaillees, tp.nbrHeuresEstime, e.descEtat, t.idProjet
+                    string query = @"select distinct t.idTache, t.description, tp.totHeuresTravaillees, tp.nbrHeuresEstime, e.descEtat, t.idProjet, t.idEtat
                                     from [INF6150].[dbo].[Task] t
                                     join [INF6150].[dbo].[qTaskPrj] tp on t.idTache = tp.idTache and t.idProjet = tp.idProjet
                                     join [INF6150].[dbo].[Etat] e on t.idEtat = e.idEtat";
@@ -48,6 +49,7 @@ namespace GestionProjet.Models
                                 nbHeuresEstime = reader[3] == null ? 0 : Convert.ToInt32(reader[3]),
                                 Status = reader[4] == null ? "" : reader[4].ToString().Trim(),
                                 idProjet = reader[5] == null ? 0 : Convert.ToInt32(reader[5]),
+                                idStatus = reader[6] == null ? 0 : Convert.ToInt32(reader[6])
                             });
                         }
                     }
@@ -71,7 +73,7 @@ namespace GestionProjet.Models
 
         public Task getTaskInfo(string description, int idProjet)
         {
-            string query = @"select distinct t.idTache, t.description, tp.totHeuresTravaillees, tp.nbrHeuresEstime, e.descEtat, t.idProjet
+            string query = @"select distinct t.idTache, t.description, tp.totHeuresTravaillees, tp.nbrHeuresEstime, e.descEtat, t.idProjet, t.idEtat
                                     from [INF6150].[dbo].[Task] t
                                     join [INF6150].[dbo].[qTaskPrj] tp on t.idTache = tp.idTache and t.idProjet = tp.idProjet
                                     join [INF6150].[dbo].[Etat] e on t.idEtat = e.idEtat 
@@ -97,6 +99,7 @@ namespace GestionProjet.Models
                             nbHeuresEstime = reader[3] == null ? 0 : Convert.ToInt32(reader[3]);
                             Status = reader[4] == null ? "" : reader[4].ToString().Trim();
                             idProjet = reader[5] == null ? 0 : Convert.ToInt32(reader[5]);
+                            idStatus = reader[6] == null ? 0 : Convert.ToInt32(reader[6]);
                         }
                         else
                         {
@@ -124,9 +127,41 @@ namespace GestionProjet.Models
             return this;
         }
 
+        public Task updateTask(Task task)
+        {
+            try
+            {
+                string description = task.Description == null ? "" : task.Description.ToString().Trim();
+//                string status = task.Status == null ? "" : task.Status.ToString().Trim();
+
+                string updateQuery = @"update [INF6150].[dbo].[Task] set description = '" + description + "', " 
+                                                                            + "idProjet = " + task.idProjet + ", "
+                                                                            + "idEtat = " + task.idStatus + ", "
+                                                                            + "nbrHeuresEstime = " + task.nbHeuresEstime + " "
+                                                                            + "where idTache = " + task.IdTask;
+
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    SqlCommand command = new SqlCommand(updateQuery, conn);
+
+                    command.ExecuteNonQuery();
+
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return task;
+        }
 
 
-        
 
 
 

@@ -10,13 +10,34 @@ namespace GestionProjet.Controllers
     public class TaskController : Controller
     {
         // GET: Task
-        public ActionResult Task(string description, int idProjet)
+        public ActionResult Task(string description, int idProjet, bool newTask)
         {
-            Task newTask = new Task();
+            Task thisTask = new Task();
 
-            newTask = newTask.getTaskInfo(description, idProjet);
+            thisTask = thisTask.getTaskInfo(description, idProjet);
+            thisTask.NewTask = newTask;
 
-            return View(newTask);
+            return View(thisTask);
         }
+
+        [HttpPost]
+        public new ActionResult Task(Task task)
+        {
+            if(task.NewTask)
+            {
+
+            }
+            else
+            {
+                task.updateTask(task);
+            }
+
+            
+
+            return View(task);
+        }
+
+
+
     }
 }
