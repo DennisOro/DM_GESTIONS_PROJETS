@@ -36,7 +36,7 @@ namespace GestionProjet.Models
                         {
                             TasksList.Add(new Task()
                             {
-                                Description = reader[1] == null ? "" : reader[1].ToString(),
+                                Description = reader[1] == null ? "" : reader[1].ToString().Trim(),
                                 nbHeures = reader[3] == null ? 0 : Convert.ToInt32(reader[3])
                             });
                         }

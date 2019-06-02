@@ -108,24 +108,34 @@
 
             @foreach (var item in Model.UsersList)
             {
-                <tr>
-                    <td>
-                        @item.FirstName
-                    </td>
-                    <td>
-                        @item.LastName
-                    </td>
-                    <td>
-                        @if (Model.Login.Role != "Admin")
-                        {
-                            <input type="submit" value="Modifier" disabled />
-                        }
-                        else
-                        {
-                            <input type="submit" value="Modifier" onclick="window.open('@Url.Action("User", "User", new {firstName = @item.FirstName, lastName = @item.LastName, newUser = false })')" />
-                        }
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @item.FirstName
+                </td>
+                <td>
+                    @item.LastName
+                </td>
+                <td>
+                    @if (Model.Login.Role != "Admin")
+                    {
+                        <input type="submit" value="Modifier" disabled />
+                    }
+                    else
+                    {
+                        <input type="submit" value="Modifier" onclick="window.open('@Url.Action("User", "User", new {firstName = @item.FirstName, lastName = @item.LastName, newUser = false })')" />
+                    }
+                </td>
+                <td>
+                    @if (Model.Login.Role != "Admin")
+                    {
+                        <input type="submit" value="Supprimer" disabled />
+                    }
+                    else
+                    {
+                        <input type="submit" value="Supprimer" id="deleteUser" onclick="deleteUser('@item.FirstName', '@item.LastName')" />
+                    }
+                </td>
+            </tr>
             }
         </table>
         @if (Model.Login.Role == "Admin")
@@ -177,8 +187,24 @@
                 location.reload();
             },
             error: function (xhr, status, error) {
-                alert("Erreur");
+                alert(status + error);
             }  
+        });
+    }
+
+    function deleteUser(firstName, lastName) {
+        alert("I'm in");
+        $.ajax({
+            url: "/Home/deleteUser",
+            type: 'POST',
+            data: { firstName: firstName},
+            success: function (result) {
+                alert(result);
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                alert("Erreur");
+            }
         });
     }
     

@@ -93,5 +93,16 @@ namespace GestionProjet.Controllers
 
             return "Projet est supprimé";
         }
+
+        public string deleteUser(string firstName, string lastName)
+        {
+            User user = new User();
+
+            // int projId = Convert.ToInt32(projectId);
+
+            //project.deleteProject(projectId);
+
+            return "Employé est supprimé";
+        }
     }
 }

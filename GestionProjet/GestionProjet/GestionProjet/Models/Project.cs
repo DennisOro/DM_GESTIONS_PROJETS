@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
+using System.Web.Mvc;
 
 namespace GestionProjet.Models
 {
@@ -17,7 +18,7 @@ namespace GestionProjet.Models
         public string StartDate { get; set; }
         public string EndDate { get; set; }
 
-
+        public IEnumerable<SelectListItem> StatesList { get; set; }
 
         public List<Project> getProjectsFromDatabase()
         {
@@ -39,7 +40,7 @@ namespace GestionProjet.Models
                     {
                         while (reader.Read())
                         {
-                            ProjectsList.Add(new Project() { ProjectId = Convert.ToInt32(reader[0]), ProjectName = reader[1].ToString() });
+                            ProjectsList.Add(new Project() { ProjectId = Convert.ToInt32(reader[0]), ProjectName = reader[1].ToString().Trim() });
                         }
                     }
                     finally
@@ -80,9 +81,9 @@ namespace GestionProjet.Models
                         if (reader.Read())
                         {
                             ProjectId = reader[0] == null ? 0 : Convert.ToInt32(reader[0]);
-                            ProjectName = reader[1] == null ? "" : reader[1].ToString();
-                            StartDate = reader[4] == null ? "" : reader[4].ToString();
-                            EndDate = reader[5] == null ? "" : reader[5].ToString();
+                            ProjectName = reader[1] == null ? "" : reader[1].ToString().Trim();
+                            StartDate = reader[4] == null ? "" : reader[4].ToString().Trim();
+                            EndDate = reader[5] == null ? "" : reader[5].ToString().Trim();
                         }
                     }
                     finally
