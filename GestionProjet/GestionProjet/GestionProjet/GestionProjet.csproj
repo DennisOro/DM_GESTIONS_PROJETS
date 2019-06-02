@@ -157,6 +157,8 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\DeleteProject.cs" />
+    <Compile Include="Controllers\DeleteProjectTest.cs" />
     <Compile Include="Controllers\DeleteProjectController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />

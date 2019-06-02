@@ -83,6 +83,15 @@ namespace GestionProjet.Controllers
             return View(combinedModel);
         }
 
-        
+        public string deleteProject(int projectId)
+        {
+            Project project = new Project();
+
+           // int projId = Convert.ToInt32(projectId);
+
+            project.deleteProject(projectId);
+
+            return "Projet est supprimé";
+        }
     }
 }

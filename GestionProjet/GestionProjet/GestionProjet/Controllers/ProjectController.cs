@@ -42,6 +42,8 @@ namespace GestionProjet.Controllers
             if (project.ProjectId == 0)
             {
                 thisProject = thisProject.createProject(project);
+                ViewBag.Message = "Projet est crée!";
+
             }
             else
             {

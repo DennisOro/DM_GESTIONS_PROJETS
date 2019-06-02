@@ -10,6 +10,8 @@
     <h1>Pro-manager</h1>
 </div>
 
+
+
 @using (Html.BeginForm("Index", "Home", FormMethod.Post))
 {
     <div class="jumbotron">
@@ -50,35 +52,35 @@
 
             @foreach (var item in Model.ProjectsList)
             {
-            <tr>
-                <td>
-                    @item.ProjectId
-                </td>
-                <td>
-                    @item.ProjectName
-                </td>
-                <td>
-                    @if (Model.Login.Role == "Utilisateur")
-                    {
-                        <input type="submit" value="Modifier" disabled />
-                    }
-                    else
-                    {
-                        <input type="submit" value="Modifier" onclick="window.open('@Url.Action("Project", "Project", new {projectId=@item.ProjectId, deleteProject = false, target = "_blank"})')" />
-                    }
-                </td>
-                <td>
-                    @if (Model.Login.Role == "Utilisateur")
-                    {
-                        <input type="submit" value="Supprimer" disabled />
-                    }
-                    else
-                    {
-                        <input type="submit" value="Supprimer" onclick="window.open('@Url.Action("Project", "Project", new {projectId=@item.ProjectId, deleteProject = true, target = "_blank"})')" />
-                    }
-                </td>
+                <tr>
+                    <td>
+                        @item.ProjectId
+                    </td>
+                    <td>
+                        @item.ProjectName
+                    </td>
+                    <td>
+                        @if (Model.Login.Role == "Utilisateur")
+                        {
+                            <input type="submit" value="Modifier" disabled />
+                        }
+                        else
+                        {
+                            <input type="submit" value="Modifier" onclick="window.open('@Url.Action("Project", "Project", new {projectId=@item.ProjectId, deleteProject = false, target = "_blank"})')" />
+                        }
+                    </td>
+                    <td>
+                        @if (Model.Login.Role == "Utilisateur")
+                        {
+                            <input type="submit" value="Supprimer" disabled />
+                        }
+                        else
+                        {
+                            <input type="submit" value="Supprimer" id="deleteProject" onclick="deleteProject(@item.ProjectId)" />
+                        }
+                    </td>
 
-            </tr>
+                </tr>
             }
         </table>
         @if (Model.Login.Role != "Utilisateur")
@@ -89,52 +91,52 @@
         }
     </div>
 
-    
 
-        <div class=jumbotron>
-            <p>Employés</p>
-            <table class="table">
-                <tr>
-                    <th>
-                        Prenom Employé
-                    </th>
-                    <th>
-                        Nom Employé
-                    </th>
-                    <th></th>
-                </tr>
 
-                @foreach (var item in Model.UsersList)
-                {
-                    <tr>
-                        <td>
-                            @item.FirstName
-                        </td>
-                        <td>
-                            @item.LastName
-                        </td>
-                        <td>
-                            @if (Model.Login.Role != "Admin")
-                            {
-                                <input type="submit" value="Modifier" disabled />
-                            }
-                            else
-                            {
-                                <input type="submit" value="Modifier" onclick="window.open('@Url.Action("User", "User", new {firstName = @item.FirstName, lastName = @item.LastName, newUser = false })')" />
-                            }
-                        </td>
-                    </tr>
-                }
-            </table>
-            @if (Model.Login.Role == "Admin")
+    <div class=jumbotron>
+        <p>Employés</p>
+        <table class="table">
+            <tr>
+                <th>
+                    Prenom Employé
+                </th>
+                <th>
+                    Nom Employé
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.UsersList)
             {
+                <tr>
+                    <td>
+                        @item.FirstName
+                    </td>
+                    <td>
+                        @item.LastName
+                    </td>
+                    <td>
+                        @if (Model.Login.Role != "Admin")
+                        {
+                            <input type="submit" value="Modifier" disabled />
+                        }
+                        else
+                        {
+                            <input type="submit" value="Modifier" onclick="window.open('@Url.Action("User", "User", new {firstName = @item.FirstName, lastName = @item.LastName, newUser = false })')" />
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+        @if (Model.Login.Role == "Admin")
+        {
             <div class=row>
                 <input type="submit" value="Créer un Employé" onclick="window.open('@Url.Action("User", "User", new { target="_blank", firstName = "", lastName ="", newUser = true })')" />
             </div>
-            }
-        </div>
+        }
+    </div>
 
-    
+
 
     <div class=jumbotron>
         <p>Tâches</p>
@@ -163,3 +165,22 @@
         </table>
     </div>
 }
+
+<script type="text/javascript">
+    function deleteProject(projectId) {
+        $.ajax({
+            url: "/Home/deleteProject",
+            type: 'POST',
+            data: { projectId: projectId },
+            success: function (result) {
+                alert(result);
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                alert("Erreur");
+            }  
+        });
+    }
+    
+</script>
+
