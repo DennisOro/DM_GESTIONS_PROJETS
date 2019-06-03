@@ -172,7 +172,7 @@
                 <th></th>
             </tr>
 
-            @foreach (var item in tasksList)
+            @foreach (var item in Model.TasksList)
             {
             <tr>
                 <td>
@@ -275,7 +275,7 @@
             data: { idProject: idProject },
             success: function (result) {
                 var listObjects = JSON.parse(result);
-                alert(listObjects);
+                alert(result);
              //   location.reload();
             },
             error: function (xhr, status, error) {

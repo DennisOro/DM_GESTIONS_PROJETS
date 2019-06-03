@@ -79,7 +79,7 @@ namespace GestionProjet.Controllers
 
             Task task = new Task();
 
-            //combinedModel.TasksList = task.getAllTasksFromDatabase();
+            combinedModel.TasksList = task.getAllTasksFromDatabase();
 
             return View(combinedModel);
         }
