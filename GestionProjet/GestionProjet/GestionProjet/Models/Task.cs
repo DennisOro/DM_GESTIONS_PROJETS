@@ -156,6 +156,7 @@ namespace GestionProjet.Models
 
         public Task updateTask(Task task)
         {
+            task.idStatus = getStatusID(task.Status);
             try
             {
                 string description = task.Description == null ? "" : task.Description.ToString().Trim();
