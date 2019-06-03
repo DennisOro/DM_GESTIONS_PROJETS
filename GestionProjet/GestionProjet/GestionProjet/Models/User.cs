@@ -306,7 +306,8 @@ namespace GestionProjet.Models
         {
             User newUser = getUserInfoByName(firstName, lastName);
 
-            string deleteQuery = @"delete from [INF6150].[dbo].[User] where matricule = '" + newUser.matricule + "'";
+            string deleteQuery = @" delete from [INF6150].[dbo].[TaskUser] where matricule = '" + newUser.matricule + "';"
+                                 + "delete from [INF6150].[dbo].[User] where matricule = '" + newUser.matricule + "'";
 
             try
             {
