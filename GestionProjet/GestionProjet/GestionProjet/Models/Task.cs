@@ -28,7 +28,28 @@ namespace GestionProjet.Models
             ProjectsList = fillOutProjectsList();
         }
 
-        public List<Task> getTasksFromDatabase()
+        public List<Task> getAllTasksFromDatabase()
+        {
+            string query = @"select distinct t.idTache, t.description, tp.totHeuresTravaillees, tp.nbrHeuresEstime, e.descEtat, t.idProjet, t.idEtat
+                                    from [INF6150].[dbo].[Task] t
+                                    join [INF6150].[dbo].[qTaskPrj] tp on t.idTache = tp.idTache and t.idProjet = tp.idProjet
+                                    join [INF6150].[dbo].[Etat] e on t.idEtat = e.idEtat";
+
+            return getTasksFromDatabase(query);
+        }
+
+        public List<Task> getTasksListForProject(int idProject)
+        {
+            string query = @"select distinct t.idTache, t.description, tp.totHeuresTravaillees, tp.nbrHeuresEstime, e.descEtat, t.idProjet, t.idEtat
+                                    from [INF6150].[dbo].[Task] t
+                                    join [INF6150].[dbo].[qTaskPrj] tp on t.idTache = tp.idTache and t.idProjet = tp.idProjet
+                                    join [INF6150].[dbo].[Etat] e on t.idEtat = e.idEtat
+									where t.idProjet = " + idProject;
+
+            return getTasksFromDatabase(query);
+        }
+
+        public List<Task> getTasksFromDatabase(string query)
         {
             List<Task> TasksList = new List<Task>();
             try
@@ -39,11 +60,7 @@ namespace GestionProjet.Models
 
                     conn.Open();
 
-                    string query = @"select distinct t.idTache, t.description, tp.totHeuresTravaillees, tp.nbrHeuresEstime, e.descEtat, t.idProjet, t.idEtat
-                                    from [INF6150].[dbo].[Task] t
-                                    join [INF6150].[dbo].[qTaskPrj] tp on t.idTache = tp.idTache and t.idProjet = tp.idProjet
-                                    join [INF6150].[dbo].[Etat] e on t.idEtat = e.idEtat";
-
+                    
                     SqlCommand command = new SqlCommand(query, conn);
 
                     SqlDataReader reader = command.ExecuteReader();
@@ -397,7 +414,7 @@ namespace GestionProjet.Models
             return idEtat;
         }
 
-
+        
 
 
 

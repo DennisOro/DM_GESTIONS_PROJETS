@@ -6,7 +6,8 @@ using System.Dynamic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SqlConnection = System.Data.SqlClient.SqlConnection;
+using System.Web.Script.Serialization;
+
 
 namespace GestionProjet.Controllers
 {
@@ -27,7 +28,7 @@ namespace GestionProjet.Controllers
 
             Task task = new Task();
 
-            combinedModel.TasksList = task.getTasksFromDatabase();
+            combinedModel.TasksList = task.getAllTasksFromDatabase();
 
             combinedModel.Login = new Login();
 
@@ -78,7 +79,7 @@ namespace GestionProjet.Controllers
 
             Task task = new Task();
 
-            combinedModel.TasksList = task.getTasksFromDatabase();
+            //combinedModel.TasksList = task.getAllTasksFromDatabase();
 
             return View(combinedModel);
         }
@@ -111,6 +112,14 @@ namespace GestionProjet.Controllers
                 return "La tache est supprimée.";
             else
                 return "La tache ne peut pas être supprimée.";
+        }
+
+        public string getTasksListForProject(int idProject)
+        {
+            Task task = new Task();
+            List<Task> tasksList = task.getTasksListForProject(idProject);
+
+            return new JavaScriptSerializer().Serialize(tasksList);
         }
     }
 }

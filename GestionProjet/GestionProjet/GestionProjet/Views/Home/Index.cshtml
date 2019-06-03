@@ -10,7 +10,9 @@
     <h1>Pro-manager</h1>
 </div>
 
-
+@{ 
+    List<Task> tasksList = new List<Task>();
+}
 
 @using (Html.BeginForm("Index", "Home", FormMethod.Post))
 {
@@ -52,7 +54,7 @@
 
             @foreach (var item in Model.ProjectsList)
             {
-                <tr>
+                <tr onclick="getTasksList(@item.ProjectId)">
                     <td>
                         @item.ProjectId
                     </td>
@@ -170,7 +172,7 @@
                 <th></th>
             </tr>
 
-            @foreach (var item in Model.TasksList)
+            @foreach (var item in tasksList)
             {
             <tr>
                 <td>
@@ -265,6 +267,28 @@
             }
         });
     }
+
+    function getTasksList(idProject) {
+        $.ajax({
+            url: "/Home/getTasksListForProject",
+            type: 'POST',
+            data: { idProject: idProject },
+            success: function (result) {
+                var listObjects = JSON.parse(result);
+                alert(listObjects);
+             //   location.reload();
+            },
+            error: function (xhr, status, error) {
+                alert("Erreur");
+            }
+        });
+    }
+
+    //function parseJsonToTaskList(result) {
+    //    tasksList = JSON.parse(result);
+
+    //    al
+    //}
     
 </script>
 
