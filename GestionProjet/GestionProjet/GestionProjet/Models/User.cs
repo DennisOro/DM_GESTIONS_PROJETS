@@ -137,45 +137,22 @@ namespace GestionProjet.Models
         {
             var rolesList = new List<SelectListItem>();
 
-            try
+            rolesList.Add(new SelectListItem
             {
-                using (SqlConnection conn = new SqlConnection())
-                {
-                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
-
-                    conn.Open();
-
-                    string query = @"select role from [User]";
-
-                    SqlCommand command = new SqlCommand(query, conn);
-
-                    SqlDataReader reader = command.ExecuteReader();
-                    try
-                    {
-                        while (reader.Read())
-                        {
-                            string value = reader[0] == null ? "" : reader[0].ToString().Trim();
-                            rolesList.Add(new SelectListItem
-                            {
-                                Value = value,
-                                Text = value//,
-                                //Selected = value == "Gestionnaire" ? true : false
-                            });
-                        }
-                    }
-                    finally
-                    {
-                        reader.Close();
-                    }
-
-                    conn.Close();
-                }
-
-            }
-            catch (Exception ex) 
+                Value = "Gestionnaire",
+                Text = "Gestionnaire"
+            });
+            rolesList.Add(new SelectListItem
             {
-                Console.WriteLine(ex.ToString());
-            }
+                Value = "Admin",
+                Text = "Admin"
+            });
+            rolesList.Add(new SelectListItem
+            {
+                Value = "Utilisateur",
+                Text = "Utilisateur"
+            });
+            
             return rolesList;
         }
 
