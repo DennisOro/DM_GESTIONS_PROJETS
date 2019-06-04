@@ -14,7 +14,7 @@ namespace GestionProjet.Controllers
     public class HomeController : Controller
     {
 
-        public ActionResult Index()
+        public ActionResult Index(int projectID = 0)
         {
             LogPrUsTskComb combinedModel = new LogPrUsTskComb();
 
@@ -28,7 +28,10 @@ namespace GestionProjet.Controllers
 
             Task task = new Task();
 
-            combinedModel.TasksList = task.getAllTasksFromDatabase();
+            if(projectID == 0)
+                combinedModel.TasksList = task.getAllTasksFromDatabase();
+            else
+                combinedModel.TasksList = task.getTasksListForProject(projectID);
 
             combinedModel.Login = new Login();
 
@@ -118,6 +121,10 @@ namespace GestionProjet.Controllers
         {
             Task task = new Task();
             List<Task> tasksList = task.getTasksListForProject(idProject);
+
+            Index(idProject);
+
+            RedirectToAction("Index", "Home");
 
             return new JavaScriptSerializer().Serialize(tasksList);
         }
