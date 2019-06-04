@@ -61,6 +61,50 @@ namespace GestionProjet.Models
 
         }
 
+        public List<Project> getProjectsByLogin(String login)
+        {
+            List<Project> ProjectsList = new List<Project>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    string query = @"select distinct p.* from Project as p "+
+                        "join Task as t on p.idProjet=t.idProjet "+
+                        "join TaskUser as k on k.idTache = t.idTache "+
+                        "join login as l on l.matricule=k.matricule "+
+                        "where l.login = '" + login + "' and t.idEtat<8";
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    try
+                    {
+                        while (reader.Read())
+                        {
+                            ProjectsList.Add(new Project() { ProjectId = Convert.ToInt32(reader[0]), ProjectName = reader[1].ToString().Trim() });
+                        }
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return ProjectsList;
+
+        }
         public Project getProjectInfo(int projectId)
         {
             try
@@ -102,6 +146,8 @@ namespace GestionProjet.Models
 
             return this;
         }
+
+
 
         public Project updateProject(Project project)
         {

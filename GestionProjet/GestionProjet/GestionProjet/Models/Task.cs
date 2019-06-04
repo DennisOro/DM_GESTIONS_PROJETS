@@ -30,10 +30,18 @@ namespace GestionProjet.Models
 
         public List<Task> getAllTasksFromDatabase()
         {
-            string query = @"select distinct t.idTache, t.description, tp.totHeuresTravaillees, tp.nbrHeuresEstime, e.descEtat, t.idProjet, t.idEtat
-                                    from [INF6150].[dbo].[Task] t
-                                    join [INF6150].[dbo].[qTaskPrj] tp on t.idTache = tp.idTache and t.idProjet = tp.idProjet
-                                    join [INF6150].[dbo].[Etat] e on t.idEtat = e.idEtat";
+            string query = @"select idTache, description, totHeuresTravaillees, nbrHeuresEstime, descEtat, idProjet, idEtat 
+                                from [INF6150].[dbo].[qTaskPrj]";
+
+            return getTasksFromDatabase(query);
+        }
+
+        public List<Task> getAllTasksByLogin(String Login)
+        {
+            string query = @"select q.idTache, q.description, q.totHeuresTravaillees, q.nbrHeuresEstime, q.descEtat, q.idProjet, q.idEtat 
+		                        from [INF6150].[dbo].[qTaskPrj] as q join TaskUser as k on k.idTache = q.idTache 
+		                        join login as l on l.matricule=k.matricule 
+		                      where l.login = '"+Login+"'";
 
             return getTasksFromDatabase(query);
         }
