@@ -72,17 +72,21 @@ namespace GestionProjet.Controllers
                 combinedModel.Login.Message = "Authentification invalide";
                 return View(combinedModel);
             }
-            Project project = new Project();
-
-            combinedModel.ProjectsList = project.getProjectsFromDatabase();
 
             User user = new User();
 
             combinedModel.UsersList = user.getUsersFromDatabase();
 
+            Project project = new Project();
             Task task = new Task();
-
-            combinedModel.TasksList = task.getAllTasksFromDatabase();
+            if (combinedModel.Login.Role == "Utilisateur") {
+                combinedModel.ProjectsList = project.getProjectsByLogin(userID);
+                combinedModel.TasksList = task.getAllTasksByLogin(userID);
+            }
+            else {
+                combinedModel.ProjectsList = project.getProjectsFromDatabase();
+                combinedModel.TasksList = task.getAllTasksFromDatabase();
+            }
 
             return View(combinedModel);
         }
