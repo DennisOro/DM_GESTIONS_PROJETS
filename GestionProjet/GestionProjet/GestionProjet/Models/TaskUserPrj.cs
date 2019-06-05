@@ -17,6 +17,7 @@ namespace GestionProjet.Models
         public string Status { get; set; }
         public string Matricule { get; set; }
         public string Login { get; set; }
+        //public int idStatus { get; set; }
 
         public List<TaskUserPrj> getTaskUserPrj(string login)
         {
@@ -47,7 +48,8 @@ namespace GestionProjet.Models
                                 nbHeuresTravaillee = reader[4] == null ? 0 : Convert.ToInt32(reader[4]),
                                 Status = reader[5].ToString().Trim(),
                                 Matricule = reader[6].ToString().Trim(),
-                                Login = reader[7].ToString().Trim()
+                                Login = reader[7].ToString().Trim(),
+                                //idStatus = Convert.ToInt32(reader[5])
                             });
                         }
                     }
@@ -69,9 +71,57 @@ namespace GestionProjet.Models
 
         }
 
+
+        public void getTaskUserPrjById(int idTask, string login)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    string query = @"select * from qTaskUserPrj where idTache = "+idTask.ToString()+" and login = '" + login + "'";
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    try
+                    {
+                        if (reader.Read())
+                        {
+                            IdTask = Convert.ToInt32(reader[0]);
+                            Description = reader[1] == null ? "" : reader[1].ToString().Trim();
+                            NomProjet = reader[2].ToString().Trim();
+                            nbHeuresEstime = reader[3] == null ? 0 : Convert.ToInt32(reader[3]);
+                            nbHeuresTravaillee = reader[4] == null ? 0 : Convert.ToInt32(reader[4]);
+                            Status = reader[5].ToString().Trim();
+                            Matricule = reader[6].ToString().Trim();
+                            Login = reader[7].ToString().Trim();
+                            //idStatus = Convert.ToInt32(reader[5]);
+                        }
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+        }
+
+
         public void UpdateHrsTask(string login, int idtask, int heures, int status)
         {
-            string query;;
+            string query;
             try
             {
                 using (SqlConnection conn = new SqlConnection())

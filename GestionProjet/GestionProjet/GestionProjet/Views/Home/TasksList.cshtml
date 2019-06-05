@@ -44,7 +44,12 @@
                     @item.nbHeuresEstime
                 </td>
                 <td>
-                    @if (Model.Login.Role != "Gestionnaire")
+                    @if (Model.Login.Role == "Utilisateur")
+                    {
+                        <input type="submit" value="Saisir les heures travaillées" onclick="window.open('@Url.Action("TaskUser", "TaskUser", new {description = @item.Description, idProjet = @item.idProjet, newTask = false, UserID = Model.Login.UserID})')" />
+                    }
+                    else
+                    if (Model.Login.Role != "Gestionnaire")
                     {
                         <input type="submit" value="Modifier" disabled />
                     }
@@ -56,12 +61,16 @@
                 <td>
                     @if (Model.Login.Role != "Gestionnaire")
                     {
-                        <input type="submit" value="Supprimer" disabled />
+                        if (Model.Login.Role != "Utilisateur")
+                        {
+                            <input type="submit" value="Supprimer" disabled />
+                        }
                     }
                     else
                     {
                         <input type="submit" value="Supprimer" onclick="deleteTask(@item.IdTask)" />
                     }
+
                 </td>
             </tr>
         }

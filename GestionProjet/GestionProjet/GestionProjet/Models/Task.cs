@@ -18,8 +18,8 @@ namespace GestionProjet.Models
         public string Status { get; set; }
         public int idProjet { get; set; }
         public bool NewTask { get; set; }
-
-        //public List<Task> TasksList { get; set; }
+        public int nbHeures { get; set; }
+        public string Login { get; set; }
 
         public IEnumerable<SelectListItem> StatusList { get; set; }
         public IEnumerable<SelectListItem> ProjectsList { get; set; }
@@ -135,7 +135,7 @@ namespace GestionProjet.Models
                             nbHeuresTravaille = reader[2] == null ? 0 : Convert.ToInt32(reader[2]);
                             nbHeuresEstime = reader[3] == null ? 0 : Convert.ToInt32(reader[3]);
                             Status = reader[4] == null ? "" : reader[4].ToString().Trim();
-                            idProjet = reader[5] == null ? 0 : Convert.ToInt32(reader[5]);
+                            this.idProjet = idProjet;
                             idStatus = reader[6] == null ? 0 : Convert.ToInt32(reader[6]);
                         }
                         else
