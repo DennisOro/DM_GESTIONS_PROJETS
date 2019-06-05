@@ -208,19 +208,7 @@
 
     }
 
-    function loadTasksProject(projectID) {
-        alert("Project clicked before!");
-        var serviceUrl = "/Home/GetTasksForProject";
-        var request = $.post(serviceUrl, projectID);
-        request.done(function (data) {
-            alert("I'm in!");
-            $("#dvTasksList").html(data);
-        })
-            .fail(function () {
-                console.log("Does not compute"); // I get this message constantly
-            });
-    }
-
+  /*  
     function getTasksList(projectId) {
         //alert("Project clicked before!");
         $.ajax({
@@ -240,7 +228,7 @@
             }
         });
     }
-
+*/
     //function parseJsonToTaskList(result) {
     //    tasksList = JSON.parse(result);
 
