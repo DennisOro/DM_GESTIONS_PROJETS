@@ -14,7 +14,6 @@ namespace GestionProjet.Controllers
 {
     public class HomeController : Controller
     {
-
         [HttpGet]
         public async Task<ActionResult> Index()
         {
