@@ -10,7 +10,7 @@
     <h1>Pro-manager</h1>
 </div>
 
-@{ 
+@{
     List<Task> tasksList = new List<Task>();
 }
 
@@ -54,7 +54,7 @@
 
             @foreach (var item in Model.ProjectsList)
             {
-                <tr onclick="getTasksList(@item.ProjectId)">
+                <tr onclick="loadTasksForProject(@item.ProjectId)">
                     <td>
                         @item.ProjectId
                     </td>
@@ -110,34 +110,34 @@
 
             @foreach (var item in Model.UsersList)
             {
-            <tr>
-                <td>
-                    @item.FirstName
-                </td>
-                <td>
-                    @item.LastName
-                </td>
-                <td>
-                    @if (Model.Login.Role != "Admin")
-                    {
-                        <input type="submit" value="Modifier" disabled />
-                    }
-                    else
-                    {
-                        <input type="submit" value="Modifier" onclick="window.open('@Url.Action("User", "User", new {firstName = @item.FirstName, lastName = @item.LastName, newUser = false })')" />
-                    }
-                </td>
-                <td>
-                    @if (Model.Login.Role != "Admin")
-                    {
-                        <input type="submit" value="Supprimer" disabled />
-                    }
-                    else
-                    {
-                        <input type="submit" value="Supprimer" id="deleteUser" onclick="deleteUser('@item.FirstName', '@item.LastName')" />
-                    }
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @item.FirstName
+                    </td>
+                    <td>
+                        @item.LastName
+                    </td>
+                    <td>
+                        @if (Model.Login.Role != "Admin")
+                        {
+                            <input type="submit" value="Modifier" disabled />
+                        }
+                        else
+                        {
+                            <input type="submit" value="Modifier" onclick="window.open('@Url.Action("User", "User", new {firstName = @item.FirstName, lastName = @item.LastName, newUser = false })')" />
+                        }
+                    </td>
+                    <td>
+                        @if (Model.Login.Role != "Admin")
+                        {
+                            <input type="submit" value="Supprimer" disabled />
+                        }
+                        else
+                        {
+                            <input type="submit" value="Supprimer" id="deleteUser" onclick="deleteUser('@item.FirstName', '@item.LastName')" />
+                        }
+                    </td>
+                </tr>
             }
         </table>
         @if (Model.Login.Role == "Admin")
@@ -148,78 +148,12 @@
         }
     </div>
 
-
-
-    <div class=jumbotron>
-        <p>Tâches</p>
-        <table class="table">
-            <tr>
-                <th>
-                    Tâche
-                </th>
-                <th>
-                    ID Projet
-                </th>
-                <th>
-                    Statut
-                </th>
-                <th>
-                    Nombre d'heures travaillées
-                </th>
-                <th>
-                    Nombre d'heures estimées
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model.TasksList)
-            {
-            <tr>
-                <td>
-                    @item.Description
-                </td>
-                <td>
-                    @item.idProjet
-                </td>
-                <td>
-                    @item.Status
-                </td>
-                <td>
-                    @item.nbHeuresTravaille
-                </td>
-                <td>
-                    @item.nbHeuresEstime
-                </td>
-                <td>
-                    @if (Model.Login.Role != "Gestionnaire")
-                    {
-                        <input type="submit" value="Modifier" disabled />
-                    }
-                    else
-                    {
-                        <input type="submit" value="Modifier" onclick="window.open('@Url.Action("Task", "Task", new {description = @item.Description, idProjet = @item.idProjet, newTask = false})')" />
-                    }
-                </td>
-                <td>
-                    @if (Model.Login.Role != "Gestionnaire")
-                    {
-                        <input type="submit" value="Supprimer" disabled />
-                    }
-                    else
-                    {
-                        <input type="submit" value="Supprimer" onclick="deleteTask(@item.IdTask)" />
-                    }
-                </td>
-            </tr>
-            }
-        </table>
-        @if (Model.Login.Role == "Gestionnaire")
-        {
-            <div class=row>
-                <input type="submit" value="Créer une Tache" onclick="window.open('@Url.Action("Task", "Task", new {description = "", idProjet = 0, newTask = true})')" />
-            </div>
+    <div id="dvTasksList">
+        @{
+            Html.RenderPartial("TasksList", Model);
         }
     </div>
+
 }
 
 <script type="text/javascript">
@@ -234,7 +168,7 @@
             },
             error: function (xhr, status, error) {
                 alert(status + error);
-            }  
+            }
         });
     }
 
@@ -242,7 +176,7 @@
         $.ajax({
             url: "/Home/deleteUser",
             type: 'POST',
-            data: { firstName: firstName, lastName: lastName},
+            data: { firstName: firstName, lastName: lastName },
             success: function (result) {
                 alert(result);
                 location.reload();
@@ -257,7 +191,7 @@
         $.ajax({
             url: "/Home/deleteTask",
             type: 'POST',
-            data: { idTask: idTask},
+            data: { idTask: idTask },
             success: function (result) {
                 alert(result);
                 location.reload();
@@ -268,15 +202,38 @@
         });
     }
 
-    function getTasksList(idProject) {
+    function loadTasksForProject(projectID) {
+        //alert("Project clicked!");
+        $("#dvTasksList").load('@(Url.Action("GetTasksForProject", "Home",null, Request.Url.Scheme))?projectId=' + projectID);
+
+    }
+
+    function loadTasksProject(projectID) {
+        alert("Project clicked before!");
+        var serviceUrl = "/Home/GetTasksForProject";
+        var request = $.post(serviceUrl, projectID);
+        request.done(function (data) {
+            alert("I'm in!");
+            $("#dvTasksList").html(data);
+        })
+            .fail(function () {
+                console.log("Does not compute"); // I get this message constantly
+            });
+    }
+
+    function getTasksList(projectId) {
+        //alert("Project clicked before!");
         $.ajax({
-            url: "/Home/getTasksListForProject",
+            url: "/Home/GetTasksForProject",
             type: 'POST',
-            data: { idProject: idProject },
+            data: { projectId: projectId },
+            dataType: 'html',
             success: function (result) {
-                var listObjects = JSON.parse(result);
-                alert(result);
-             //   location.reload();
+                //var listObjects = JSON.parse(result);
+                alert("I'm in!");
+                $("#dvTasksList").html(result);
+
+                //   location.reload();
             },
             error: function (xhr, status, error) {
                 alert("Erreur");
@@ -289,7 +246,7 @@
 
     //    al
     //}
-    
+
 </script>
 
 <style>

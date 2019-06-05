@@ -1,0 +1,79 @@
+﻿@using GestionProjet.Models
+
+@model LogPrUsTskComb
+
+
+<div class=jumbotron>
+    <p>Tâches</p>
+    <table class="table">
+        <tr>
+            <th>
+                Tâche
+            </th>
+            <th>
+                ID Projet
+            </th>
+            <th>
+                Statut
+            </th>
+            <th>
+                Nombre d'heures travaillées
+            </th>
+            <th>
+                Nombre d'heures estimées
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.TasksList)
+        {
+            <tr>
+                <td>
+                    @item.Description
+                </td>
+                <td>
+                    @item.idProjet
+                </td>
+                <td>
+                    @item.Status
+                </td>
+                <td>
+                    @item.nbHeuresTravaille
+                </td>
+                <td>
+                    @item.nbHeuresEstime
+                </td>
+                <td>
+                    @if (Model.Login.Role != "Gestionnaire")
+                    {
+                        <input type="submit" value="Modifier" disabled />
+                    }
+                    else
+                    {
+                        <input type="submit" value="Modifier" onclick="window.open('@Url.Action("Task", "Task", new {description = @item.Description, idProjet = @item.idProjet, newTask = false})')" />
+                    }
+                </td>
+                <td>
+                    @if (Model.Login.Role != "Gestionnaire")
+                    {
+                        <input type="submit" value="Supprimer" disabled />
+                    }
+                    else
+                    {
+                        <input type="submit" value="Supprimer" onclick="deleteTask(@item.IdTask)" />
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+    @if (Model.Login.Role == "Gestionnaire")
+    {
+        <div class=row>
+            <input type="submit" value="Créer une Tache" onclick="window.open('@Url.Action("Task", "Task", new {description = "", idProjet = 0, newTask = true})')" />
+        </div>
+    }
+</div>
+
+
+
+

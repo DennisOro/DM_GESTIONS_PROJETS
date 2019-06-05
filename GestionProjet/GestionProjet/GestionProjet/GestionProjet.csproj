@@ -242,6 +242,7 @@
     <Content Include="Views\Admin\Admin.cshtml" />
     <Content Include="Views\User\User.cshtml" />
     <Content Include="Views\Task\Task.cshtml" />
+    <Content Include="Views\Home\TasksList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

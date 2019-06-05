@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Dynamic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -14,7 +15,24 @@ namespace GestionProjet.Controllers
     public class HomeController : Controller
     {
 
-        public ActionResult Index(int projectID = 0)
+        [HttpGet]
+        public async Task<ActionResult> Index()
+        {
+            var model = await this.GetCombinedModel();
+
+            return this.View(model);
+        }
+
+        //[HttpPost]
+        public async Task<ActionResult> GetTasksForProject(int projectId)
+        {
+            var model = await this.GetCombinedModel(projectId);
+
+            return PartialView("TasksList", model);
+        }
+
+        [HttpGet]
+        private async Task<LogPrUsTskComb> GetCombinedModel(int projectId = 0)
         {
             LogPrUsTskComb combinedModel = new LogPrUsTskComb();
 
@@ -26,16 +44,16 @@ namespace GestionProjet.Controllers
 
             combinedModel.UsersList = user.getUsersFromDatabase();
 
-            Task task = new Task();
+            Models.Task task = new Models.Task();
 
-            if(projectID == 0)
+            if(projectId == 0)
                 combinedModel.TasksList = task.getAllTasksFromDatabase();
             else
-                combinedModel.TasksList = task.getTasksListForProject(projectID);
+                combinedModel.TasksList = task.getTasksListForProject(projectId);
 
             combinedModel.Login = new Login();
 
-            return View(combinedModel);
+            return combinedModel;
         }
 
         /*navigation de l'application, pages a propos et contact*/
@@ -78,7 +96,7 @@ namespace GestionProjet.Controllers
             combinedModel.UsersList = user.getUsersFromDatabase();
 
             Project project = new Project();
-            Task task = new Task();
+            Models.Task task = new Models.Task();
             if (combinedModel.Login.Role == "Utilisateur") {
                 combinedModel.ProjectsList = project.getProjectsByLogin(userID);
                 combinedModel.TasksList = task.getAllTasksByLogin(userID);
@@ -113,7 +131,7 @@ namespace GestionProjet.Controllers
 
         public string deleteTask(int idTask)
         {
-            Task task = new Task();
+            Models.Task task = new Models.Task();
 
             if (task.deleteTask(idTask))
                 return "La tache est supprimée.";
@@ -123,10 +141,10 @@ namespace GestionProjet.Controllers
 
         public string getTasksListForProject(int idProject)
         {
-            Task task = new Task();
-            List<Task> tasksList = task.getTasksListForProject(idProject);
+            Models.Task task = new Models.Task();
+            List<Models.Task> tasksList = task.getTasksListForProject(idProject);
 
-            Index(idProject);
+            //Index(idProject);
 
             RedirectToAction("Index", "Home");
 

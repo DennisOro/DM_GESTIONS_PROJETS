@@ -19,6 +19,8 @@ namespace GestionProjet.Models
         public int idProjet { get; set; }
         public bool NewTask { get; set; }
 
+        //public List<Task> TasksList { get; set; }
+
         public IEnumerable<SelectListItem> StatusList { get; set; }
         public IEnumerable<SelectListItem> ProjectsList { get; set; }
 
