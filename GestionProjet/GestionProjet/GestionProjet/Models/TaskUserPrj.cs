@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
-
+using System.ComponentModel;
+using System.Web.Mvc;
 
 namespace GestionProjet.Models
 {
     public class TaskUserPrj
     {
         public int IdTask { get; set; }
+        public int ProjectId { get; set; }
         public string Description { get; set; }
         public string NomProjet { get; set; }
         public int nbHeuresEstime { get; set; }
@@ -18,6 +20,18 @@ namespace GestionProjet.Models
         public string Matricule { get; set; }
         public string Login { get; set; }
         //public int idStatus { get; set; }
+         
+        [DisplayName("Taches")]
+        public String[] SelectedTaskIds { get; set; } 
+        public IEnumerable<SelectListItem> Tasks { get; set; }
+
+        public IEnumerable<SelectListItem> ProjectsList { get; set; }
+
+        [DisplayName("Employes")]
+        public String[] SelectedEmployesId{ get; set; }
+        public IEnumerable<SelectListItem> Employes { get; set; }
+
+
 
         public List<TaskUserPrj> getTaskUserPrj(string login)
         {

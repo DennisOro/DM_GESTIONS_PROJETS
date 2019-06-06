@@ -1,0 +1,68 @@
+﻿@model GestionProjet.Models.TaskUserPrj
+@{
+    ViewBag.Title = "TaskAssign";
+}
+
+@using (Html.BeginForm("Task", "TaskAssign", FormMethod.Post))
+{
+    <h2>TaskAssign</h2>
+
+
+@Html.AntiForgeryToken()
+<div class="form-horizontal">
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Tasks, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*
+        @Html.ListBox(model => model.Tasks, new SelectList(Model.Tasks, "Value", "Tasks"))
+            //Model.Description,
+            //"Choisir la tache",
+            //new { @class = "form-control" })*@
+            @Html.ValidationMessageFor(model => model.Tasks, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProjectId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ProjectId,
+                        Model.ProjectsList,
+                        "Choisir id projet",
+                        new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Employes, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*
+        // @Html.ListBox(model => model.Employes, new SelectList(Model.Employes, "Value", "Tasks"))
+                //Model.ProjectsList,
+                //"Choisir employé",
+                //new { @class = "form-control" })*@
+                @Html.ValidationMessageFor(model => model.Employes, "", new { @class = "text-danger" })
+            </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            </div>
+
+
+
+
+
+        }
+
+        <div>
+            @Html.ActionLink("Index", "Home")
+        </div>
