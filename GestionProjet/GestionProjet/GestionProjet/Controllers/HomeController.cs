@@ -23,15 +23,15 @@ namespace GestionProjet.Controllers
         }
 
         //[HttpPost]
-        public async Task<ActionResult> GetTasksForProject(int projectId)
+        public async Task<ActionResult> GetTasksForProject(int projectId, string loginRole)
         {
-            var model = await this.GetCombinedModel(projectId);
+            var model = await this.GetCombinedModel(projectId, loginRole);
 
             return PartialView("TasksList", model);
         }
 
         [HttpGet]
-        private async Task<LogPrUsTskComb> GetCombinedModel(int projectId = 0)
+        private async Task<LogPrUsTskComb> GetCombinedModel(int projectId = 0, string loginRole = null)
         {
             LogPrUsTskComb combinedModel = new LogPrUsTskComb();
 
@@ -51,6 +51,9 @@ namespace GestionProjet.Controllers
                 combinedModel.TasksList = task.getTasksListForProject(projectId);
 
             combinedModel.Login = new Login();
+
+            if (loginRole != null)
+                combinedModel.Login.Role = loginRole;
 
             return combinedModel;
         }

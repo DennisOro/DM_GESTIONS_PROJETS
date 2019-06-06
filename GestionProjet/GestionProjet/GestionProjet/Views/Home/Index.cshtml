@@ -54,7 +54,7 @@
 
             @foreach (var item in Model.ProjectsList)
             {
-                <tr onclick="loadTasksForProject(@item.ProjectId)">
+                <tr onclick="loadTasksForProject(@item.ProjectId, '@Model.Login.Role')">
                     <td>
                         @item.ProjectId
                     </td>
@@ -202,23 +202,23 @@
         });
     }
 
-    function loadTasksForProject(projectID) {
+    function loadTasksForProject(projectID, loginRole) {
         //alert("Project clicked!");
-        $("#dvTasksList").load('@(Url.Action("GetTasksForProject", "Home",null, Request.Url.Scheme))?projectId=' + projectID);
+        $("#dvTasksList").load('@(Url.Action("GetTasksForProject", "Home",null, Request.Url.Scheme))?projectId=' + projectID + '&loginRole=' + loginRole);
 
     }
 
-  /*  
-    function getTasksList(projectId) {
+    
+    function getTasksList(projectId, loginRole) {
         //alert("Project clicked before!");
         $.ajax({
             url: "/Home/GetTasksForProject",
             type: 'POST',
-            data: { projectId: projectId },
-            dataType: 'html',
+            data: { projectId: projectId, loginRole: loginRole },
+            //dataType: 'html',
             success: function (result) {
                 //var listObjects = JSON.parse(result);
-                alert("I'm in!");
+                //alert("I'm in!");
                 $("#dvTasksList").html(result);
 
                 //   location.reload();
@@ -228,7 +228,7 @@
             }
         });
     }
-*/
+
     //function parseJsonToTaskList(result) {
     //    tasksList = JSON.parse(result);
 
