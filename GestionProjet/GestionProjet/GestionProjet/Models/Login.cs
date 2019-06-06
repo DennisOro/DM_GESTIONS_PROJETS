@@ -23,6 +23,8 @@ namespace GestionProjet.Models
 
         public string Message { get; set; }
 
+        public string DateFT { get; set; }
+
         public bool testLogin(string userID, string password)
         {
             userID = userID == null ? "" : userID.Trim();
