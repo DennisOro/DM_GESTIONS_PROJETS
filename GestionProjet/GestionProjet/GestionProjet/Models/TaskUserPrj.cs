@@ -23,13 +23,154 @@ namespace GestionProjet.Models
          
         [DisplayName("Taches")]
         public String[] SelectedTaskIds { get; set; } 
-        public IEnumerable<SelectListItem> Tasks { get; set; }
+        public IEnumerable<SelectListItem> TaskList { get; set; }
 
         public IEnumerable<SelectListItem> ProjectsList { get; set; }
 
         [DisplayName("Employes")]
         public String[] SelectedEmployesId{ get; set; }
-        public IEnumerable<SelectListItem> Employes { get; set; }
+        public IEnumerable<SelectListItem> EmployesList { get; set; }
+
+        public TaskUserPrj()
+        {
+            ProjectsList = fillOutProjectsList();
+            TaskList = fillOutTaskList();
+            EmployesList = fillOutEmployeList();
+
+        }
+
+        public IEnumerable<SelectListItem> fillOutProjectsList()
+        {
+            var projectsList = new List<SelectListItem>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    string query = @"select idProjet from [INF6150].[dbo].[Project]";
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    try
+                    {
+                        while (reader.Read())
+                        {
+                            int value = reader[0] == null ? 0 : Convert.ToInt32(reader[0]);
+                            projectsList.Add(new SelectListItem
+                            {
+                                Value = value.ToString(),
+                                Text = value.ToString()
+                            });
+                        }
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return projectsList;
+        }
+
+
+        public IEnumerable<SelectListItem> fillOutTaskList()
+        {
+            var TaskList = new List<SelectListItem>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    string query = @"select description from [INF6150].[dbo].[Task]";
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    try
+                    {
+                        while (reader.Read())
+                        {
+                            int value = reader[0] == null ? 0 : Convert.ToInt32(reader[0]);
+                            TaskList.Add(new SelectListItem
+                            {
+                                Value = value.ToString(),
+                                Text = value.ToString()
+                            });
+                        }
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return TaskList;
+        }
+
+        public IEnumerable<SelectListItem> fillOutEmployeList()
+        {
+            var TaskList = new List<SelectListItem>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    string query = @"select matricule from [INF6150].[dbo].[User]";
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    try
+                    {
+                        while (reader.Read())
+                        {
+                            int value = reader[0] == null ? 0 : Convert.ToInt32(reader[0]);
+                            TaskList.Add(new SelectListItem
+                            {
+                                Value = value.ToString(),
+                                Text = value.ToString()
+                            });
+                        }
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return TaskList;
+        }
+
+
+
 
 
 
