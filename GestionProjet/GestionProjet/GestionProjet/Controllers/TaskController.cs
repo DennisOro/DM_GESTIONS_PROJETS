@@ -32,9 +32,14 @@ namespace GestionProjet.Controllers
                 task.updateTask(task);
             }
 
-            
 
-            return View(task);
+
+            return Content(@"<body>
+                       <script type='text/javascript'>
+                        alert('Les données ont été enregistrées.');
+                         window.close();
+                       </script>
+                     </body> ");
         }
 
 

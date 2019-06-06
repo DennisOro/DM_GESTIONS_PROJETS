@@ -45,7 +45,12 @@ namespace GestionProjet.Controllers
             //user.setSelectedRole(ref user);
             //user.Role = 
 
-            return View(user);
+            return Content(@"<body>
+                       <script type='text/javascript'>
+                        alert('Les données ont été enregistrées.');
+                         window.close();
+                       </script>
+                     </body> ");
         }
     }
 }
