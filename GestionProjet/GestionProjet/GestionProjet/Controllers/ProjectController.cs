@@ -16,10 +16,7 @@ namespace GestionProjet.Controllers
             Project thisProject = new Project();
             thisProject = thisProject.getProjectInfo(projectId);
 
-            if(projectId != 0)
-                return View(thisProject);
-            else 
-                return View();
+            return View(thisProject);
         }
 
         [HttpPost]
@@ -38,7 +35,12 @@ namespace GestionProjet.Controllers
                 thisProject = thisProject.updateProject(project);
             }
 
-            return View(thisProject);
+            return Content(@"<body>
+                       <script type='text/javascript'>
+                        alert('Les données ont été enregistrées.');
+                         window.close();
+                       </script>
+                     </body> ");
         }
 
     }

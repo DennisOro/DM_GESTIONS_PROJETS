@@ -19,6 +19,13 @@ namespace GestionProjet.Models
         public string EndDate { get; set; }
 
         public IEnumerable<SelectListItem> StatesList { get; set; }
+        public IEnumerable<SelectListItem> ClientsList { get; set; }
+
+        public Project()
+        {
+            StatesList = fillOutStatesList();
+            ClientsList = fillOutClientsList();
+        }
 
         public List<Project> getProjectsFromDatabase()
         {
@@ -466,6 +473,84 @@ namespace GestionProjet.Models
                 Console.WriteLine(ex.ToString());
             }
         }
+
+        public IEnumerable<SelectListItem> fillOutStatesList()
+        {
+            var rolesList = new List<SelectListItem>();
+
+            rolesList.Add(new SelectListItem
+            {
+                Value = "En attente",
+                Text = "En attente"
+            });
+            rolesList.Add(new SelectListItem
+            {
+                Value = "En Cours",
+                Text = "En Cours"
+            });
+            rolesList.Add(new SelectListItem
+            {
+                Value = "Annulé",
+                Text = "Annulé"
+            });
+            rolesList.Add(new SelectListItem
+            {
+                Value = "Completé",
+                Text = "Completé"
+            });
+            rolesList.Add(new SelectListItem
+            {
+                Value = "Eliminé",
+                Text = "Eliminé"
+            });
+
+            return rolesList;
+        }
+
+        public IEnumerable<SelectListItem> fillOutClientsList()
+        {
+            var clientsList = new List<SelectListItem>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    string query = @"select nomClient from [INF6150].[dbo].[Client]";
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    try
+                    {
+                        while (reader.Read())
+                        {
+                            string value = reader[0] == null ? "" : reader[0].ToString();
+                            clientsList.Add(new SelectListItem
+                            {
+                                Value = value.ToString(),
+                                Text = value.ToString()
+                            });
+                        }
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return clientsList;
+        }
+
+
 
     }
 }
