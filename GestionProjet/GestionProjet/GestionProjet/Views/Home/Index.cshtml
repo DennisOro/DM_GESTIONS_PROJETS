@@ -21,6 +21,33 @@
 
 @if (Model.Login.AuthentificationValide == true)
 {
+
+    using (Html.BeginForm("TaskUserDays", "TaskUserDays", FormMethod.Post))
+    {
+        if (Model.Login.Role == "Utilisateur")
+        {
+            <div class=jumbotron>
+                <p>Feuille de temps</p>
+
+                <div class="form-group centerlook">
+
+                    <div class="form-group centerlook">
+                        <p>
+                            @Html.HiddenFor(model => model.Login.UserID)
+                            Date du début de la semaine : @Html.EditorFor(model => model.Login.DateFT)
+                        </p>
+                    </div>
+
+                    <input type="submit" value="Générer rapport" />
+
+                </div>
+
+            </div>
+        }
+    }
+
+
+
     <div class=jumbotron>
         <p>Projets</p>
         <table class="table" id="ProjectsTable">

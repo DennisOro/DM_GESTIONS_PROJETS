@@ -296,6 +296,18 @@ namespace GestionProjet.Models
                     command.Parameters.AddWithValue("@login", login);
                     command.ExecuteNonQuery();
 
+                    query = @"insert into[TaskUserHrs](idTache, matricule, nbrHeure)
+                    select @idtask, l.matricule, @hrs
+                    from TaskUser as t join Login as l on t.matricule = l.matricule
+                    where idTache = @idtask and l.login = @login";
+
+                    command = new SqlCommand(query, conn);
+                    command.Parameters.AddWithValue("@hrs", heures);
+                    command.Parameters.AddWithValue("@idtask", idtask);
+                    command.Parameters.AddWithValue("@login", login);
+                    command.ExecuteNonQuery();
+
+
                     query = @"update Task set idEtat = @etat " +
                         "where idTache = @idtask";
 

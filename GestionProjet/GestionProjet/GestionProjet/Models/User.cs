@@ -87,6 +87,13 @@ namespace GestionProjet.Models
             return getUserInfo(query);
         }
 
+        public User getUserInfoByLogin(string login)
+        {
+            login = login == null ? "" : login.Trim();
+            string query = @"select u.* from[User] as u join [Login] as l on u.matricule = l.matricule where l.login = '" + login + "'";
+            return getUserInfo(query);
+        }
+        
         public User getUserInfo(string query)
         {
             try
