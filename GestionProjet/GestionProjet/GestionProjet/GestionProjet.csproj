@@ -255,6 +255,7 @@
     <Content Include="Views\TaskUser\TaskUser.cshtml" />
     <Content Include="Views\TaskUserDays\TaskUserDays.cshtml" />
     <Content Include="Views\Shared\_PdfLayout.cshtml" />
+    <Content Include="Views\Task\TaskAssign.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

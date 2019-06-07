@@ -77,8 +77,9 @@
     </table>
     @if (Model.Login.Role == "Gestionnaire")
     {
-        <div class=row>
+        <div class=btn-group>
             <input type="submit" value="Créer une Tache" onclick="window.open('@Url.Action("Task", "Task", new {description = "", idProjet = 0, newTask = true})')" />
+            <input type="submit" value="Assigner une tache" onclick="" />
         </div>
     }
 </div>
