@@ -2,7 +2,7 @@
 
 @model LogPrUsTskComb
 
-<div class=jumbotron >
+<div class=jumbotron>
     <p>Tâches</p>
     <div id="scrolltable">
         <table class="table">
@@ -72,6 +72,22 @@
                         }
 
                     </td>
+                    <td>
+
+                        @if (Model.Login.Role != "Gestionnaire")
+                        {
+                            if (Model.Login.Role != "Utilisateur")
+                            {
+                                <input type="submit" value="Assigner" disabled />
+                            }
+                        }
+                        else
+                        {
+                            @* Bouton pour assigner une tâche *@
+                            <input type="submit" value="Assigner" onclick="window.open('@Url.Action("TaskAssign", "Task", new {description = @item.Description, idProjet = @item.idProjet, newTask = false})')" /> 
+                        }
+
+                    </td>
                 </tr>
             }
         </table>
@@ -80,12 +96,11 @@
     {
         <div class=btn-group>
             <input type="submit" value="Créer une Tache" onclick="window.open('@Url.Action("Task", "Task", new {description = "", idProjet = 0, newTask = true})')" />
-            <input type="submit" value="Assigner une tache" onclick="" />
+  
         </div>
     }
-</divid="scrolltable">
-
-
+    </divid="scrolltable">
+    </div>
 
 
 

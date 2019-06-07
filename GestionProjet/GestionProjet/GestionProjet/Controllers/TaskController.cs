@@ -19,6 +19,15 @@ namespace GestionProjet.Controllers
 
             return View(thisTask);
         }
+        // controleur pour la view d'assignation des tâches
+        public ActionResult TaskAssign(string description, int idProjet, bool newTask)
+        {
+            Task thisTask = new Task();
+            thisTask = thisTask.getTaskInfo(description, idProjet);
+            thisTask.NewTask = newTask;
+
+            return View(thisTask);
+        }
 
         [HttpPost]
         public new ActionResult Task(Task task)
@@ -27,10 +36,13 @@ namespace GestionProjet.Controllers
             {
                 task.createTask(task);
             }
-            else
+            else 
             {
                 task.updateTask(task);
             }
+
+
+        
 
 
 
@@ -41,6 +53,29 @@ namespace GestionProjet.Controllers
                        </script>
                      </body> ");
         }
+
+        [HttpPost]
+        public ActionResult TaskAssign(Task task)
+        {
+            if (!task.NewTask)
+            {
+                task.addTask(task);
+            }
+            
+
+
+
+
+
+            return Content(@"<body>
+                       <script type='text/javascript'>
+                        alert('Les données ont été enregistrées.');
+                         window.close();
+                       </script>
+                     </body> ");
+        }
+
+
 
 
 
