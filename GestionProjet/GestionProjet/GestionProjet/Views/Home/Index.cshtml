@@ -13,29 +13,11 @@
 @{
     List<Task> tasksList = new List<Task>();
 }
-
-@using (Html.BeginForm("Index", "Home", FormMethod.Post))
-{
-    <div class="jumbotron">
-        <div class="form-group centerlook">
-            <p>
-                Nom d'utilisateur: @Html.EditorFor(model => model.Login.UserID)
-            </p>
-
-        </div>
-
-        <div class="form-group centerlook">
-            <p>
-                Mot de passe   : @Html.EditorFor(model => model.Login.Password)
-            </p>
-        </div>
-
-        <input type="submit" value="Valider" />
-        <div>
-            @Html.DisplayFor(model => model.Login.Message)
-        </div>
-    </div>
-}
+<div id="loginView">
+    @{
+        Html.RenderPartial("Login", Model);
+    }
+</div>
 
 @if (Model.Login.AuthentificationValide == true)
 {
@@ -68,7 +50,7 @@
                         }
                         else
                         {
-                            <input type="submit" value="Modifier" onclick="window.open('@Url.Action("Project", "Project", new {projectId=@item.ProjectId, target = "_blank"})')" />
+                            <input type="submit" value="Modifier" onclick="window.open('@Url.Action("Project", "Project", new { projectId = @item.ProjectId, target = "_blank" })')" />
                         }
                     </td>
                     <td>
@@ -88,65 +70,51 @@
         @if (Model.Login.Role != "Utilisateur")
         {
             <div class=row>
-                <input type="submit" value="Créer un Projet" onclick="window.open('@Url.Action("Project", "Project", new { target="_blank", projectId=0 })')" />
+                <input type="submit" value="Créer un Projet" onclick="window.open('@Url.Action("Project", "Project", new { target = "_blank", projectId = 0 })')" />
             </div>
         }
     </div>
 
-
-
-    <div class=jumbotron>
-        <p>Employés</p>
-        <table class="table">
-            <tr>
-                <th>
-                    Prenom Employé
-                </th>
-                <th>
-                    Nom Employé
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model.UsersList)
-            {
+    if (Model.Login.Role == "Admin")
+    {
+        <div class=jumbotron>
+            <p>Employés</p>
+            <table class="table">
                 <tr>
-                    <td>
-                        @item.FirstName
-                    </td>
-                    <td>
-                        @item.LastName
-                    </td>
-                    <td>
-                        @if (Model.Login.Role != "Admin")
-                        {
-                            <input type="submit" value="Modifier" disabled />
-                        }
-                        else
-                        {
-                            <input type="submit" value="Modifier" onclick="window.open('@Url.Action("User", "User", new {firstName = @item.FirstName, lastName = @item.LastName, newUser = false })')" />
-                        }
-                    </td>
-                    <td>
-                        @if (Model.Login.Role != "Admin")
-                        {
-                            <input type="submit" value="Supprimer" disabled />
-                        }
-                        else
-                        {
-                            <input type="submit" value="Supprimer" id="deleteUser" onclick="deleteUser('@item.FirstName', '@item.LastName')" />
-                        }
-                    </td>
+                    <th>
+                        Prenom Employé
+                    </th>
+                    <th>
+                        Nom Employé
+                    </th>
                 </tr>
-            }
-        </table>
-        @if (Model.Login.Role == "Admin")
-        {
+
+                @foreach (var item in Model.UsersList)
+                {
+                    <tr>
+                        <td>
+                            @item.FirstName
+                        </td>
+                        <td>
+                            @item.LastName
+                        </td>
+                        <td>
+                            <input type="submit" value="Modifier" onclick="window.open('@Url.Action("User", "User", new { firstName = @item.FirstName, lastName = @item.LastName, newUser = false })')" />
+
+                        </td>
+                        <td>
+                            <input type="submit" value="Supprimer" id="deleteUser" onclick="deleteUser('@item.FirstName', '@item.LastName')" />
+
+                        </td>
+                    </tr>
+                }
+
+            </table>
             <div class=row>
-                <input type="submit" value="Créer un Employé" onclick="window.open('@Url.Action("User", "User", new { target="_blank", firstName = "", lastName ="", newUser = true })')" />
+                <input type="submit" value="Créer un Employé" onclick="window.open('@Url.Action("User", "User", new { target = "_blank", firstName = "", lastName = "", newUser = true })')" />
             </div>
-        }
-    </div>
+        </div>
+    }
 
     <div id="dvTasksList">
         @{
@@ -208,7 +176,7 @@
 
     }
 
-    
+
     function getTasksList(projectId, loginRole) {
         //alert("Project clicked before!");
         $.ajax({

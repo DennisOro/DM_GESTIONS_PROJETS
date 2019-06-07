@@ -246,6 +246,7 @@
     <Content Include="Views\Home\TasksList.cshtml" />
     <Content Include="Views\TaskUser\TaskUser.cshtml" />
     <Content Include="Views\Task\TaskAssign.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

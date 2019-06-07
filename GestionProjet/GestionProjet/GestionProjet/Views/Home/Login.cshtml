@@ -1,0 +1,34 @@
+﻿@using GestionProjet.Models
+
+@model LogPrUsTskComb
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    try
+    {
+        <div class="jumbotron">
+            <div class="form-group centerlook">
+                <p>
+                    Nom d'utilisateur: @Html.EditorFor(model => model.Login.UserID)
+                </p>
+
+            </div>
+
+            <div class="form-group centerlook">
+                <p>
+                    Mot de passe   : @Html.EditorFor(model => model.Login.Password)
+                </p>
+            </div>
+
+            <input type="submit" value="Valider" />
+            <div>
+                @Html.DisplayFor(model => model.Login.Message)
+            </div>
+        </div>
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"The directory was not found: '{ex}'");
+    }
+}
+

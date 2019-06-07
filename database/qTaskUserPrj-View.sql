@@ -8,7 +8,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-ALTER VIEW [dbo].[qTaskUserPrj]
+CREATE VIEW [dbo].[qTaskUserPrj]
 AS
 SELECT        u.idTache, t.description, p.nomProjet, t.nbrHeuresEstime, u.nbrHeuresTravaillees, t.idEtat, u.matricule, v.login
 FROM            dbo.TaskUser AS u INNER JOIN
