@@ -2,79 +2,80 @@
 
 @model LogPrUsTskComb
 
-
-<div class=jumbotron>
+<div class=jumbotron >
     <p>Tâches</p>
-    <table class="table">
-        <tr>
-            <th>
-                Tâche
-            </th>
-            <th>
-                ID Projet
-            </th>
-            <th>
-                Statut
-            </th>
-            <th>
-                Nombre d'heures travaillées
-            </th>
-            <th>
-                Nombre d'heures estimées
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model.TasksList)
-        {
+    <div id="scrolltable">
+        <table class="table">
             <tr>
-                <td>
-                    @item.Description
-                </td>
-                <td>
-                    @item.idProjet
-                </td>
-                <td>
-                    @item.Status
-                </td>
-                <td>
-                    @item.nbHeuresTravaille
-                </td>
-                <td>
-                    @item.nbHeuresEstime
-                </td>
-                <td>
-                    @if (Model.Login.Role == "Utilisateur")
-                    {
-                        <input type="submit" value="Saisir les heures travaillées" onclick="window.open('@Url.Action("TaskUser", "TaskUser", new {description = @item.Description, idProjet = @item.idProjet, newTask = false, UserID = Model.Login.UserID})')" />
-                    }
-                    else
-                    if (Model.Login.Role != "Gestionnaire")
-                    {
-                        <input type="submit" value="Modifier" disabled />
-                    }
-                    else
-                    {
-                        <input type="submit" value="Modifier" onclick="window.open('@Url.Action("Task", "Task", new {description = @item.Description, idProjet = @item.idProjet, newTask = false})')" />
-                    }
-                </td>
-                <td>
-                    @if (Model.Login.Role != "Gestionnaire")
-                    {
-                        if (Model.Login.Role != "Utilisateur")
-                        {
-                            <input type="submit" value="Supprimer" disabled />
-                        }
-                    }
-                    else
-                    {
-                        <input type="submit" value="Supprimer" onclick="deleteTask(@item.IdTask)" />
-                    }
-
-                </td>
+                <th>
+                    Tâche
+                </th>
+                <th>
+                    ID Projet
+                </th>
+                <th>
+                    Statut
+                </th>
+                <th>
+                    Nombre d'heures travaillées
+                </th>
+                <th>
+                    Nombre d'heures estimées
+                </th>
+                <th></th>
             </tr>
-        }
-    </table>
+
+            @foreach (var item in Model.TasksList)
+            {
+                <tr>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.idProjet
+                    </td>
+                    <td>
+                        @item.Status
+                    </td>
+                    <td>
+                        @item.nbHeuresTravaille
+                    </td>
+                    <td>
+                        @item.nbHeuresEstime
+                    </td>
+                    <td>
+                        @if (Model.Login.Role == "Utilisateur")
+                        {
+                            <input type="submit" value="Saisir les heures travaillées" onclick="window.open('@Url.Action("TaskUser", "TaskUser", new {description = @item.Description, idProjet = @item.idProjet, newTask = false, UserID = Model.Login.UserID})')" />
+                        }
+                        else
+                        if (Model.Login.Role != "Gestionnaire")
+                        {
+                            <input type="submit" value="Modifier" disabled />
+                        }
+                        else
+                        {
+                            <input type="submit" value="Modifier" onclick="window.open('@Url.Action("Task", "Task", new {description = @item.Description, idProjet = @item.idProjet, newTask = false})')" />
+                        }
+                    </td>
+                    <td>
+                        @if (Model.Login.Role != "Gestionnaire")
+                        {
+                            if (Model.Login.Role != "Utilisateur")
+                            {
+                                <input type="submit" value="Supprimer" disabled />
+                            }
+                        }
+                        else
+                        {
+                            <input type="submit" value="Supprimer" onclick="deleteTask(@item.IdTask)" />
+                        }
+
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
     @if (Model.Login.Role == "Gestionnaire")
     {
         <div class=btn-group>
@@ -82,7 +83,9 @@
             <input type="submit" value="Assigner une tache" onclick="" />
         </div>
     }
-</div>
+</divid="scrolltable">
+
+
 
 
 
