@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Feuille de temps";
+}
+
+@using GestionProjet.Models
+
+@model List<GestionProjet.Models.TaskUserDays>
+@{
+    Layout = null;
+}
+<itext creationdate="@DateTime.Now.ToString()" producer="RazorPDF">
+    <h2>Feuille de temps</h2>
+    <h3> @Html.LabelFor(model => model.ElementAt(0).Tnom, htmlAttributes: new { @class = "control-label col-md-2" })</h3>
+    <table width="100%">
+        <tr>
+            <td>Jour</td>
+            <td>Date</td>
+            <td>Nbr.Hrs</td>
+            <td>IdProjet</td>
+            <td>Projet</td>
+            <td>IdTâche</td>
+            <td>Tâche</td>
+            <td>Taux Horaire</td>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Jour</td>
+                <td>@item.Date</td>
+                <td>@item.NbHrs</td>
+                <td>@item.IdProjet</td>
+                <td>@item.NomProjet</td>
+                <td>@item.IdTask</td>
+                <td>@item.Description</td>
+                <td>@item.TauxHoraire</td>
+            </tr>
+        }
+    </table>
+</itext>

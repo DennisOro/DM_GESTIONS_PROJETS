@@ -18,16 +18,30 @@ namespace GestionProjet.Models
         public string Status { get; set; }
         public int idProjet { get; set; }
         public bool NewTask { get; set; }
+        
+        public bool NewTask2 { get; set; }
         public int nbHeures { get; set; }
         public string Login { get; set; }
+        public DateTime dateCreation { get; set; }
+        //public string ClientName { get; set; }
+
+        public List<Task> TasksList { get; set; }
+
+
+
+        public string utilisateur { get; set; }
 
         public IEnumerable<SelectListItem> StatusList { get; set; }
         public IEnumerable<SelectListItem> ProjectsList { get; set; }
+        
+        // employés pour la liste déroulante d'assignation des tâches
+        public IEnumerable<SelectListItem> EmployeesList { get; set; }
 
         public Task()
         {
             StatusList = fillOutStatusesList();
             ProjectsList = fillOutProjectsList();
+            EmployeesList = fillOutEmployeesList();
         }
 
         public List<Task> getAllTasksFromDatabase()
@@ -37,6 +51,17 @@ namespace GestionProjet.Models
 
             return getTasksFromDatabase(query);
         }
+
+        // lister la tâches par login
+        public List<Task> getAllTasksByUser( String Login)
+        {
+            string query = @"select t.idTache, t.matricule, t.nbrHeuresTravailles, t.dateCreation
+                           FROM [INF6150].[dbo].[TaskUser] as t join Login as x on x.matricule=t.matricule
+            where x.login = '"+Login+"'";
+
+            return getTasksFromDatabase(query);
+        }
+
 
         public List<Task> getAllTasksByLogin(String Login)
         {
@@ -59,7 +84,40 @@ namespace GestionProjet.Models
             return getTasksFromDatabase(query);
         }
 
-        public List<Task> getTasksFromDatabase(string query)
+        // pour assigner un une tâches à un user
+        public void addTask(Task task)
+        {
+            try
+            {
+              
+
+                string addQuery = @"insert into [INF6150.[dbo].[Task](idTache,matricule,nbrHeuresTravaillees, dateCreation)"
+                                    + "VALUES(" + task.IdTask + ", '" + task.utilisateur+ "', 0)";
+
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    SqlCommand command = new SqlCommand(addQuery, conn);
+
+                    command.ExecuteNonQuery();
+
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            
+        }
+
+    
+
+            public List<Task> getTasksFromDatabase(string query)
         {
             List<Task> TasksList = new List<Task>();
             try
@@ -271,6 +329,48 @@ namespace GestionProjet.Models
             return statusList;
         }
 
+        public IEnumerable<SelectListItem> fillOutEmployeesList()
+        {
+            var EmployeesList = new List<SelectListItem>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    string query = @"select matricule from [INF6150].[dbo].[User]";
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    try
+                    {
+                        while (reader.Read())
+                        {
+                            string value = reader[0] == null ? "" : reader[0].ToString();
+                            EmployeesList.Add(new SelectListItem
+                            {
+                                Value = value.ToString(),
+                                Text = value.ToString()
+                            });
+                        }
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return EmployeesList;
+        }
         public IEnumerable<SelectListItem> fillOutProjectsList()
         {
             var projectsList = new List<SelectListItem>();
@@ -313,6 +413,8 @@ namespace GestionProjet.Models
             }
             return projectsList;
         }
+
+       
 
         public Task createTask(Task task)
         {

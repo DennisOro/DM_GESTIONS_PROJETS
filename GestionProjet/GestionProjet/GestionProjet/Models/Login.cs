@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
 
-
 namespace GestionProjet.Models
 {
     public class Login
@@ -22,6 +21,8 @@ namespace GestionProjet.Models
         public string Role { get; set; }
 
         public string Message { get; set; }
+
+        public string DateFT { get; set; }
 
         public bool testLogin(string userID, string password)
         {
