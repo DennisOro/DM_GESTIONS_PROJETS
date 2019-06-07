@@ -46,54 +46,54 @@
         }
     }
 
-
-
     <div class=jumbotron>
         <p>Projets</p>
-        <table class="table" id="ProjectsTable">
-            <tr>
-                <th>
-                    ID Projet
-                </th>
-                <th>
-                    Nom Projet
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model.ProjectsList)
-            {
-                <tr onclick="loadTasksForProject(@item.ProjectId, '@Model.Login.Role')">
-                    <td>
-                        @item.ProjectId
-                    </td>
-                    <td>
-                        @item.ProjectName
-                    </td>
-                    <td>
-                        @if (Model.Login.Role == "Utilisateur")
-                        {
-                            <input type="submit" value="Modifier" disabled />
-                        }
-                        else
-                        {
-                            <input type="submit" value="Modifier" onclick="window.open('@Url.Action("Project", "Project", new { projectId = @item.ProjectId, target = "_blank" })')" />
-                        }
-                    </td>
-                    <td>
-                        @if (Model.Login.Role == "Utilisateur")
-                        {
-                            <input type="submit" value="Supprimer" disabled />
-                        }
-                        else
-                        {
-                            <input type="submit" value="Supprimer" id="deleteProject" onclick="deleteProject(@item.ProjectId)" />
-                        }
-                    </td>
-
+        <div id="scrolltableProjets">
+            <table class="table" id="ProjectsTable">
+                <tr>
+                    <th>
+                        ID Projet
+                    </th>
+                    <th>
+                        Nom Projet
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </table>
+
+                @foreach (var item in Model.ProjectsList)
+                {
+                    <tr onclick="loadTasksForProject(@item.ProjectId, '@Model.Login.Role')">
+                        <td>
+                            @item.ProjectId
+                        </td>
+                        <td>
+                            @item.ProjectName
+                        </td>
+                        <td>
+                            @if (Model.Login.Role == "Utilisateur")
+                            {
+                                <input type="submit" value="Modifier" disabled />
+                            }
+                            else
+                            {
+                                <input type="submit" value="Modifier" onclick="window.open('@Url.Action("Project", "Project", new { projectId = @item.ProjectId, target = "_blank" })')" />
+                            }
+                        </td>
+                        <td>
+                            @if (Model.Login.Role == "Utilisateur")
+                            {
+                                <input type="submit" value="Supprimer" disabled />
+                            }
+                            else
+                            {
+                                <input type="submit" value="Supprimer" id="deleteProject" onclick="deleteProject(@item.ProjectId)" />
+                            }
+                        </td>
+
+                    </tr>
+                }
+            </table>
+        </div>
         @if (Model.Login.Role != "Utilisateur")
         {
             <div class=row>
@@ -106,37 +106,39 @@
     {
         <div class=jumbotron>
             <p>Employés</p>
-            <table class="table">
-                <tr>
-                    <th>
-                        Prenom Employé
-                    </th>
-                    <th>
-                        Nom Employé
-                    </th>
-                </tr>
-
-                @foreach (var item in Model.UsersList)
-                {
+            <div  id="scrolltableEmployes">
+                <table class="table">
                     <tr>
-                        <td>
-                            @item.FirstName
-                        </td>
-                        <td>
-                            @item.LastName
-                        </td>
-                        <td>
-                            <input type="submit" value="Modifier" onclick="window.open('@Url.Action("User", "User", new { firstName = @item.FirstName, lastName = @item.LastName, newUser = false })')" />
-
-                        </td>
-                        <td>
-                            <input type="submit" value="Supprimer" id="deleteUser" onclick="deleteUser('@item.FirstName', '@item.LastName')" />
-
-                        </td>
+                        <th>
+                            Prenom Employé
+                        </th>
+                        <th>
+                            Nom Employé
+                        </th>
                     </tr>
-                }
 
-            </table>
+                    @foreach (var item in Model.UsersList)
+                    {
+                        <tr>
+                            <td>
+                                @item.FirstName
+                            </td>
+                            <td>
+                                @item.LastName
+                            </td>
+                            <td>
+                                <input type="submit" value="Modifier" onclick="window.open('@Url.Action("User", "User", new { firstName = @item.FirstName, lastName = @item.LastName, newUser = false })')" />
+
+                            </td>
+                            <td>
+                                <input type="submit" value="Supprimer" id="deleteUser" onclick="deleteUser('@item.FirstName', '@item.LastName')" />
+
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
             <div class=row>
                 <input type="submit" value="Créer un Employé" onclick="window.open('@Url.Action("User", "User", new { target = "_blank", firstName = "", lastName = "", newUser = true })')" />
             </div>
@@ -236,12 +238,27 @@
 
     #ProjectsTable tr:hover {
         background-color: rgba(0, 255, 255, 0.34);
+    }
+     #scrolltable table tr:hover{
+        background-color: rgba(0, 255, 255, 0.34);
+       
+    }
 
+     #scrolltableEmployes table tr:hover{
+        background-color: rgba(0, 255, 255, 0.34);
+       
     }
     /*table deroulante pour la liste de taches*/
     #scrolltable {
         margin-top: 20px;
         height: 300px;
         overflow: auto;
+       
     }
-</style>
+    #scrolltableEmployes, #scrolltableProjets{
+        margin-top: 20px;
+        height: 180px;
+        overflow: auto;
+    }
+    
+</style> 
