@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Saisir les heures travaillées";
 }
+
+@* Formulaire pour la saisie des heures travaillés*@
 @using (Html.BeginForm("TaskUser", "TaskUser", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
