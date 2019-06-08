@@ -4,7 +4,11 @@ using System.Linq;
 using System.Web;
 
 namespace GestionProjet.Models
-{
+{   
+    /*
+    * Classe pour representer la relation Login-Projet-Tâche
+    *
+    */
     public class LogPrUsTskComb
     {
         public Login Login { get; set; }
