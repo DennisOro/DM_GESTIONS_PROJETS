@@ -195,6 +195,10 @@
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="schema\messages\generated\messages.cs" />
+    <Compile Include="schema\messages\Properties\AssemblyInfo.cs" />
+    <Compile Include="schema\postoffice\generated\postoffice.cs" />
+    <Compile Include="schema\postoffice\Properties\AssemblyInfo.cs" />
     <Compile Include="WebService1.asmx.cs">
       <DependentUpon>WebService1.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -272,6 +276,22 @@
     <Content Include="GestProjWebService.svc" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="schema\messages\bin\Debug\messages.dll" />
+    <Content Include="schema\messages\bin\Debug\messages.pdb" />
+    <Content Include="schema\messages\bin\Release\messages.dll" />
+    <Content Include="schema\messages\bin\Release\messages.pdb" />
+    <Content Include="schema\messages\messages.csproj" />
+    <Content Include="schema\messages\obj\Debug\messages.csproj.FileListAbsolute.txt" />
+    <Content Include="schema\messages\obj\Debug\messages.dll" />
+    <Content Include="schema\messages\obj\Debug\messages.pdb" />
+    <Content Include="schema\postoffice\bin\Debug\postoffice.dll" />
+    <Content Include="schema\postoffice\bin\Debug\postoffice.pdb" />
+    <Content Include="schema\postoffice\bin\Release\postoffice.dll" />
+    <Content Include="schema\postoffice\bin\Release\postoffice.pdb" />
+    <Content Include="schema\postoffice\obj\Debug\postoffice.csproj.FileListAbsolute.txt" />
+    <Content Include="schema\postoffice\obj\Debug\postoffice.dll" />
+    <Content Include="schema\postoffice\obj\Debug\postoffice.pdb" />
+    <Content Include="schema\postoffice\postoffice.csproj" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -285,6 +305,12 @@
     <Content Include="obj\Debug\GestionProjet.csprojAssemblyReference.cache" />
     <Content Include="obj\Release\GestionProjet.csproj.CoreCompileInputs.cache" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="schema\messages\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="schema\messages\obj\Debug\messages.csproj.CoreCompileInputs.cache" />
+    <Content Include="schema\messages\obj\Debug\messages.csprojAssemblyReference.cache" />
+    <Content Include="schema\postoffice\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="schema\postoffice\obj\Debug\postoffice.csproj.CoreCompileInputs.cache" />
+    <Content Include="schema\postoffice\obj\Debug\postoffice.csprojAssemblyReference.cache" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -326,6 +352,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="schema\messages\obj\Debug\TempPE\" />
+    <Folder Include="schema\postoffice\obj\Debug\TempPE\" />
     <Folder Include="Views\DeleteProject\" />
     <Folder Include="Views\Login\" />
   </ItemGroup>
