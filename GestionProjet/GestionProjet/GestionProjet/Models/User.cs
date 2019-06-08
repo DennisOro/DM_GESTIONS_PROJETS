@@ -166,7 +166,7 @@ namespace GestionProjet.Models
             return rolesList;
         }
 
-        public User updateUser(User user)
+        public bool updateUser(User user)
         {
             try
             {
@@ -192,6 +192,7 @@ namespace GestionProjet.Models
                     command.ExecuteNonQuery();
 
                     conn.Close();
+                    return true;
                 }
 
             }
@@ -199,7 +200,7 @@ namespace GestionProjet.Models
             {
                 Console.WriteLine(ex.ToString());
             }
-            return user;
+            return false;
         }
 
         public bool createUser(User user)

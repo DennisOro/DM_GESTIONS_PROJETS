@@ -156,7 +156,7 @@ namespace GestionProjet.Models
 
 
 
-        public Project updateProject(Project project)
+        public bool updateProject(Project project)
         {
             try
             {
@@ -178,6 +178,8 @@ namespace GestionProjet.Models
                     command.ExecuteNonQuery();
 
                     conn.Close();
+
+                    return true;
                 }
 
             }
@@ -185,10 +187,10 @@ namespace GestionProjet.Models
             {
                 Console.WriteLine(ex.ToString());
             }
-            return project;
+            return false;
         }
 
-        public Project createProject(Project project)
+        public bool createProject(Project project)
         {
             int projectId = getNextProjectId();
 
@@ -214,14 +216,14 @@ namespace GestionProjet.Models
 
                         conn.Close();
                     }
-
+                    return true;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.ToString());
                 }
             }
-            return project;
+            return false;
         }
 
         public int getNextProjectId()

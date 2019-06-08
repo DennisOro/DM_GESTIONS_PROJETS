@@ -22,25 +22,34 @@ namespace GestionProjet.Controllers
         [HttpPost]
         public ActionResult Project(Project project)
         {
-            Project thisProject = new Project();
+            string message = "";
 
             if (project.ProjectId == 0)
             {
-                thisProject = thisProject.createProject(project);
-                ViewBag.Message = "Projet est crée!";
-
+                if(project.createProject(project))
+                {
+                    message = "Projet a été créé avec succès.";
+                }
+                else
+                {
+                    message = "Création de projet a été échoué, contactez le programmeur du système.";
+                }
             }
             else
             {
-                thisProject = thisProject.updateProject(project);
+                if (project.updateProject(project))
+                {
+                    message = "Projet a été modifié avec succès.";
+                }
+                else
+                {
+                    message = "Modification de projet a été échoué, contactez le programmeur du système.";
+                }
             }
 
             return Content(@"<body>
                        <script type='text/javascript'>
-                        alert('Les données ont été enregistrées.');
-                         window.close();
-                       </script>
-                     </body> ");
+                        alert('" + message + "'); window.close(); </script> </body> ");
         }
 
     }

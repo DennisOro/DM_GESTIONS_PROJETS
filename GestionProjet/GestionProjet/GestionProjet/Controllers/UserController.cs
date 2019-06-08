@@ -42,7 +42,10 @@ namespace GestionProjet.Controllers
             }
             else
             {
-                user = user.updateUser(user);
+                if (user.updateUser(user))
+                    message = "Empoyé a été modifié avec succès.";
+                else
+                    message = "Modification a été échoué, contactez le programmeur du système. ";
             }
 
             return Content(@"<body>

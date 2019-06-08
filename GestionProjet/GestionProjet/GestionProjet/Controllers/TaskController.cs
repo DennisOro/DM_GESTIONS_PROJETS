@@ -32,26 +32,34 @@ namespace GestionProjet.Controllers
         [HttpPost]
         public new ActionResult Task(Task task)
         {
-            if(task.NewTask)
+            string message = "";
+
+            if (task.NewTask)
             {
-                task.createTask(task);
+                if(task.createTask(task))
+                {
+                    message = "La tache a été créé avec succès.";
+                }
+                else
+                {
+                    message = "Création de tache a été échoué, contactez le programmeur du système.";
+                }
             }
             else 
             {
-                task.updateTask(task);
+                if(task.updateTask(task))
+                {
+                    message = "La tache a été modifié avec succès.";
+                }
+                else
+                {
+                    message = "Modification de tache a été échouée, contactez le programmeur du système.";
+                }
             }
-
-
-        
-
-
 
             return Content(@"<body>
                        <script type='text/javascript'>
-                        alert('Les données ont été enregistrées.');
-                         window.close();
-                       </script>
-                     </body> ");
+                        alert('" + message + "'); window.close(); </script> </body> ");
         }
 
         [HttpPost]

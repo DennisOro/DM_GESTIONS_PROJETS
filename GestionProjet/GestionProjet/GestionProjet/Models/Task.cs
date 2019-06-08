@@ -222,7 +222,7 @@ namespace GestionProjet.Models
             return this;
         }
 
-        public Task updateTask(Task task)
+        public bool updateTask(Task task)
         {
             task.idStatus = getStatusID(task.Status);
             try
@@ -247,6 +247,7 @@ namespace GestionProjet.Models
                     command.ExecuteNonQuery();
 
                     conn.Close();
+                    return true;
                 }
 
             }
@@ -254,7 +255,7 @@ namespace GestionProjet.Models
             {
                 Console.WriteLine(ex.ToString());
             }
-            return task;
+            return false;
         }
 
         public bool deleteTask(int idTask)
@@ -371,6 +372,7 @@ namespace GestionProjet.Models
             }
             return EmployeesList;
         }
+
         public IEnumerable<SelectListItem> fillOutProjectsList()
         {
             var projectsList = new List<SelectListItem>();
@@ -416,7 +418,7 @@ namespace GestionProjet.Models
 
        
 
-        public Task createTask(Task task)
+        public bool createTask(Task task)
         {
             // test if task does not exist
 
@@ -438,6 +440,7 @@ namespace GestionProjet.Models
                         command.ExecuteNonQuery();
 
                         conn.Close();
+                    return true;
                     }
 
                 }
@@ -445,7 +448,7 @@ namespace GestionProjet.Models
                 {
                     Console.WriteLine(ex.ToString());
                 }
-            return task;
+            return false;
         }
 
         public int getNextTaskID()
