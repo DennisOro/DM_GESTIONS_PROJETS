@@ -1,5 +1,7 @@
 ﻿@{
-    ViewBag.Title = "Accueil";
+                /**/
+
+                ViewBag.Title = "Accueil";
 }
 
 @using GestionProjet.Models
@@ -145,6 +147,44 @@
             </div>
             <div class=row>
                 <input type="submit" value="Créer un Employé" onclick="window.open('@Url.Action("User", "User", new { target = "_blank", firstName = "", lastName = "", newUser = true })')" />
+            </div>
+        </div>
+    }
+
+    if (Model.Login.Role == "Admin" || Model.Login.Role == "Gestionnaire")
+    {
+        <div class=jumbotron>
+            <p>Client</p>
+            <div id="scrolltableClient">
+                <table class="table">
+                    <tr>
+                        <th>
+                            Nom Client
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model.ClientsList)
+                    {
+                        <tr>
+                            <td>
+                                @item.NomClient
+                            </td>
+
+                            <td>
+                                <input type="submit" value="Modifier" onclick="window.open('@Url.Action("Client", "Client", new { idClient = @item.ClientId,  newClient = false })')" />
+
+                            </td>
+                            <td>
+                                <input type="submit" value="Supprimer" id="deleteClient" />
+
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <div class=row>
+                <input type="submit" value="Créer un client" onclick="window.open('@Url.Action("Client", "Client", new { target = "_blank", idClient = "", newClient = true })')" />
             </div>
         </div>
     }

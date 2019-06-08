@@ -11,6 +11,7 @@ namespace GestionProjet.Models
         public List<Project> ProjectsList { get; set; }
         public List<User> UsersList { get; set; }
         public List<Task> TasksList { get; set; }
+        public List<Client> ClientsList { get; set; }
 
 
     }

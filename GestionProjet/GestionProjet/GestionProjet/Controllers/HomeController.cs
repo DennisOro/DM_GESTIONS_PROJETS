@@ -99,6 +99,8 @@ namespace GestionProjet.Controllers
 
             Project project = new Project();
             Models.Task task = new Models.Task();
+            Models.Client client = new Models.Client();
+
             if (combinedModel.Login.Role == "Utilisateur") {
                 combinedModel.ProjectsList = project.getProjectsByLogin(userID);
                 combinedModel.TasksList = task.getAllTasksByLogin(userID);
@@ -106,6 +108,7 @@ namespace GestionProjet.Controllers
             else {
                 combinedModel.ProjectsList = project.getProjectsFromDatabase();
                 combinedModel.TasksList = task.getAllTasksFromDatabase();
+                combinedModel.ClientsList = client.getClientsFromDatabase();
             }
 
             return View(combinedModel);
