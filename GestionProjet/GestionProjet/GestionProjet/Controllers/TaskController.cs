@@ -9,7 +9,7 @@ namespace GestionProjet.Controllers
 {
     public class TaskController : Controller
     {
-        // GET: Task
+        // Controleur pour la view des tâches
         public ActionResult Task(string description, int idProjet, bool newTask)
         {
             Task thisTask = new Task();
@@ -19,7 +19,7 @@ namespace GestionProjet.Controllers
 
             return View(thisTask);
         }
-        // controleur pour la view d'assignation des tâches
+     
         public ActionResult TaskAssign(string description, int idProjet, bool newTask)
         {
             Task thisTask = new Task();
@@ -29,6 +29,7 @@ namespace GestionProjet.Controllers
             return View(thisTask);
         }
 
+        // Action permettant l'édition des tâches(supprimer, ajouter, modifier)
         [HttpPost]
         public new ActionResult Task(Task task)
         {

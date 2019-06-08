@@ -9,7 +9,7 @@ namespace GestionProjet.Controllers
 {
     public class ProjectController : Controller
     {
-
+        // Ce contrôleur retourne la vue avec les informations sur les projets
         public ActionResult Project(int projectId)
         {
 
@@ -19,6 +19,7 @@ namespace GestionProjet.Controllers
             return View(thisProject);
         }
 
+        // Ce contrôleur permet l'édition des projets(supprimer, modifier, effacer)
         [HttpPost]
         public ActionResult Project(Project project)
         {

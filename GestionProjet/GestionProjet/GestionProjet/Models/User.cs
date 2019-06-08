@@ -302,7 +302,9 @@ namespace GestionProjet.Models
         public bool deleteUser(User newUser)
         {
             string deleteQuery = @" delete from [INF6150].[dbo].[TaskUser] where matricule = '" + newUser.matricule + "';"
-                                 + "delete from [INF6150].[dbo].[User] where matricule = '" + newUser.matricule + "'";
+                                 + "delete from [INF6150].[dbo].[User] where matricule = '" + newUser.matricule + "';"
+                                 +"delete from [INF6150].[dbo].[Login] where matricule = '" + newUser.matricule + "'";
+
 
             try
             {

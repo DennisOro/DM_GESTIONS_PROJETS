@@ -14,7 +14,7 @@ namespace GestionProjet.Controllers
         //{
         //    return View();
         //}
-
+        // Controlleur pour gérer la vue de l'utilisateur
         public new ActionResult User(string firstName, string lastName, bool newUser)
         {
 
@@ -28,6 +28,7 @@ namespace GestionProjet.Controllers
             return View(thisUser);
         }
 
+        // Mettre à jour l'utilisateur(modifier, supprimer, effacer)
         [HttpPost]
         public new ActionResult User(User user)
         {
@@ -55,6 +56,7 @@ namespace GestionProjet.Controllers
 
         private string createUser(User user, string message)
         {
+            // On ne peut pas creer un utilisateur avec si son matricule existe déjà
             if (user.matriculeExists(user.matricule))
             {
                 message = "Empoyé avec ce matricule existe déjà. Veiller recommencer.";

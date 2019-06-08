@@ -9,11 +9,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
-
+//cette classe est le controlleur de la page d'acceuil, sert à générer les pages et à peupler les données
 namespace GestionProjet.Controllers
 {
     public class HomeController : Controller
     {
+        // Pour la méthode Get dans les formulaires
         [HttpGet]
         public async Task<ActionResult> Index()
         {
@@ -22,6 +23,7 @@ namespace GestionProjet.Controllers
             return this.View(model);
         }
 
+        // Pour la méthode Post dans les formulaires
         //[HttpPost]
         public async Task<ActionResult> GetTasksForProject(int projectId, string loginRole)
         {
@@ -29,6 +31,8 @@ namespace GestionProjet.Controllers
 
             return PartialView("TasksList", model);
         }
+
+        // Ce controleur va chercher les taches par projet
 
         [HttpGet]
         private async Task<LogPrUsTskComb> GetCombinedModel(int projectId = 0, string loginRole = null)
@@ -71,7 +75,7 @@ namespace GestionProjet.Controllers
             return View();
         }
 
-
+        // Pour gérer l'authentification de l'utilisateur
         [HttpPost]
         public ActionResult Index(LogPrUsTskComb combinedModel)
         {
