@@ -5,12 +5,12 @@
 @* Section d'authetification*@
 @using (Html.BeginForm("Index", "Home", FormMethod.Post))
 {
-    try
-    {
+
         <div class="jumbotron">
             <div class="form-group centerlook">
-                <p>
+                <p id="userName">
                     Nom d'utilisateur: @Html.EditorFor(model => model.Login.UserID)
+                    @Html.ValidationMessageFor(model => model.Login.UserID, "", new { @class = "text-danger  " })
                 </p>
 
             </div>
@@ -18,18 +18,16 @@
             <div class="form-group centerlook">
                 <p>
                     Mot de passe   : @Html.EditorFor(model => model.Login.Password)
+                    @Html.ValidationMessageFor(model => model.Login.Password, "", new { @class = "text-danger  " })
                 </p>
             </div>
 
-            <input type="submit" value="Valider" />
+            <input type="submit" name="submit" value="Valider" />
             <div>
                 @Html.DisplayFor(model => model.Login.Message)
             </div>
         </div>
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"The directory was not found: '{ex}'");
-    }
+
 }
+
 

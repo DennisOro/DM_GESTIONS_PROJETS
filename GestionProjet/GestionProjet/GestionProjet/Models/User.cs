@@ -4,13 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
 using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace GestionProjet.Models
 {
     public class User
     {
+        [Required(ErrorMessage = "Prenom est obligatoire")]
         public string FirstName { get; set; }
+        [Required(ErrorMessage = "Nom est obligatoire")]
         public string LastName { get; set; }
+        [Required(ErrorMessage = "Matricule est obligatoire")]
         public string matricule { get; set; }
         public double HourlyRate { get; set; }
         public int nbrUsers { get; set; }
