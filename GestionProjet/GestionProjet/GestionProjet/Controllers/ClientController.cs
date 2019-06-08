@@ -9,7 +9,7 @@ namespace GestionProjet.Controllers
 {
     public class ClientController : Controller
     {
-        public new ActionResult Client(String clientID, bool newClient)
+        public ActionResult Client(String clientID, bool newClient)
         {
 
             Client thisClient = new Client();
@@ -20,7 +20,7 @@ namespace GestionProjet.Controllers
             return View(thisClient);
         }
         [HttpPost]
-        public new ActionResult Client(Client client)
+        public ActionResult Client(Client client)
         {
             string message = "";
             //User thisUser = new User();

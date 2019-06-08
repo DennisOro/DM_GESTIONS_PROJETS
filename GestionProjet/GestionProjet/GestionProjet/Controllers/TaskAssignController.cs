@@ -24,7 +24,7 @@ namespace GestionProjet.Controllers
         }
 
 
-
+        // Action du contrôleur qui permet d'ajouter une tâche de projet
         [HttpPost]
         public ActionResult TaskAssign(TaskAssign task)
         {
