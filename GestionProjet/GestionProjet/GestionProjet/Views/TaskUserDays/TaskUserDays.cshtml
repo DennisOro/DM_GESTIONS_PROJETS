@@ -9,24 +9,28 @@
     Layout = null;
 }
 <itext creationdate="@DateTime.Now.ToString()" producer="RazorPDF">
-    <h2>Feuille de temps</h2>
-    <h3> @Html.LabelFor(model => model.ElementAt(0).Tnom, htmlAttributes: new { @class = "control-label col-md-2" })</h3>
+    <h2>Feuille de Temps</h2>
+    @if (this.Model.Count > 0)
+    {
+        <h3> Semaine du  @Html.DisplayFor(model => this.Model.First().DateDebut, new { htmlAttributes = new { @class = "form-control" } }) au @Html.DisplayFor(model => this.Model.First().DateFin, new { htmlAttributes = new { @class = "form-control" } })</h3> 
+        <h3> Employé : @Html.DisplayFor(model => this.Model.First().Tnom, new { htmlAttributes = new { @class = "form-control" } })</h3>
+    }
     <table width="100%">
         <tr>
-            <td>Jour</td>
-            <td>Date</td>
-            <td>Nbr.Hrs</td>
-            <td>IdProjet</td>
-            <td>Projet</td>
-            <td>IdTâche</td>
-            <td>Tâche</td>
-            <td>Taux Horaire</td>
+            <th style="text-align:left">Jour</th>
+            <th style="text-align:left">Date</th>
+            <th style="text-align:left">Nbr.Hrs</th>
+            <th style="text-align:left">IdProjet</th>
+            <th style="text-align:left">Nom du Projet</th>
+            <th style="text-align:left">IdTâche</th>
+            <th style="text-align:left">Tâche</th>
+            <th style="text-align:left">Taux Horaire</th>
         </tr>
         @foreach (var item in Model)
         {
             <tr>
                 <td>@item.Jour</td>
-                <td>@item.Date</td>
+                <td>@item.Date.ToString().Substring(0, 10)</td>
                 <td>@item.NbHrs</td>
                 <td>@item.IdProjet</td>
                 <td>@item.NomProjet</td>

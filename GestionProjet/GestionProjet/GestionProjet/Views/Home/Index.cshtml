@@ -20,7 +20,7 @@
 @if (Model.Login.AuthentificationValide == true)
 {
 
-    using (Html.BeginForm("TaskUserDays", "TaskUserDays", FormMethod.Post))
+    using (Html.BeginForm("TaskUserDays", "TaskUserDays", FormMethod.Post, new { target = "_blank" }))
     {
         if (Model.Login.Role == "Utilisateur")
         {
