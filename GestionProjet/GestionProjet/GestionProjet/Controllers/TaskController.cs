@@ -70,22 +70,13 @@ namespace GestionProjet.Controllers
                 task.addTask(task);
             }
             
-
-
-
-
-
             return Content(@"<body>
                        <script type='text/javascript'>
-                        alert('Les données ont été enregistrées.');
-                         window.close();
+                            alert('Les données ont été enregistrées.');
+                            window.close();
                        </script>
-                     </body> ");
+                    </body> ");
         }
-
-
-
-
 
     }
 }

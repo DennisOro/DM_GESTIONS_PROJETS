@@ -192,6 +192,7 @@
 }
 
 <script type="text/javascript">
+    window.onfocus = function() { location.reload(); };
     function deleteProject(projectId) {
         $.ajax({
             url: "/Home/deleteProject",
@@ -242,7 +243,6 @@
         $("#dvTasksList").load('@(Url.Action("GetTasksForProject", "Home",null, Request.Url.Scheme))?projectId=' + projectID + '&loginRole=' + loginRole);
 
     }
-
 
     function getTasksList(projectId, loginRole) {
         //alert("Project clicked before!");
