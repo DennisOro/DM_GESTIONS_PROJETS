@@ -19,12 +19,11 @@ namespace GestionProjet.Models
         public string matricule { get; set; }
         public double HourlyRate { get; set; }
         public int nbrUsers { get; set; }
-        [Required(ErrorMessage = "Role est obligatoire")]
         public string Role { get; set; }
         public bool NewUser { get; set; }
         public Login Login { get; set; }
-
-
+        public string telephone { get; set; }
+        public string codePostal { get; set; }
 
         public IEnumerable<SelectListItem> RolesList { get; set; }
 
@@ -123,13 +122,18 @@ namespace GestionProjet.Models
                             LastName = reader[2] == null ? "" : reader[2].ToString().Trim();
                             HourlyRate = reader[3] == null ? 0 : Convert.ToInt32(reader[3]);
                             Role = reader[4] == null ? "" : reader[4].ToString().Trim();
-                        }else
+                            telephone = reader[5] == null ? "" : reader[5].ToString().Trim();
+                            codePostal = reader[6] == null ? "" : reader[6].ToString().Trim();
+                        }
+                        else
                         {
                             matricule = "" ;
                             FirstName = "" ;
                             LastName = "" ;
                             HourlyRate = 0;
                             Role = "" ;
+                            telephone = "";
+                            codePostal = "";
                         }
                     }
                     finally
@@ -179,11 +183,15 @@ namespace GestionProjet.Models
                 string matricule = user.matricule == null ? "" : user.matricule.Trim();
                 string firstName = user.FirstName == null ? "" : user.FirstName.Trim();
                 string lastName = user.LastName == null ? "" : user.LastName.Trim();
+                string telephone = user.telephone == null ? "" : user.telephone.Trim();
+                string codePostal = user.codePostal == null ? "" : user.codePostal.Trim();
                 string role = user.Role == null ? "" : user.Role.Trim();
                 string updateQuery = @"UPDATE [INF6150].[dbo].[User]  SET prenom = '" + firstName + "', "
                                                                         + "nom =  '" + lastName + "', "
                                                                         + "tauxHoraire =  " + user.HourlyRate + ", "
-                                                                        + "role =  '" + role + "' "
+                                                                        + "role =  '" + role + "', "
+                                                                        + "num_tel = '" + telephone + "',"
+                                                                        + "code_postal = '" + codePostal + "'"
                                                                         + "WHERE matricule = '" + matricule + "'";
 
 
@@ -215,8 +223,8 @@ namespace GestionProjet.Models
 
             if (user != null)
             {
-                string createQuery = @"INSERT INTO [INF6150].[dbo].[User] (matricule, prenom, nom, tauxHoraire, role)"
-                                     + "VALUES ('" + user.matricule + "','" + user.FirstName + "','" + user.LastName + "', " + user.HourlyRate + ", '" + user.Role + "')";
+                string createQuery = @"INSERT INTO [INF6150].[dbo].[User] (matricule, prenom, nom, tauxHoraire, role, codePostal, numTelephone)"
+                                     + "VALUES ('" + user.matricule + "','" + user.FirstName + "','" + user.LastName + "', '" + user.HourlyRate + "', '" + user.Role + "', '" + user.codePostal + "', '" + user.telephone + "')";
 
                 try
                 {
