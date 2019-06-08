@@ -9,25 +9,25 @@ namespace GestionProjet.Controllers
 {
     public class ClientController : Controller
     {
-        public ActionResult Client(String clientID, bool newClient)
+        public new ActionResult Client(String idClient, bool newClient)
         {
 
             Client thisClient = new Client();
-            thisClient = thisClient.getClientInfoByID(clientID);
+            thisClient = thisClient.getClientInfoByID(idClient);
             thisClient.NewClient = newClient;
 
 
             return View(thisClient);
         }
         [HttpPost]
-        public ActionResult Client(Client client)
+        public new ActionResult Client(Client client)
         {
             string message = "";
             //User thisUser = new User();
 
 
 
-            if (client.NewClient)
+            if (client.ClientId==0)
             {
                 message = createClient(client, message);
             }
@@ -52,9 +52,8 @@ namespace GestionProjet.Controllers
             }
             else
             {
-
                 message = "Création client a été échoué, contactez le programmeur du système.";
-
+                client.createClient(client);
             }
 
 

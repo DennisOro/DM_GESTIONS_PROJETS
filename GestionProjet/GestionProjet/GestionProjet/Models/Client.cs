@@ -113,6 +113,13 @@ namespace GestionProjet.Models
             string query = @"select * from [Client] where idClient = '" + clientId + "'";
             return getClientInfo(query);
         }
+
+        public Client getClientInfoByNom(string clientNom)
+        {
+            string query = @"select * from [Client] where nomClient = '" + clientNom + "'";
+            return getClientInfo(query);
+        }
+
         /*
          * Fonction pour mettre a jour les informations d'un client
          */
@@ -149,8 +156,8 @@ namespace GestionProjet.Models
         }
 
         /*
-         * Fonction pour creer un Client
-         */
+        * Fonction pour creer un Client
+        */
         public bool createClient(Client client)
         {
             // test if matricule does not exist
@@ -158,7 +165,7 @@ namespace GestionProjet.Models
             if (client != null)
             {
                 string createQuery = @"INSERT INTO [INF6150].[dbo].[Client] (idClient,nomClient)"
-                                     + "VALUES ('" + client.ClientId + "','" + client.NomClient + "')";
+                                     + "VALUES ((select coalesce(max(idClient),0)+1 from Client),'" + client.NomClient + "')";
 
                 try
                 {
@@ -187,8 +194,8 @@ namespace GestionProjet.Models
         }
 
         /*
-         * Fonction pour verifier si un Client existe dans le système
-         */
+        * Fonction pour verifier si un Client existe dans le système
+        */
         public bool IdClientExists(int idClient)
         {
             try
@@ -224,6 +231,7 @@ namespace GestionProjet.Models
             }
             return false;
         }
+
         /*
          * Fonction pour supprimer un Client
          */

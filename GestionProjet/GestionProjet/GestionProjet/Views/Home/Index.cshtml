@@ -160,7 +160,6 @@
         </div>
     }
 
-
     if (Model.Login.Role == "Admin" || Model.Login.Role == "Gestionnaire")
     {
         <div class=jumbotron>
@@ -169,6 +168,9 @@
                 <table class="table">
                     <tr>
                         <th>
+                            Id Client
+                        </th>
+                        <th>
                             Nom Client
                         </th>
                     </tr>
@@ -176,6 +178,9 @@
                     @foreach (var item in Model.ClientsList)
                     {
                         <tr>
+                            <td>
+                                @item.ClientId
+                            </td>
                             <td>
                                 @item.NomClient
                             </td>
@@ -202,7 +207,7 @@
 }
 
 <script type="text/javascript">
-    window.onfocus = function() { location.reload(); };
+    window.onfocus = function () { location.reload(); };
     function deleteProject(projectId) {
         $.ajax({
             url: "/Home/deleteProject",
@@ -254,6 +259,7 @@
 
     }
 
+
     function getTasksList(projectId, loginRole) {
         //alert("Project clicked before!");
         $.ajax({
@@ -302,7 +308,7 @@
         overflow: auto;
     }
 
-    #scrolltableEmployes, #scrolltableProjets {
+    #scrolltableEmployes, #scrolltableProjets, #scrolltableClient {
         margin-top: 20px;
         height: 180px;
         overflow: auto;
