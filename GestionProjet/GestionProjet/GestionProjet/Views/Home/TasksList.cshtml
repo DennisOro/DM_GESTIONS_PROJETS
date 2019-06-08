@@ -84,7 +84,7 @@
                         else
                         {
                             @* Bouton pour assigner une tâche *@
-                            <input type="submit" value="Assigner" onclick="window.open('@Url.Action("TaskAssign", "Task", new {description = @item.Description, idProjet = @item.idProjet, newTask = false})')" /> 
+                            <input type="submit" value="Assigner" onclick="window.open('@Url.Action("TaskAssign", "TaskAssign", new {description = @item.Description, idProjet = @item.idProjet, newTask = false})')" /> 
                         }
 
                     </td>
