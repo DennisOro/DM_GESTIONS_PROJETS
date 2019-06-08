@@ -4,18 +4,26 @@ using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
 using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace GestionProjet.Models
 {
     public class Project
     {
         public int ProjectId { get; set; }
+        [Required(ErrorMessage = "Nom de projet est obligatoire")]
         public string ProjectName { get; set; }
+        [Required(ErrorMessage = "Nom de client est obligatoire")]
         public string ClientName { get; set; }
         public string StateDescription { get; set; }
+        [Required(ErrorMessage = "ID client est obligatoire")]
         public int IdClient { get; set; }
+        [Required(ErrorMessage = "ID état est obligatoire")]
         public int IdEtat { get; set; }
+        [Required(ErrorMessage = "Date de début est obligatoire")]
         public string StartDate { get; set; }
+        [Required(ErrorMessage = "DAte de fin est obligatoire")]
         public string EndDate { get; set; }
 
         public IEnumerable<SelectListItem> StatesList { get; set; }
