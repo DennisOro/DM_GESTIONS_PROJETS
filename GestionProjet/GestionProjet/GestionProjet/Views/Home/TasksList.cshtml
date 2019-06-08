@@ -1,7 +1,7 @@
 ﻿@using GestionProjet.Models
 
 @model LogPrUsTskComb
-
+@* Liste des tâches *@
 <div class=jumbotron>
     <p>Tâches</p>
     <div id="scrolltable">
@@ -44,6 +44,7 @@
                         @item.nbHeuresEstime
                     </td>
                     <td>
+                        @* Différents boutons apparaissent selon les rôles*@
                         @if (Model.Login.Role == "Utilisateur")
                         {
                             <input type="submit" value="Saisir les heures travaillées" onclick="window.open('@Url.Action("TaskUser", "TaskUser", new {description = @item.Description, idProjet = @item.idProjet, newTask = false, UserID = Model.Login.UserID})')" />
@@ -83,7 +84,7 @@
                         }
                         else
                         {
-                            @* Bouton pour assigner une tâche *@
+                           
                             <input type="submit" value="Assigner" onclick="window.open('@Url.Action("TaskAssign", "TaskAssign", new {description = @item.Description, idProjet = @item.idProjet, newTask = false})')" /> 
                         }
 
@@ -99,8 +100,7 @@
   
         </div>
     }
-    </divid="scrolltable">
-    </div>
+    
 
 
 

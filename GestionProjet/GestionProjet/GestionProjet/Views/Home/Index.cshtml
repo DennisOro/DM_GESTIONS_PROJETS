@@ -1,7 +1,7 @@
 ﻿@{
-                /**/
+    /**/
 
-                ViewBag.Title = "Accueil";
+    ViewBag.Title = "Accueil";
 }
 
 @using GestionProjet.Models
@@ -12,16 +12,18 @@
     <h1>Gestion</h1>
 </div>
 
-
+@* Vue de la page principale*@
 <div id="loginView">
+    @* On appelle la vue des logins *@
     @{
         Html.RenderPartial("Login", Model);
     }
 </div>
 
+@* N'affiche que si l'utilisateur est authentifié*@
 @if (Model.Login.AuthentificationValide == true)
 {
-
+    @* Section rapport projet *@
     using (Html.BeginForm("TaskUserDays", "TaskUserDays", FormMethod.Post, new { target = "_blank" }))
     {
         if (Model.Login.Role == "Utilisateur")
@@ -46,6 +48,7 @@
         }
     }
 
+    @*Information des projets*@
     <div class=jumbotron>
         <p>Projets</p>
         <div id="scrolltableProjets">
@@ -70,6 +73,7 @@
                             @item.ProjectName
                         </td>
                         <td>
+                            @* Il faut avoir le role de gestionnaire pour modifier un projet*@
                             @if (Model.Login.Role == "Utilisateur")
                             {
                                 <input type="submit" value="Modifier" disabled />
@@ -80,6 +84,7 @@
                             }
                         </td>
                         <td>
+                            @* Il faut avoir le role de gestionnaire pour supprimer un projet *@
                             @if (Model.Login.Role == "Utilisateur")
                             {
                                 <input type="submit" value="Supprimer" disabled />
@@ -94,6 +99,7 @@
                 }
             </table>
         </div>
+        @* Il faut être gestionnaire pour créer un projet*@
         @if (Model.Login.Role != "Utilisateur")
         {
             <div class=row>
@@ -102,12 +108,15 @@
         }
     </div>
 
+    @* Section des tâches *@
     <div id="dvTasksList">
         @{
             Html.RenderPartial("TasksList", Model);
         }
     </div>
 
+    @* Seul un usager avec le rôle admin ou gestionnaire peut voir et éditer la liste des
+        informations d'employés*@
     if (Model.Login.Role == "Admin" || Model.Login.Role == "Gestionnaire")
     {
         <div class=jumbotron>
@@ -159,6 +168,9 @@
                 <table class="table">
                     <tr>
                         <th>
+                            Id Client
+                        </th>
+                        <th>
                             Nom Client
                         </th>
                     </tr>
@@ -166,6 +178,9 @@
                     @foreach (var item in Model.ClientsList)
                     {
                         <tr>
+                            <td>
+                                @item.ClientId
+                            </td>
                             <td>
                                 @item.NomClient
                             </td>
@@ -192,6 +207,7 @@
 }
 
 <script type="text/javascript">
+    window.onfocus = function () { location.reload(); };
     function deleteProject(projectId) {
         $.ajax({
             url: "/Home/deleteProject",
@@ -292,7 +308,7 @@
         overflow: auto;
     }
 
-    #scrolltableEmployes, #scrolltableProjets {
+    #scrolltableEmployes, #scrolltableProjets, #scrolltableClient {
         margin-top: 20px;
         height: 180px;
         overflow: auto;
