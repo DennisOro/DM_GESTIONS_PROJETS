@@ -46,8 +46,19 @@ namespace GestionProjet.Models
 
         public List<Task> getAllTasksFromDatabase()
         {
-            string query = @"select idTache, description, totHeuresTravaillees, nbrHeuresEstime, descEtat, idProjet, idEtat 
-                                from [INF6150].[dbo].[qTaskPrj]";
+            //updateVueQTaskProject();
+
+            string query = @"SELECT	t.idTache, 
+				                    t.description, 
+							        Isnull(SUM(u.nbrHeuresTravaillees), 0) AS totHeuresTravaillees,  
+				                    t.nbrHeuresEstime, 
+				                    e.descEtat,
+							        t.idProjet, 
+							        t.idEtat 
+                                    FROM            dbo.Task AS t 
+                                    LEFT JOIN		dbo.TaskUser AS u ON u.idTache = t.idTache
+                                    LEFT JOIN       dbo.Etat AS e ON e.idEtat = t.idEtat
+                                    GROUP BY t.idTache, t.description, t.nbrHeuresEstime, t.idEtat, e.descEtat, t.idProjet";
 
             return getTasksFromDatabase(query);
         }
@@ -65,6 +76,8 @@ namespace GestionProjet.Models
 
         public List<Task> getAllTasksByLogin(String Login)
         {
+            updateVueQTaskProject();
+
             string query = @"select q.idTache, q.description, q.totHeuresTravaillees, q.nbrHeuresEstime, q.descEtat, q.idProjet, q.idEtat 
 		                        from [INF6150].[dbo].[qTaskPrj] as q join TaskUser as k on k.idTache = q.idTache 
 		                        join login as l on l.matricule=k.matricule 
@@ -75,6 +88,8 @@ namespace GestionProjet.Models
 
         public List<Task> getTasksListForProject(int idProject)
         {
+            updateVueQTaskProject();
+
             string query = @"select distinct t.idTache, t.description, tp.totHeuresTravaillees, tp.nbrHeuresEstime, e.descEtat, t.idProjet, t.idEtat
                                     from [INF6150].[dbo].[Task] t
                                     join [INF6150].[dbo].[qTaskPrj] tp on t.idTache = tp.idTache and t.idProjet = tp.idProjet
@@ -89,8 +104,6 @@ namespace GestionProjet.Models
         {
             try
             {
-              
-
                 string addQuery = @"insert into [INF6150.[dbo].[Task](idTache,matricule,nbrHeuresTravaillees, dateCreation)"
                                     + "VALUES(" + task.IdTask + ", '" + task.utilisateur+ "', 0)";
 
@@ -115,9 +128,7 @@ namespace GestionProjet.Models
             
         }
 
-    
-
-            public List<Task> getTasksFromDatabase(string query)
+        public List<Task> getTasksFromDatabase(string query)
         {
             List<Task> TasksList = new List<Task>();
             try
@@ -168,6 +179,8 @@ namespace GestionProjet.Models
 
         public Task getTaskInfo(string description, int idProjet)
         {
+            updateVueQTaskProject();
+
             string query = @"select distinct t.idTache, t.description, tp.totHeuresTravaillees, tp.nbrHeuresEstime, e.descEtat, t.idProjet, t.idEtat
                                     from [INF6150].[dbo].[Task] t
                                     join [INF6150].[dbo].[qTaskPrj] tp on t.idTache = tp.idTache and t.idProjet = tp.idProjet
@@ -530,7 +543,46 @@ namespace GestionProjet.Models
             return idEtat;
         }
 
-        
+        public void updateVueQTaskProject()
+        {
+            string query = @"ALTER VIEW [dbo].[qTaskPrj]
+                            AS
+                            SELECT			t.idProjet, 
+				                            t.idTache, 
+				                            t.description, 
+				                            t.nbrHeuresEstime, 
+				                            Isnull(SUM(u.nbrHeuresTravaillees), 0) AS totHeuresTravaillees, 
+				                            t.idEtat, 
+				                            e.descEtat
+
+                            FROM            dbo.Task AS t 
+                            LEFT JOIN		dbo.TaskUser AS u ON u.idTache = t.idTache
+                            LEFT JOIN       dbo.Etat AS e ON e.idEtat = t.idEtat
+                            GROUP BY t.idProjet, t.idTache, t.description, t.nbrHeuresEstime, t.idEtat, e.descEtat
+                            GO";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    command.ExecuteNonQuery();
+
+                    conn.Close();
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
 
 
 
