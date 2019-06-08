@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -60,6 +60,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.DynamicData" />
@@ -166,6 +167,7 @@
     <Compile Include="Controllers\DeleteProjectTest.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\TaskAssignController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\TaskUserController.cs" />
     <Compile Include="Controllers\TaskUserDaysController.cs" />
@@ -179,9 +181,11 @@
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\LogPrUsTskComb.cs" />
+    <Compile Include="Models\TaskUser.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\SqlDatabaseConnection.cs" />
     <Compile Include="Models\Task.cs" />
+    <Compile Include="Models\TaskAssign.cs" />
     <Compile Include="Models\TaskUserDays.cs" />
     <Compile Include="Models\TaskUserPrj.cs" />
     <Compile Include="Models\User.cs" />
@@ -257,6 +261,7 @@
     <Content Include="Views\Shared\_PdfLayout.cshtml" />
     <Content Include="Views\Task\TaskAssign.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\TaskAssign\TaskAssign.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

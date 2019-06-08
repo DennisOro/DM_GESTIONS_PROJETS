@@ -50,7 +50,7 @@ namespace GestionProjet.Models
 
                     conn.Open();
 
-                    string query = @"select idProjet from [INF6150].[dbo].[Project]";
+                    string query = @"select idProjet, nomProjet from [INF6150].[dbo].[Project]";
 
                     SqlCommand command = new SqlCommand(query, conn);
 
@@ -63,7 +63,7 @@ namespace GestionProjet.Models
                             projectsList.Add(new SelectListItem
                             {
                                 Value = value.ToString(),
-                                Text = value.ToString()
+                                Text = reader[1].ToString()
                             });
                         }
                     }
@@ -137,7 +137,7 @@ namespace GestionProjet.Models
 
                     conn.Open();
 
-                    string query = @"select matricule from [INF6150].[dbo].[User]";
+                    string query = @" select l.matricule,u.prenom+' '+u.nom as Tnom from Login as l join [INF6150].[dbo].[User] as u on u.matricule=l.matricule where u.role='Utilisateur'";
 
                     SqlCommand command = new SqlCommand(query, conn);
 
@@ -150,7 +150,7 @@ namespace GestionProjet.Models
                             TaskList.Add(new SelectListItem
                             {
                                 Value = value.ToString(),
-                                Text = value.ToString()
+                                Text = reader[1].ToString()
                             });
                         }
                     }

@@ -27,6 +27,7 @@ namespace GestionProjet.Models
         //public string ClientName { get; set; }
 
         public List<TaskAssign> TasksList { get; set; }
+        public List<TaskUser> TaskUserList { get; set; }
 
 
 
@@ -86,14 +87,14 @@ namespace GestionProjet.Models
         }
 
         // pour assigner un une tâches à un user
-        public void addTask(TaskAssign task)
+        public void addTaskUser(TaskAssign task)
         {
             try
             {
 
 
-                string addQuery = @"insert into [INF6150].[dbo].[TaskUser](idTache,matricule,nbrHeuresTravaillees, dateCreation)"
-                                    + "VALUES(" + task.IdTask + ", '" + task.utilisateur + "', 0)";
+                string addQuery = @"insert into [INF6150].[dbo].[TaskUser](idTache,matricule)"
+                                    + "VALUES(" + task.IdTask + ", '" + task.utilisateur + "')";
 
                 using (SqlConnection conn = new SqlConnection())
                 {
@@ -341,7 +342,7 @@ namespace GestionProjet.Models
 
                     conn.Open();
 
-                    string query = @"select matricule from [INF6150].[dbo].[User]";
+                    string query = @" select l.matricule,u.prenom+' '+u.nom as Tnom from Login as l join [INF6150].[dbo].[User] as u on u.matricule=l.matricule where u.role='Utilisateur'";
 
                     SqlCommand command = new SqlCommand(query, conn);
 
@@ -354,7 +355,7 @@ namespace GestionProjet.Models
                             EmployeesList.Add(new SelectListItem
                             {
                                 Value = value.ToString(),
-                                Text = value.ToString()
+                                Text = reader[1].ToString()
                             });
                         }
                     }
@@ -383,7 +384,7 @@ namespace GestionProjet.Models
 
                     conn.Open();
 
-                    string query = @"select idProjet from [INF6150].[dbo].[Project]";
+                    string query = @"select idProjet, nomProjet from [INF6150].[dbo].[Project]";
 
                     SqlCommand command = new SqlCommand(query, conn);
 
@@ -396,7 +397,7 @@ namespace GestionProjet.Models
                             projectsList.Add(new SelectListItem
                             {
                                 Value = value.ToString(),
-                                Text = value.ToString()
+                                Text = reader[1].ToString()
                             });
                         }
                     }

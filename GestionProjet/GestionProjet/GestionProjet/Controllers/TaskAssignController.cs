@@ -17,6 +17,8 @@ namespace GestionProjet.Controllers
             TaskAssign thisTask = new TaskAssign();
             thisTask = thisTask.getTaskInfo(description, idProjet);
             thisTask.NewTask = newTask;
+            TaskUser taskUser = new TaskUser();
+            thisTask.TaskUserList = taskUser.getTaskUser(thisTask.IdTask);
 
             return View(thisTask);
         }
@@ -26,14 +28,7 @@ namespace GestionProjet.Controllers
         [HttpPost]
         public ActionResult TaskAssign(TaskAssign task)
         {
-            if (task.NewTask == false)
-            {
-                task.addTask(task);
-            }
-
-
-
-
+                task.addTaskUser(task);
 
 
             return Content(@"<body>

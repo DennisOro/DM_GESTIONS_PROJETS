@@ -116,17 +116,28 @@ namespace GestionProjet.Controllers
             Project project = new Project();
 
             if(project.deleteProject(projectId))
-                return "Le projet est supprimé.";
+                return "Le projet a été supprimé.";
             else
                 return "Le projet ne peut pas être supprimé.";
         }
+
+        public string deleteTaskUser(int idTask, string matricule)
+        {
+            TaskUser taskUser = new TaskUser();
+
+            if (taskUser.deleteTaskUser(idTask, matricule))
+                return "L'employé a été supprimé.";
+            else
+                return "L'employé ne peut pas être supprimé.";
+        }
+
 
         public string deleteUser(string firstName, string lastName)
         {
             User user = new User();
 
             if (user.deleteUser(firstName, lastName))
-                return "L'employé est supprimé.";
+                return "L'employé a été supprimé.";
             else
                 return "L'employé ne peut pas être supprimé.";
         }
@@ -136,7 +147,7 @@ namespace GestionProjet.Controllers
             Models.Task task = new Models.Task();
 
             if (task.deleteTask(idTask))
-                return "La tache est supprimée.";
+                return "La tache a été supprimée.";
             else
                 return "La tache ne peut pas être supprimée.";
         }
