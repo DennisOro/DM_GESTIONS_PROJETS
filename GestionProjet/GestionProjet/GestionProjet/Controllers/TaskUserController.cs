@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace GestionProjet.Controllers
 {
+    // Controleur pour les tâches par utilisateur
     public class TaskUserController : Controller
     {
         TaskUserPrj taskUserPrj = new TaskUserPrj();
@@ -24,9 +25,11 @@ namespace GestionProjet.Controllers
             return View(thisTask);
         }
 
+        // Controleur pour modifier les tâches par utilisateur
         [HttpPost]
         public ActionResult TaskUser(Task task)
         {
+            //On met a jour si l'utilisateur à travailler sur la tâche
             if (task.nbHeures­­­>0)
             {
                 taskUserPrj.UpdateHrsTask(task.Login, task.IdTask,task.nbHeures, task.idStatus);
