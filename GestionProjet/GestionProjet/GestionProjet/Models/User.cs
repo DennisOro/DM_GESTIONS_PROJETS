@@ -16,8 +16,9 @@ namespace GestionProjet.Models
         public int nbrUsers { get; set; }
         public string Role { get; set; }
         public bool NewUser { get; set; }
+        public Login Login { get; set; }
 
-       
+
 
         public IEnumerable<SelectListItem> RolesList { get; set; }
 
@@ -201,11 +202,11 @@ namespace GestionProjet.Models
             return user;
         }
 
-        public User createUser(User user)
+        public bool createUser(User user)
         {
             // test if matricule does not exist
 
-            if (user != null && !matriculeExists(user.matricule))
+            if (user != null)
             {
                 string createQuery = @"INSERT INTO [INF6150].[dbo].[User] (matricule, prenom, nom, tauxHoraire, role)"
                                      + "VALUES ('" + user.matricule + "','" + user.FirstName + "','" + user.LastName + "', " + user.HourlyRate + ", '" + user.Role + "')";
@@ -223,6 +224,8 @@ namespace GestionProjet.Models
                         command.ExecuteNonQuery();
 
                         conn.Close();
+
+                        return true;
                     }
 
                 }
@@ -231,7 +234,7 @@ namespace GestionProjet.Models
                     Console.WriteLine(ex.ToString());
                 }
             }
-            return user;
+            return false;
         }
 
         public bool matriculeExists(string matricule)
@@ -251,12 +254,8 @@ namespace GestionProjet.Models
                     SqlDataReader reader = command.ExecuteReader();
                     try
                     {
-                        while (reader.Read())
-                        {
-                            string existingMatricule = reader[0] == null ? "" : reader[0].ToString();
-                            if (matricule == existingMatricule)
-                                return true;
-                        }
+                        if (reader.HasRows)
+                            return true;
                     }
                     finally
                     {
@@ -292,6 +291,15 @@ namespace GestionProjet.Models
         {
             User newUser = getUserInfoByName(firstName, lastName);
 
+            if (deleteUser(newUser))
+                return true;
+            else
+                return false;
+        }
+
+
+        public bool deleteUser(User newUser)
+        {
             string deleteQuery = @" delete from [INF6150].[dbo].[TaskUser] where matricule = '" + newUser.matricule + "';"
                                  + "delete from [INF6150].[dbo].[User] where matricule = '" + newUser.matricule + "'";
 

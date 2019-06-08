@@ -163,6 +163,75 @@ namespace GestionProjet.Models
 
             return role;
         }
-    }
 
+        public bool createUserLogin(User user)
+        {
+            if(user.Login != null)
+            {
+                string createQuery = @"INSERT INTO [INF6150].[dbo].[Login] (login, password,matricule)"
+                                    + "VALUES ('" + user.Login.UserID + "','" + user.Login.Password + "','" + user.matricule + "')";
+
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection())
+                    {
+                        conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                        conn.Open();
+
+                        SqlCommand command = new SqlCommand(createQuery, conn);
+
+                        command.ExecuteNonQuery();
+
+                        conn.Close();
+
+                        return true;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
+            
+            return false;
+        }
+
+        public bool userNameExists(string userName)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = SqlDatabaseConnection.CONNECTIONSTRING;
+
+                    conn.Open();
+
+                    string query = @"select login from [Login] where login = '" + userName + "'";
+
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    try
+                    {
+                        if (reader.HasRows)
+                            return true;
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+
+                    conn.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return false;
+        }
+    }
 }
