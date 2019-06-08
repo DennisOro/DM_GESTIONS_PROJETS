@@ -13,6 +13,9 @@ namespace GestionProjet.Models
 
         public bool NewClient { get; set; }
 
+        /*
+         * Fonction qui retourne la liste des Cllients enregistrés
+         */
         public List<Client> getClientsFromDatabase()
         {
             List<Client> ClientsList = new List<Client>();
@@ -59,6 +62,8 @@ namespace GestionProjet.Models
 
         }
 
+        /*
+         * Fonction pour acceder aux attributs d'un Client à partir d'une requete         */
         public Client getClientInfo(string query)
         {
             try
@@ -108,7 +113,9 @@ namespace GestionProjet.Models
             string query = @"select * from [Client] where idClient = '" + clientId + "'";
             return getClientInfo(query);
         }
-
+        /*
+         * Fonction pour mettre a jour les informations d'un client
+         */
         public bool updateClient(Client client)
         {
             try
@@ -141,6 +148,9 @@ namespace GestionProjet.Models
             return false;
         }
 
+        /*
+         * Fonction pour creer un Client
+         */
         public bool createClient(Client client)
         {
             // test if matricule does not exist
@@ -176,6 +186,9 @@ namespace GestionProjet.Models
             return false;
         }
 
+        /*
+         * Fonction pour verifier si un Client existe dans le système
+         */
         public bool IdClientExists(int idClient)
         {
             try
@@ -211,7 +224,9 @@ namespace GestionProjet.Models
             }
             return false;
         }
-
+        /*
+         * Fonction pour supprimer un Client
+         */
         public bool deleteClient(Client newClient)
         {
             string deleteQuery = @" delete from [INF6150].[dbo].[Client] where idClient = '" + newClient.ClientId + "';"

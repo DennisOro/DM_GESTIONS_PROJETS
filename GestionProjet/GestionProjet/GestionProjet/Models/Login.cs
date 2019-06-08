@@ -7,6 +7,9 @@ using System.Data.SqlClient;
 
 namespace GestionProjet.Models
 {
+    /*
+    * Classe Login, permet la gestion d'identifications
+    */
     public class Login
     {
         [Required(ErrorMessage = "Nom d'utilisateur est obligatoire")]
@@ -24,6 +27,9 @@ namespace GestionProjet.Models
 
         public string DateFT { get; set; }
 
+        /*
+         * Fonction pour valider si une connexion a reussi
+         */
         public bool testLogin(string userID, string password)
         {
             userID = userID == null ? "" : userID.Trim();
