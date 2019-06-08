@@ -223,7 +223,7 @@ namespace GestionProjet.Models
 
             if (user != null)
             {
-                string createQuery = @"INSERT INTO [INF6150].[dbo].[User] (matricule, prenom, nom, tauxHoraire, role, codePostal, numTelephone)"
+                string createQuery = @"INSERT INTO [INF6150].[dbo].[User] (matricule, prenom, nom, tauxHoraire, role, code_postal, num_tel)"
                                      + "VALUES ('" + user.matricule + "','" + user.FirstName + "','" + user.LastName + "', '" + user.HourlyRate + "', '" + user.Role + "', '" + user.codePostal + "', '" + user.telephone + "')";
 
                 try
