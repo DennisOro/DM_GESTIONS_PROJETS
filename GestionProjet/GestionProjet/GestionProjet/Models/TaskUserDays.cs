@@ -20,10 +20,15 @@ namespace GestionProjet.Models
         public string Login { get; set; }
         public string Matricule { get; set; }
         public string Tnom { get; set; }
+        public string DateDebut { get; set; }
+        public string DateFin { get; set; }
 
         public List<TaskUserDays> getTaskUserHrs(string login, string date)
         {
             List<TaskUserDays> TasksList = new List<TaskUserDays>();
+            DateTime dtFin = Convert.ToDateTime(date).AddDays(7);
+            DateDebut = date;
+            DateFin = dtFin.ToString().Substring(0, 10); 
             try
             {
                 using (SqlConnection conn = new SqlConnection())
@@ -32,7 +37,7 @@ namespace GestionProjet.Models
 
                     conn.Open();
 
-                    string query = @"select * from qTaskUserDays where login = '" + login + "' and date >= '"+date+"'";
+                    string query = @"select * from qTaskUserDays where login = '" + login + "' and date >= '"+ DateDebut + "' and date <= '"+DateFin+"'";
 
                     SqlCommand command = new SqlCommand(query, conn);
 
@@ -53,7 +58,9 @@ namespace GestionProjet.Models
                                 TauxHoraire = reader[7] == null ? 0 : Convert.ToDouble(reader[7]),
                                 Login = reader[8].ToString().Trim(),
                                 Matricule = reader[9].ToString().Trim(),
-                                Tnom = reader[10].ToString().Trim()
+                                Tnom = reader[10].ToString().Trim(),
+                                DateDebut = this.DateDebut,
+                                DateFin = this.DateFin
                             });
                         }
                     }
