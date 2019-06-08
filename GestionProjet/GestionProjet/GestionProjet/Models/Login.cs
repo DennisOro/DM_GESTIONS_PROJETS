@@ -10,6 +10,8 @@ namespace GestionProjet.Models
     /*
     * Classe Login, permet la gestion d'identifications
     */
+
+    //deer
     public class Login
     {
         [Required(ErrorMessage = "Nom d'utilisateur est obligatoire")]
