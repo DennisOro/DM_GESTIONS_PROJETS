@@ -19,6 +19,7 @@ namespace GestionProjet.Models
         public string matricule { get; set; }
         public double HourlyRate { get; set; }
         public int nbrUsers { get; set; }
+        [Required(ErrorMessage = "Role est obligatoire")]
         public string Role { get; set; }
         public bool NewUser { get; set; }
         public Login Login { get; set; }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
 using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace GestionProjet.Models
@@ -11,8 +12,10 @@ namespace GestionProjet.Models
     public class Task
     {
         public int IdTask { get; set; }
+        [Required(ErrorMessage = "Description de tache est obligatoire")]
         public string Description { get; set; }
         public int nbHeuresTravaille { get; set; }
+        [Required(ErrorMessage = "Nombre d'heures estimé est obligatoire")]
         public int nbHeuresEstime { get; set; }
         public int idStatus { get; set; }
         public string Status { get; set; }
@@ -300,9 +303,6 @@ namespace GestionProjet.Models
             return false;
         }
 
-       /*
-       * Fonction qui retourne le status des tâches
-       */
         public IEnumerable<SelectListItem> fillOutStatusesList()
         {
             var statusList = new List<SelectListItem>();
@@ -346,9 +346,6 @@ namespace GestionProjet.Models
             return statusList;
         }
 
-       /*
-       * Fonction qui retourne la liste d'employés enregistrés du système
-       */
         public IEnumerable<SelectListItem> fillOutEmployeesList()
         {
             var EmployeesList = new List<SelectListItem>();
@@ -391,10 +388,6 @@ namespace GestionProjet.Models
             }
             return EmployeesList;
         }
-
-       /*
-       * Fonction qui retourne la liste de projets
-       */
 
         public IEnumerable<SelectListItem> fillOutProjectsList()
         {
