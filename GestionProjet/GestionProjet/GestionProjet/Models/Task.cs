@@ -300,6 +300,9 @@ namespace GestionProjet.Models
             return false;
         }
 
+       /*
+       * Fonction qui retourne le status des tâches
+       */
         public IEnumerable<SelectListItem> fillOutStatusesList()
         {
             var statusList = new List<SelectListItem>();
@@ -343,6 +346,9 @@ namespace GestionProjet.Models
             return statusList;
         }
 
+       /*
+       * Fonction qui retourne la liste d'employés enregistrés du système
+       */
         public IEnumerable<SelectListItem> fillOutEmployeesList()
         {
             var EmployeesList = new List<SelectListItem>();
@@ -385,6 +391,10 @@ namespace GestionProjet.Models
             }
             return EmployeesList;
         }
+
+       /*
+       * Fonction qui retourne la liste de projets
+       */
 
         public IEnumerable<SelectListItem> fillOutProjectsList()
         {

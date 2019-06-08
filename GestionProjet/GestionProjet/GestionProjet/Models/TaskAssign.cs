@@ -9,6 +9,8 @@ using System.Web.Mvc;
 
 namespace GestionProjet.Models
 {
+
+
     public class TaskAssign
     {
         public int IdTask { get; set; }
